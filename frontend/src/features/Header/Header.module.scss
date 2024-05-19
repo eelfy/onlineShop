@@ -1,60 +1,102 @@
 .wrapper {
+  z-index: 10;
+  position: fixed;
+
   background-color: #fff;
   height: 110px;
   width: 100%;
 
   padding: 22px 80px;
+
+  display: grid;
+  grid-template-columns: 100px minmax(100px, 850px) 100px;
+  justify-content:space-between;
+  place-items: center;
 }
 
+.navigation {
+  display: flex;
+  gap: 40px;
+  align-items: center;
 
-.buttonWrapper {
-  cursor: pointer;
+  transition: opacity .5s ease 0s;
+}
 
-  &Active {
-    .burgerButton div:first-child {
-      top: -6px;
-      transform: rotateZ(45deg);
-    }
+.navigationButtons {
+  display: flex;
+  gap: 40px;
+}
 
-    .burgerButton div:nth-child(2) {
-      width: 44px;
-      top: 0;
-      right: 7px;
-      transform: rotateZ(-45deg);
-    }
+.search {
+  min-width: 200px;
+  width: 100%;
+  max-width: 850px;
+}
 
-    .burgerButton div:last-child {
-      top: 6px;
-      transform: rotateZ(45deg);
-    }
+.subHeader {
+  z-index: 10;
+  background-color: #fff;
+  position: fixed;
+  top: 110px;
+  width: 100%;
+  min-height: 65px;
+
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  
+  &.navigation {
+    align-items: start;
   }
 }
 
-.burgerButton div {
+.brandName {
   position: relative;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 500;
+  color: #000;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  overflow: hidden;
+
+  &::after {
+    opacity: 0;
+    position: absolute;
+    transform: translate3d(-100%, 0, 0);
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.additionalButtons {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.focusBackground {
+  z-index: 5;
+
+  position: absolute;
   top: 0;
-  height: 3px;
-  background-color: #000;
-  margin-bottom: 6px;
-  transition: 0.3s ease transform, 0.3s ease top, 0.3s ease width,
-    0.3s ease right;
-  border-radius: 2px;
+  left: 0;
+  
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #00000033;
 }
-
-.burgerButton div:first-child {
-  transform-origin: 0;
-  width: 30px;
-}
-
-.burgerButton div:nth-child(2) {
-  right: 0;
-  width: 30px;
-}
-
-.burgerButton div:last-child {
-  margin-bottom: 0;
-  transform-origin: 30px;
-  width: 30px;
-}
-
-

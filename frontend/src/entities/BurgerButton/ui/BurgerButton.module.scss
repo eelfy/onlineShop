@@ -1,0 +1,51 @@
+.buttonWrapper {
+  cursor: pointer;
+
+  &Active {
+    .burgerButton div:first-child {
+      top: -6px;
+      transform: rotateZ(45deg);
+    }
+
+    .burgerButton div:nth-child(2) {
+      width: 44px;
+      top: 0;
+      right: 7px;
+      transform: rotateZ(-45deg);
+    }
+
+    .burgerButton div:last-child {
+      top: 6px;
+      transform: rotateZ(45deg);
+    }
+  }
+}
+
+.burgerButton div {
+  position: relative;
+  top: 0;
+  height: 3px;
+  background-color: #000;
+  margin-bottom: 6px;
+  transition: 0.3s ease transform, 0.3s ease top, 0.3s ease width,
+    0.3s ease right;
+  border-radius: 2px;
+}
+
+.burgerButton div:first-child {
+  transform-origin: 0;
+  width: 30px;
+}
+
+.burgerButton div:nth-child(2) {
+  right: 0;
+  width: 30px;
+}
+
+.burgerButton div:last-child {
+  margin-bottom: 0;
+  transform-origin: 30px;
+  width: 30px;
+}
+
+
