@@ -1,4 +1,4 @@
-import GlobalLogo from "./LogoRamster.png";
+import GlobalLogo from "./Logo.png";
 import cn from './Logo.module.scss'
 
 export const Logo = () => {

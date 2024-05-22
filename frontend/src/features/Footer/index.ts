@@ -1,1 +1,1 @@
-export * from './Footer.ui'
+export * from './ui/Footer.ui'

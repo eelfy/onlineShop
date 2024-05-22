@@ -6,7 +6,8 @@ import { Footer } from "./features/Footer"
 function App() {
   return <div className={cn.wrapper}>
     <Header />
-    <section>
+
+    <section className={cn.content}>
       <Outlet />
     </section>
 

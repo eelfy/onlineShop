@@ -1,7 +1,10 @@
-export enum IconNames {
+export enum IconName {
   Search = 'Search',
   Cross = 'Cross',
-  ShoppingCard = 'ShoppingCard'
+  ShoppingCard = 'ShoppingCard',
+  Telegram = 'Telegram',
+  Insta = 'Insta',
+  Whatsapp = 'Whatsapp'
 }
 
 export interface IconInfo {

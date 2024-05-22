@@ -1,13 +1,12 @@
-import { AnimatedToggleElements, Icon, IconNames, Logo } from "../../shared/ui"
-import cn from './Header.module.scss'
-import { BurgerButton } from "../../entities/BurgerButton"
 import { useState } from "react"
-import classNames from "classnames"
+import { AnimatedToggleElements, Icon, IconName, Logo } from "../../shared/ui"
+import { BurgerButton } from "../../entities/BurgerButton"
+import { Search } from "../../entities/Search"
+import cn from './Header.module.scss'
 
 export const Header = () => {
   const [isSubHeaderVisible, setIsSubHeaderVisible] = useState(false)
   const [isSearchMode, setIsSearchMode] = useState(false)
-  console.log('isSearchMode: ', isSearchMode);
 
   const toggleSubHeaderVisible = () => {
     setIsSubHeaderVisible(prev => !prev)
@@ -15,6 +14,7 @@ export const Header = () => {
 
   const changeModeToSearch = () => {
     setIsSearchMode(true)
+    setIsSubHeaderVisible(false)
   }
 
   const changeModeToNavigation = () => {
@@ -28,45 +28,44 @@ export const Header = () => {
       <Logo />
 
       <nav className={cn.navigation}>
-        <BurgerButton onClick={toggleSubHeaderVisible} />
         {
           isSearchMode ? (
-            <div className={cn.search}>search</div>
+            <Search />
           ) :
             (
-              <div className={cn.navigationButtons}>
-                <span className={cn.brandName}>ADIDAS</span>
-                <span className={cn.brandName}>YEEZY</span>
-                <span className={cn.brandName}>NIKE</span>
-                <span className={cn.brandName}>JORDAN</span>
-                <span className={cn.brandName}>NEW BALANCE</span>
-                <span className={cn.brandName}>ОДЕЖДА</span>
-                <span className={cn.brandName}>ДЕТСКОЕ</span>
-              </div>
-
+              <>
+                <BurgerButton onClick={toggleSubHeaderVisible} />
+                <div className={cn.navigationButtons}>
+                  <span className={cn.brandName}>ADIDAS</span>
+                  <span className={cn.brandName}>YEEZY</span>
+                  <span className={cn.brandName}>NIKE</span>
+                  <span className={cn.brandName}>JORDAN</span>
+                  <span className={cn.brandName}>NEW BALANCE</span>
+                  <span className={cn.brandName}>ОДЕЖДА</span>
+                  <span className={cn.brandName}>ДЕТСКОЕ</span>
+                </div>
+              </>
             )
         }
       </nav>
 
       <div className={cn.additionalButtons}>
         {isSearchMode ? (
-          <Icon name={IconNames.Cross} onClick={changeModeToNavigation} />
+          <Icon name={IconName.Cross} onClick={changeModeToNavigation} />
         ) : (
-          <Icon name={IconNames.Search} onClick={changeModeToSearch} />
+          <Icon name={IconName.Search} onClick={changeModeToSearch} />
         )}
 
-        <Icon name={IconNames.ShoppingCard} />
+        <Icon name={IconName.ShoppingCard} />
       </div>
     </header>
-
-
 
     <AnimatedToggleElements
       isFirst={isSubHeaderVisible}
       fistClassName={cn.subHeader}
       first={
         <>
-          <div className={cn.navigation}>
+          <div className={cn.subHeaderNavigation}>
             <span className={cn.brandName}>ADIDAS</span>
             <span className={cn.brandName}>YEEZY</span>
             <span className={cn.brandName}>NIKE</span>

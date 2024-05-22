@@ -1,0 +1,86 @@
+.wrapper {
+  padding: 40px 82px 20px;
+  
+  background-color: #1A1A1A;
+
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+.footerTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about {
+  display: flex;
+  gap: 50px;
+
+  &Block {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+.brands {
+  display: flex;
+  gap: 30px;
+
+  &Column {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    max-width: 150px;
+    gap: 15px;
+  }
+}
+
+.brandCell {
+  cursor: pointer;
+  color: #fff;
+  font-size: 15px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.header {
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+
+  margin-bottom: 30px;
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rights {
+  color: rgba(255, 255, 255, .5);
+  font-size: 14px;
+}
+
+.madeBy {
+  font-size: 14px;
+  color: #fff;
+  &Link {
+    color: #F7D939;
+  }
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+}

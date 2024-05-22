@@ -15,6 +15,7 @@
 }
 
 .navigation {
+  width: 100%;
   display: flex;
   gap: 40px;
   align-items: center;
@@ -25,12 +26,6 @@
 .navigationButtons {
   display: flex;
   gap: 40px;
-}
-
-.search {
-  min-width: 200px;
-  width: 100%;
-  max-width: 850px;
 }
 
 .subHeader {
@@ -45,8 +40,13 @@
   justify-content: center;
   align-items: start;
   
-  &.navigation {
+  &Navigation {
+    display: flex;
+    gap: 40px;
     align-items: start;
+    align-items: center;
+
+    transition: opacity .5s ease 0s;
   }
 }
 
@@ -99,4 +99,6 @@
   height: 100vh;
 
   background-color: #00000033;
+
+  pointer-events: none;
 }
