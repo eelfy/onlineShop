@@ -1,0 +1,19 @@
+.list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 50px;
+}
+
+.sort {
+  align-self: flex-end;
+}
+
+.items {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  row-gap: 50px;
+}

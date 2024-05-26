@@ -1,6 +1,10 @@
 .icon {
-  width: 25px;
-  height: 25px;
+  transition: transform 0.2s;
+  transform: rotate(0);
+
+  &Rotated {
+    transform: rotate(-180deg);
+  }
 }
 
 .clickable {

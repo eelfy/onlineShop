@@ -4,14 +4,18 @@ import App from './App.tsx'
 import './index.module.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Main } from './pages/Main'
+import { Error } from './pages/Error'
 import { Routes } from './shared/routes'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Brand } from './pages/Brand'
+import { SearchResults } from './pages/SearchResults'
+
+// картошка добавить страницу ошибки
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: Routes.Main,
@@ -20,6 +24,18 @@ const router = createBrowserRouter([
       {
         path: Routes.Payments,
         element: <div>Payments</div>
+      },
+      {
+        path: `${Routes.Brand}/:brandName`,
+        element: <Brand />
+      },
+      {
+        path: `${Routes.Search}/:text`,
+        element: <SearchResults />
+      },
+      {
+        path: `${Routes.Brand}/item/:itemName`,
+        element: <div>12</div>
       }
     ]
   }

@@ -7,17 +7,27 @@ interface IconProps {
   name: IconName
   onClick?: () => void
   size?: number
+  width?: number
+  heigh?: number
+  isRotated?: boolean
 }
 
-export const Icon = ({ name, onClick, size = 25 }: IconProps) => {
+export const Icon = ({
+  name,
+  onClick,
+  size = 25,
+  width,
+  heigh,
+  isRotated
+}: IconProps) => {
   return <img
     onClick={onClick}
-    className={classNames(onClick && cn.clickable)}
+    className={classNames(onClick && cn.clickable, isRotated && cn.iconRotated)}
     src={ICONS[name].icon}
     alt={ICONS[name].alt}
     style={{
-      width: size,
-      height: size
+      width: width ?? size,
+      height: heigh ?? size
     }}
   />
 }
