@@ -12,6 +12,7 @@ export enum IconName {
   Refund = 'Refund',
   Delivery = 'Delivery',
   BestPrice = 'BestPrice',
+  ShoppingCardWhite = 'ShoppingCardWhite',
 }
 
 export interface IconInfo {

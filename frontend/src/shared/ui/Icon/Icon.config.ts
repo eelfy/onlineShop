@@ -11,6 +11,7 @@ import ArrowUp from './icons/ArrowUp.svg'
 import Delivery from './icons/Delivery.svg'
 import Refund from './icons/Refund.svg'
 import BestPrice from './icons/BestPrice.svg'
+import ShoppingCardWhite from './icons/ShoppingCardWhite.svg'
 import { IconInfo, IconName } from './lib/Icons.types'
 
 export const ICONS: Record<IconName, IconInfo> = {
@@ -65,5 +66,9 @@ export const ICONS: Record<IconName, IconInfo> = {
   [IconName.BestPrice]: {
     icon: BestPrice,
     alt: IconName.BestPrice
+  },
+  [IconName.ShoppingCardWhite]: {
+    icon: ShoppingCardWhite,
+    alt: IconName.ShoppingCardWhite
   },
 }

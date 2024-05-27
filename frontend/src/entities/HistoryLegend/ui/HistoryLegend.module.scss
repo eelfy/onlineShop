@@ -1,0 +1,12 @@
+.legend {
+  text-transform: capitalize;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, .3);
+
+  &Current {
+    color: #000;
+    text-decoration: underline;
+  }
+}

@@ -8,6 +8,7 @@ import { Error } from './pages/Error'
 import { Routes } from './shared/routes'
 import { Brand } from './pages/Brand'
 import { SearchResults } from './pages/SearchResults'
+import { Item } from './pages/Item'
 
 // картошка добавить страницу ошибки
 
@@ -34,8 +35,8 @@ const router = createBrowserRouter([
         element: <SearchResults />
       },
       {
-        path: `${Routes.Brand}/item/:itemName`,
-        element: <div>12</div>
+        path: `${Routes.Brand}/:brandName/:itemName`,
+        element: <Item />
       }
     ]
   }
