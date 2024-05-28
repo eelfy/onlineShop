@@ -1,3 +1,4 @@
+import classNames from "classnames"
 import { RadioOption } from "../Radio.types"
 import cn from './Radio.module.scss'
 
@@ -10,13 +11,14 @@ interface RadioProps {
 
 export const Radio = ({ radios, name, checked, onChangeChecked }: RadioProps) => {
 
-  return <div>
+  return <div className={cn.wrapper}>
     {radios.map(({ label, id }) => {
       console.log(id, checked);
-      debugger
+      const isChecked = id === checked
+
       return <label key={id} className={cn.label}>
-        <span className={cn.customRadio}></span>
-        <input onChange={() => onChangeChecked(id)} className={cn.input} type='radio' name={name} checked={checked === id} />
+        <span className={classNames(cn.customRadio, isChecked && cn.customRadioChecked)} />
+        <input value={id} onChange={() => onChangeChecked(id)} className={cn.input} type='radio' name={name} />
         {label}
       </label>
     })}

@@ -10,6 +10,7 @@ import { Button } from "../../../shared/ui/Button/ui/Button.ui"
 import { ButtonType } from "../../../shared/ui/Button"
 import { Input } from "../../../shared/ui/Input"
 import { Radio, RadioOption } from "../../../shared/ui/Radio"
+import { OneClickModal } from "../../../features/OneClickModal"
 
 const SIZES: ItemSizeOption[] = [
   { size: 'US 5', price: 'price', id: 1 },
@@ -41,7 +42,7 @@ const RADIOS: RadioOption[] = [
   }
 ]
 
-export const Item = () => {
+export const ItemPage = () => {
   const { brandName, itemName } = useParams()
 
   const LEGEND: HistoryLegendOption[] = [{
@@ -61,7 +62,14 @@ export const Item = () => {
 
   return <div>
 
-    <Radio name="name" checked={activeRadio} onChangeChecked={setActiveRadio} radios={RADIOS} />
+    <OneClickModal isOpen closeModal={() => console.log()} />
+  </div>
+}
+
+
+/**
+ * 
+ *  <Radio name="name" checked={activeRadio} onChangeChecked={setActiveRadio} radios={RADIOS} />
 
     <Input value={value} onChange={setValue} label="Имя" />
     <Button onClick={() => console.log()} text="Добавить в корзину" />
@@ -71,5 +79,4 @@ export const Item = () => {
     <Dropdown icon={IconName.Delivery} title={"Условия доставки и оплаты"} content={"Доставка по Москве и Московской Области осуществляется до двери курьером магазина / курьером транспортных компаний в зависимости от вашего местоположения. Также доставка осуществляется транспортной компанией СДЭК / Почта России. Подробнее об условиях доставки можно узнать на этой странице. Оплата Мы принимаем платежи наличными или переводом по указанным реквизитам. Все платежи осуществляются путем выставления счета на электронную почту после завершения заказа. Оплата банковской картой будет доступна позже."} />
 
     <ItemSizeChart onChangeActive={setActiveSize} sizes={SIZES} activeSize={activeSize} />
-  </div>
-}
+ */

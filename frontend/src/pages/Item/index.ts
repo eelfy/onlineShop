@@ -1,1 +1,1 @@
-export * from './ui/Item.ui'
+export * from './ui/ItemPage.ui'
