@@ -1,0 +1,68 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 50px;
+}
+
+.bag {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+
+  column-gap: 50px;
+}
+
+
+.separator {
+  height: 530px;
+  width: 1px;
+  background-color: rgba(26, 26, 26, 50%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.lastPart {
+  display: flex;
+  flex-direction: column;
+
+  gap: 80px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  &>span {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .bold {
+    font-size: 24px;
+    font-weight: 600;
+  }
+}

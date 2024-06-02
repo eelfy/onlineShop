@@ -19,6 +19,7 @@
   display: flex;
   gap: 40px;
   align-items: center;
+  justify-content: center;
 
   transition: opacity .5s ease 0s;
 }
@@ -101,4 +102,24 @@
   background-color: #00000033;
 
   pointer-events: none;
+}
+
+.burgerMobile {
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 20px;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .burgerMobile {
+    display: block;
+  }
 }

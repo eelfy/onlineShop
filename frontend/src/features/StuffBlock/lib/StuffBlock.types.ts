@@ -1,4 +1,5 @@
 export enum StuffBlockSize {
   S,
-  M
+  M,
+  L
 }

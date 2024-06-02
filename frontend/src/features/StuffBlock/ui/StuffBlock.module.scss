@@ -1,6 +1,60 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+
+  &L {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .name {
+          font-size: 16px;
+          font-weight: 400;
+
+          color: rgb(26, 26, 26);
+        }
+
+        .size {
+          font-size: 16px;
+          font-weight: 500;
+
+          color: rgba(26, 26, 26, 50%);
+        }
+      }
+    }
+
+    .right {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgb(26, 26, 26);
+    }
+  }
+}
+
+.dividerWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  align-items: center;
+}
+
+.divider {
+  height: 1px;
+  width: 80%;
+ background-color: rgba(26, 26, 26, 30%); 
 }
 
 .image {
@@ -14,6 +68,11 @@
   &.sizeM {
     width: 313px;
     height: 198px;
+  }
+
+  &.sizeL {
+    width: 156px;
+    height: 100px;
   }
 }
 

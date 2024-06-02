@@ -25,6 +25,11 @@ export const Header = () => {
 
   return <>
     <header className={cn.wrapper}>
+
+      <div className={cn.burgerMobile}>
+        <BurgerButton onClick={toggleSubHeaderVisible} />
+      </div>
+
       <Logo />
 
       <nav className={cn.navigation}>

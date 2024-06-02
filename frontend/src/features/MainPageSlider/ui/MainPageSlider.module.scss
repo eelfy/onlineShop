@@ -7,3 +7,9 @@
   width: 100%;
   background-color: #D9D9D9;
 }
+
+@media (max-width: 1180px) {
+  .slide {
+    height: 150px;
+  }
+}

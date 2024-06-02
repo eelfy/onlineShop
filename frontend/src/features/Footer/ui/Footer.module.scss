@@ -11,10 +11,13 @@
 .footerTop {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+
 }
 
 .about {
   display: flex;
+  flex-wrap: wrap;
   gap: 50px;
 
   &Block {
@@ -27,6 +30,7 @@
 .brands {
   display: flex;
   gap: 30px;
+  flex-wrap: wrap;
 
   &Column {
     display: flex;
@@ -83,4 +87,22 @@
 .icons {
   display: flex;
   gap: 20px;
+}
+
+@media (max-width: 1180px) {
+  .footerTop {
+    align-items: center;
+    flex-direction: column;
+  }
+  .footerBottom {
+    justify-content: center;
+  }
+  .socials {
+    margin-top: 50px;
+    align-self: center;
+  }
+
+  .brandsVisible {
+    display: none;
+  }
 }

@@ -9,4 +9,13 @@ $headerHeigh: 110px;
 .content {
   padding-top: calc(50px + $headerHeigh);
   padding-bottom: 100px;
+  padding-inline: 80px;
+}
+
+@media (max-width: 1180px) {
+  .content {
+    padding-top: calc(30px + $headerHeigh);
+    padding-inline: 20px;
+
+  }
 }

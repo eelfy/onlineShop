@@ -71,13 +71,8 @@ export const ItemPage = () => {
   );
   const [value, setValue] = useState("");
 
-  const test = () => {
-    fetch('http://46.229.215.11:8001/products?limit=10&offset=0&ordered=NAME')
-  }
-
   return (
     <div className={cn.wrapper}>
-      <Button text="test" onClick={test} />
       <div className={cn.firstSection}>
         <HistoryLegend options={LEGEND} />
         <div className={cn.carousel}>{/* <ProductCarousel /> */}</div>

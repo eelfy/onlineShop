@@ -9,6 +9,7 @@ import { Routes } from './shared/routes'
 import { Brand } from './pages/Brand'
 import { SearchResults } from './pages/SearchResults'
 import { ItemPage } from './pages/Item'
+import { BagPage } from './pages/BagPage'
 
 // картошка добавить страницу ошибки
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: `${Routes.Brand}/:brandName/:itemName`,
         element: <ItemPage />
+      },
+      {
+        path: Routes.Bag,
+        element: <BagPage />
       }
     ]
   }

@@ -76,7 +76,9 @@ export const Footer = () => {
   return <footer className={cn.wrapper}>
     <div className={cn.footerTop}>
       <div className={cn.about}>
-        <FooterBlock header='Разделы' columns={columnBrands} />
+        <div className={cn.brandsVisible}>
+          <FooterBlock header='Разделы' columns={columnBrands} />
+        </div>
         <FooterBlock header='Информация' columns={INFORMATION} />
       </div>
 
@@ -88,11 +90,12 @@ export const Footer = () => {
           <Icon size={30} name={IconName.Insta} />
           <Icon size={30} name={IconName.Telegram} />
         </div>
+
+        <span className={cn.madeBy}>made by <a href='https://rightshift.dev' target='_blank' className={cn.madeByLink}>right.shift</a></span>
       </div>
     </div>
     <div className={cn.footerBottom}>
       <span className={cn.rights}>© 2023 Ramster Shop. All Rights Reserved</span>
-      <span className={cn.madeBy}>made by <a href='https://rightshift.dev' target='_blank' className={cn.madeByLink}>right.shift</a></span>
     </div>
   </footer>
 }
