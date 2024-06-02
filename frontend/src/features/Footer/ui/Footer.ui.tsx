@@ -2,6 +2,7 @@ import { redirect, useNavigate } from 'react-router-dom'
 import { Routes } from '../../../shared/routes'
 import cn from './Footer.module.scss'
 import { Icon, IconName, Logo } from '../../../shared/ui'
+import { Socials } from '../../../entities/Socials'
 
 interface Cell {
   label: string,
@@ -85,11 +86,7 @@ export const Footer = () => {
       <div className={cn.socials}>
         <Logo />
 
-        <div className={cn.icons}>
-          <Icon size={30} name={IconName.Whatsapp} />
-          <Icon size={30} name={IconName.Insta} />
-          <Icon size={30} name={IconName.Telegram} />
-        </div>
+        <Socials />
 
         <span className={cn.madeBy}>made by <a href='https://rightshift.dev' target='_blank' className={cn.madeByLink}>right.shift</a></span>
       </div>

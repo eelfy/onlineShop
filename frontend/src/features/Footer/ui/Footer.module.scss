@@ -84,11 +84,6 @@
   }
 }
 
-.icons {
-  display: flex;
-  gap: 20px;
-}
-
 @media (max-width: 1180px) {
   .footerTop {
     align-items: center;
@@ -104,5 +99,6 @@
 
   .brandsVisible {
     display: none;
+  
   }
 }

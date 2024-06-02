@@ -1,21 +1,14 @@
-import { useState } from "react"
 import cn from './BurgerButton.module.scss'
 import classNames from "classnames"
 
 interface BurgerButtonProps {
   onClick: () => void;
+  isActive: boolean;
 }
 
-export const BurgerButton = ({ onClick }: BurgerButtonProps) => {
-  const [isActive, setIsActive] = useState(false)
-
-  const toggleActive = () => {
-    setIsActive((prev) => !prev)
-    onClick();
-  }
-
+export const BurgerButton = ({ onClick, isActive }: BurgerButtonProps) => {
   return <div
-    onClick={toggleActive}
+    onClick={onClick}
     className={classNames(cn.buttonWrapper, isActive && cn.buttonWrapperActive)}
   >
     <label className={cn.burgerButton} >

@@ -1,0 +1,8 @@
+.icons {
+  display: flex;
+  gap: 20px;
+
+  &.invert {
+    filter: invert(1);
+  }
+}

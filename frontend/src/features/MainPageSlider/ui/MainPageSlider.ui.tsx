@@ -39,22 +39,11 @@ export const MainPageSlider = () => {
         customRightArrow={<>{null}</>}
         // @ts-expect-error afs
         customDot={<CustomDot />}
-        additionalTransfrom={0}
-        autoPlaySpeed={3000}
-        centerMode
-        className=""
-        containerClass="container"
-        dotListClass=""
-        draggable
-        focusOnSelect={false}
-        infinite
-        itemClass=""
-        keyBoardControl
-        minimumTouchDrag={80}
-        pauseOnHover
-        renderArrowsWhenDisabled={false}
-        renderButtonGroupOutside={false}
+        showDots
         renderDotsOutside
+        infinite
+        containerClass="container"
+        slidesToSlide={1}
         responsive={{
           desktop: {
             breakpoint: {
@@ -78,13 +67,6 @@ export const MainPageSlider = () => {
             items: 1
           }
         }}
-        rewind={false}
-        rewindWithAnimation={false}
-        rtl={false}
-        shouldResetAutoplay
-        showDots
-        sliderClass=""
-        slidesToSlide={1}
         swipeable
       >
         {
