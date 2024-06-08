@@ -2,7 +2,6 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { StuffBlock } from "../../StuffBlock";
 import { Pagination } from "../../../entities/Pagination";
-import { useEffect, useRef } from "react";
 
 // @ts-expect-error afs
 const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
@@ -10,38 +9,17 @@ const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
   console.log(carouselState);
 
   return (
-    // картошка багает пагинация
-    <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={currentSlide} total={totalItems} />
+    <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={currentSlide + 1} total={totalItems} />
   );
 };
 
 export const StuffSlider = () => {
-  // debugger
-  const ref = useRef<HTMLDivElement>(null)
-
-  const myObserver = new ResizeObserver(
-    (entries: ResizeObserverEntry[], observer: ResizeObserver) => {
-      console.log(entries[0].contentBoxSize);
-    });
-
-  useEffect(() => {
-    if (!ref.current) return
-    const { current } = ref
-
-    myObserver.observe(current)
-    return () => {
-      myObserver.unobserve(current)
-    };
-  }, []);
-
-  ResizeObserver
   return (
     <div
       style={{
         paddingBottom: '30px',
         position: 'relative'
       }}
-      ref={ref}
     >
       <Carousel
         arrows={false}

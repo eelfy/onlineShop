@@ -54,7 +54,7 @@
 .divider {
   height: 1px;
   width: 80%;
- background-color: rgba(26, 26, 26, 30%); 
+  background-color: rgba(26, 26, 26, 30%); 
 }
 
 .image {
@@ -66,8 +66,15 @@
   }
 
   &.sizeM {
-    width: 313px;
-    height: 198px;
+    width: 21vw;
+    height: 13vw;
+    margin-right: 10px;
+
+
+    @media (max-width: 1180px) {
+      width: 42vw;
+      height: 21vw;
+    }
   }
 
   &.sizeL {

@@ -43,6 +43,7 @@ export const StuffBlock = (
 
     {withDivider && <div className={cn.divider}></div>}
   </div>
+
   return <div className={cn.wrapper}>
     <div className={classNames(cn.image, sizeToCn[size])}></div>
 
