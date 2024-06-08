@@ -6,7 +6,6 @@ import { Pagination } from "../../../entities/Pagination";
 // @ts-expect-error afs
 const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
   const { totalItems, currentSlide, slidesToShow } = carouselState;
-  console.log(carouselState);
 
   return (
     <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={currentSlide + 1} total={totalItems} />

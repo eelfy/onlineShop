@@ -13,7 +13,6 @@ export const Radio = ({ radios, name, checked, onChangeChecked }: RadioProps) =>
 
   return <div className={cn.wrapper}>
     {radios.map(({ label, id }) => {
-      console.log(id, checked);
       const isChecked = id === checked
 
       return <label key={id} className={cn.label}>

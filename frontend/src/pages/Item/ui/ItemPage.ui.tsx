@@ -92,9 +92,9 @@ export const ItemPage = () => {
         />
 
         <div className={cn.buttons}>
-          <Button onClick={() => console.log()} text="Добавить в корзину" />
+          <Button onClick={noop} text="Добавить в корзину" />
           <Button
-            onClick={() => console.log()}
+            onClick={noop}
             type={ButtonType.Dark}
             icon={IconName.ShoppingCardWhite}
             text="Купить в 1 клик"

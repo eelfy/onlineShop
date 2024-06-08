@@ -1,6 +1,6 @@
 import { Pagination } from "../../../entities/Pagination"
 import { Sort } from "../../../entities/Sort"
-import { SortOption } from "../../../shared/lib"
+import { SortOption, noop } from "../../../shared/lib"
 import { StuffBlock } from "../../StuffBlock"
 
 import cn from './StuffList.module.scss'
@@ -47,6 +47,6 @@ export const StuffList = () => {
       <StuffBlock name={"name"} description={"description"} price={"price"} />
     </div>
 
-    <Pagination onNext={() => console.log()} onPrev={() => console.log()} current={1} total={10} />
+    <Pagination onNext={noop} onPrev={noop} current={1} total={10} />
   </div>
 }

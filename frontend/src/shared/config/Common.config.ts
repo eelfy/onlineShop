@@ -1,0 +1,1 @@
+export const MOBILE_QUERY = '(max-width: 1180px)'
