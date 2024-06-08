@@ -1,16 +1,12 @@
 import Carousel from 'react-multi-carousel';
 import cn from './MainPageSlider.module.scss'
-import classNames from "classnames";
 import "react-multi-carousel/lib/styles.css";
+import { useEffect, useState } from 'react';
+import { Banner } from '../../../shared/lib';
+import { Api, ApiUrl } from '../../../shared/api/Api';
 
-
-
-
-const slides = [
-  'first', 'second', 'last'
-]
 // @ts-expect-error afs
-const CustomDot = ({ onClick, active, index, carouselState }) => {
+const CustomDot = ({ onClick, active }) => {
   return (
     <div
       style={{
@@ -27,6 +23,18 @@ const CustomDot = ({ onClick, active, index, carouselState }) => {
 };
 
 export const MainPageSlider = () => {
+  const [banners, setBanners] = useState<Banner[]>()
+
+  useEffect(() => {
+
+    Api.getBanners().then(banners => {
+
+      setBanners(banners)
+    })
+  }, []);
+
+  if (!banners?.length) return
+
   return (
     <div
       style={{
@@ -70,9 +78,11 @@ export const MainPageSlider = () => {
         swipeable
       >
         {
-          slides.map((slide, index) => {
-            return <div className={cn.slide} key={index}>
-              <h3>{slide}</h3>
+          banners.map((banner) => {
+            return <div className={cn.slide} key={banner.id} >
+              <div className={cn.img} style={{
+                backgroundImage: `url(${ApiUrl}/banner-photo?bid=${banner.id})`,
+              }}></div>
             </div>
           })
         }

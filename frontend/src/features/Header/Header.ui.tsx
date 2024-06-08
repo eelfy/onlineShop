@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useMediaQuery } from 'usehooks-ts'
+import { useBoolean, useMediaQuery } from 'usehooks-ts'
 import { AnimatedToggleElements, Icon, IconName, Logo } from "../../shared/ui"
 import { BurgerButton } from "../../entities/BurgerButton"
 import { Search } from "../../entities/Search"
@@ -9,9 +9,15 @@ import classNames from "classnames"
 import { SearchSize } from "../../entities/Search"
 import { MOBILE_QUERY } from "../../shared/config"
 import { noop } from "../../shared/lib"
+import { HeaderSubMenu } from "../../entities/HeaderSubMenu"
+import { HeaderBrandText } from "../../entities/HeaderBrandText"
+import { Api } from "../../shared/api/Api"
 
 export const Header = () => {
   const [isSubHeaderVisible, setIsSubHeaderVisible] = useState(false)
+
+  const { value: isSubBrandVisible, setFalse: closeSubBrand, setTrue: openSubBrand } = useBoolean()
+
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] = useState(false)
   const [isSearchMode, setIsSearchMode] = useState(false)
   const isMobile = useMediaQuery(MOBILE_QUERY)
@@ -33,8 +39,26 @@ export const Header = () => {
     setIsSearchMode(false)
   }
 
-  const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible
+  const onFocusBackgroundClick = () => {
+    setIsSubHeaderVisible(false)
+    setIsBurgerMenuVisible(false)
+    closeSubBrand()
+  }
+
+  const onBrandClickOutside = () => {
+    // closeSubBrand()
+  }
+
+  const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
   const isMobileModeSearch = isSearchMode && isMobile
+
+
+
+  const getCateg = async () => {
+    const some = await Api.getCategories();
+    console.log(some);
+
+  }
 
   return <>
     <header className={cn.wrapper}>
@@ -57,13 +81,13 @@ export const Header = () => {
                   <>
                     <BurgerButton isActive={isSubHeaderVisible} onClick={toggleSubHeaderVisible} />
                     <div className={cn.navigationButtons}>
-                      <span className={cn.brandName}>ADIDAS</span>
-                      <span className={cn.brandName}>YEEZY</span>
-                      <span className={cn.brandName}>NIKE</span>
-                      <span className={cn.brandName}>JORDAN</span>
-                      <span className={cn.brandName}>NEW BALANCE</span>
-                      <span className={cn.brandName}>ОДЕЖДА</span>
-                      <span className={cn.brandName}>ДЕТСКОЕ</span>
+                      <HeaderBrandText onClickOutside={onBrandClickOutside} onClick={openSubBrand}>ADIDAS</HeaderBrandText>
+                      <HeaderBrandText onClickOutside={onBrandClickOutside} onClick={openSubBrand}>YEEZY</HeaderBrandText>
+                      <HeaderBrandText onClick={noop}>NIKE</HeaderBrandText>
+                      <HeaderBrandText onClick={noop}>JORDAN</HeaderBrandText>
+                      <HeaderBrandText onClick={noop}>NEW BALANCE</HeaderBrandText>
+                      <HeaderBrandText onClick={noop}>ОДЕЖДА</HeaderBrandText>
+                      <HeaderBrandText onClick={noop}>ДЕТСКОЕ</HeaderBrandText>
                     </div>
                   </>
                 )
@@ -83,30 +107,39 @@ export const Header = () => {
 
     </header>
 
-    <AnimatedToggleElements
-      isFirst={isSubHeaderVisible}
-      fistClassName={cn.subHeader}
-      first={
-        <>
-          <div className={cn.subHeaderNavigation}>
-            <span className={cn.brandName}>ADIDAS</span>
-            <span className={cn.brandName}>YEEZY</span>
-            <span className={cn.brandName}>NIKE</span>
-            <span className={cn.brandName}>JORDAN</span>
-            <span className={cn.brandName}>NEW BALANCE</span>
-          </div>
-        </>
-      }
-    />
+    {!isMobile && (
+      <>
+        <HeaderSubMenu style={{ top: '110px' }} isVisible={isSubHeaderVisible} items={[
+          'ADIDAS',
+          'YEEZY',
+          'NIKE',
+          'JORDAN',
+          'JORDAN',
+        ]} />
+
+        <HeaderSubMenu
+          className={classNames(cn.subBrand, isSubBrandVisible && isSubHeaderVisible && cn.subHeaderVisible)}
+          isVisible={isSubBrandVisible} items={[
+            'ADIDAS',
+            'YEEZY',
+            'NIKE',
+            'JORDAN',
+            'JORDAN',
+            'JORDAN',
+            'JORDAN',
+            'JORDAN',
+            'JORDAN',
+            'JORDAN',
+            'JORDAN',
+          ]} />
+      </>
+    )}
 
 
     <AnimatedToggleElements
-      isFirst={isFocusBackgroundVisible || isBurgerMenuVisible}
+      isFirst={isFocusBackgroundVisible}
       first={<div
-        onClick={() => {
-          setIsSubHeaderVisible(false)
-          setIsBurgerMenuVisible(false)
-        }}
+        onClick={onFocusBackgroundClick}
         className={cn.focusBackground}
       />}
     />

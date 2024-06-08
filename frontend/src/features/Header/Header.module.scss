@@ -29,25 +29,14 @@
   gap: 40px;
 }
 
-.subHeader {
-  z-index: 10;
-  background-color: #fff;
-  position: fixed;
-  top: 110px;
-  width: 100%;
-  min-height: 65px;
+.subBrand {
+  background-color: #ECECEC !important;
+  z-index: 6 !important;
+  padding-block: 30px;
+  top: 110px !important;
 
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  
-  &Navigation {
-    display: flex;
-    gap: 40px;
-    align-items: start;
-    align-items: center;
-
-    transition: opacity .5s ease 0s;
+  &.subHeaderVisible {
+    transform: translateY(65px) !important;
   }
 }
 
