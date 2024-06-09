@@ -2,6 +2,9 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { StuffBlock } from "../../StuffBlock";
 import { Pagination } from "../../../entities/Pagination";
+import { Product, SortOrder } from "../../../shared/lib";
+import { useEffect, useState } from "react";
+import { Api } from "../../../shared/api/Api";
 
 // @ts-expect-error afs
 const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
@@ -12,7 +15,25 @@ const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
   );
 };
 
-export const StuffSlider = () => {
+export const StuffSlider = ({ cname }: { cname: string }) => {
+
+  const [products, setProducts] = useState<Product[]>()
+
+  useEffect(() => {
+
+    Api.getProductsInCategory({
+      cname,
+      limit: 15,
+      offset: 0,
+      ordered: SortOrder.CREATED
+    }).then(value => {
+      setProducts(value.products)
+    })
+
+  }, [cname]);
+
+  if (!products) return null
+
   return (
     <div
       style={{
@@ -25,7 +46,7 @@ export const StuffSlider = () => {
         // @ts-expect-error afs
         customButtonGroup={<CustomButtonGroupAsArrows />}
         containerClass="container"
-        draggable
+        draggable={false}
         renderButtonGroupOutside
         responsive={{
           desktop: {
@@ -54,22 +75,9 @@ export const StuffSlider = () => {
         // slidesToSlide={5}
         swipeable
       >
-        <StuffBlock name={"1"} description={"description"} price={"price"} />
-        <StuffBlock name={"2"} description={"description"} price={"price"} />
-        <StuffBlock name={"3"} description={"description"} price={"price"} />
-        <StuffBlock name={"4"} description={"description"} price={"price"} />
-        <StuffBlock name={"5"} description={"description"} price={"price"} />
-        <StuffBlock name={"6"} description={"description"} price={"price"} />
-        <StuffBlock name={"7"} description={"description"} price={"price"} />
-        <StuffBlock name={"8"} description={"description"} price={"price"} />
-        <StuffBlock name={"9"} description={"description"} price={"price"} />
-        <StuffBlock name={"10"} description={"description"} price={"price"} />
-        <StuffBlock name={"11"} description={"description"} price={"price"} />
-        <StuffBlock name={"12"} description={"description"} price={"price"} />
-        <StuffBlock name={"13"} description={"description"} price={"price"} />
-        <StuffBlock name={"14"} description={"description"} price={"price"} />
-        <StuffBlock name={"15"} description={"description"} price={"price"} />
-
+        {products.map(({ name, brand, min_price, photo1_url, id }, index) => {
+          return <StuffBlock productId={id} name={brand} description={name} price={String(min_price)} imageUrl={photo1_url} key={index} />
+        })}
       </Carousel>
     </div>
   );

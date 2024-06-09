@@ -1,6 +1,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  margin-right: 10px;
 
   &L {
     display: flex;
@@ -44,6 +46,7 @@
 }
 
 .dividerWrapper {
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -58,8 +61,10 @@
 }
 
 .image {
-  background-color: #D9D9D9;
-
+  // background-color: #D9D9D9;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   &.sizeS {
     width: 235px;
     height: 150px;
@@ -68,8 +73,6 @@
   &.sizeM {
     width: 21vw;
     height: 13vw;
-    margin-right: 10px;
-
 
     @media (max-width: 1180px) {
       width: 42vw;
@@ -86,10 +89,11 @@
 .brandName {
   font-weight: 600;
   text-transform: uppercase;
-  font-size: 16;
+  font-size: 14;
 }
 
 .description {
+  margin-top: 20px;
   font-weight: 400;
   font-size: 15;
 }

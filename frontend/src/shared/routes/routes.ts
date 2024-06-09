@@ -5,5 +5,6 @@ export enum Routes {
   Reviews = '/reviews',
   Brand = '/brand',
   Search = '/search',
-  Bag = '/bag'
+  Bag = '/bag',
+  Product = '/product',
 }

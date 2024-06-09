@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropdown } from "../../../entities/Dropdown";
 import { ItemSizeChart } from "../../../features/ItemSizeChart";
-import { HistoryLegendOption, ItemSizeOption, noop } from "../../../shared/lib";
+import { HistoryLegendOption, ItemSizeOption, Product, noop } from "../../../shared/lib";
 import { IconName } from "../../../shared/ui";
 import { HistoryLegend } from "../../../entities/HistoryLegend";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Routes } from "../../../shared/routes";
 import { Button } from "../../../shared/ui/Button/ui/Button.ui";
 import { ButtonType } from "../../../shared/ui/Button";
@@ -14,6 +14,8 @@ import { OneClickModal } from "../../../features/OneClickModal";
 
 import cn from "./ItemPage.module.scss";
 import { ProductCarousel } from "../../../features/ProductCarousel";
+import { Api } from "../../../shared/api/Api";
+import { NotFound } from "../../../entities/NotFound";
 
 const SIZES: ItemSizeOption[] = [
   { size: "US 5", price: "price", id: 1 },
@@ -46,7 +48,10 @@ const RADIOS: RadioOption[] = [
 ];
 
 export const ItemPage = () => {
-  const { brandName, itemName } = useParams();
+  const { productId } = useParams();
+  const navigate = useNavigate()
+  const [product, setProduct] = useState<Product>()
+
 
   const LEGEND: HistoryLegendOption[] = [
     {
@@ -54,40 +59,55 @@ export const ItemPage = () => {
       redirectTo: Routes.Main,
     },
     {
-      title: brandName ?? "Бренд",
-      redirectTo: `${Routes.Brand}/${brandName}`,
+      title: product?.brand ?? "Бренд",
+      redirectTo: `${Routes.Brand}/${product?.brand}`,
     },
     {
-      title: itemName ?? "Вещь",
+      title: product?.name ?? "Вещь",
       isCurrent: true,
     },
   ];
 
-  const [activeSize, setActiveSize] = useState<ItemSizeOption["id"] | null>(
-    null
+  const [activeSize, setActiveSize] = useState<string>(
+    ''
   );
-  const [activeRadio, setActiveRadio] = useState<RadioOption["id"] | null>(
-    null
-  );
-  const [value, setValue] = useState("");
+  // const [activeRadio, setActiveRadio] = useState<RadioOption["id"] | null>(
+  //   null
+  // );
+  // const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (!productId) return
+
+    Api.getProduct(Number(productId)).then(product => {
+      setProduct(product)
+    }).catch(() => {
+      // navigate(Routes.Main)
+    })
+  }, [navigate, productId]);
+
+
+  if (!product) return <NotFound />
 
   return (
     <div className={cn.wrapper}>
       <div className={cn.firstSection}>
         <HistoryLegend options={LEGEND} />
-        <div className={cn.carousel}>{/* <ProductCarousel /> */}</div>
+        <div style={{
+          backgroundImage: `url(${product.photo1_url})`
+        }} className={cn.carousel}>{/* <ProductCarousel /> */}</div>
       </div>
       <div className={cn.secondSection}>
         <div className={cn.name}>
-          <span className={cn.brand}>nike</span>
-          <span className={cn.model}>Dunk Low WMNS "UNLV Satin"</span>
+          <span className={cn.brand}>{product.brand}</span>
+          <span className={cn.model}>{product.name}</span>
         </div>
 
-        <span className={cn.price}>От 23.000 ₽</span>
+        <span className={cn.price}>От {product.min_price} ₽</span>
 
         <ItemSizeChart
           onChangeActive={setActiveSize}
-          sizes={SIZES}
+          sizes={product.sizes}
           activeSize={activeSize}
         />
 

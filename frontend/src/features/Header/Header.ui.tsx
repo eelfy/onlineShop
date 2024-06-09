@@ -8,12 +8,16 @@ import cn from './Header.module.scss'
 import classNames from "classnames"
 import { SearchSize } from "../../entities/Search"
 import { MOBILE_QUERY } from "../../shared/config"
-import { noop } from "../../shared/lib"
+import { Categories, SubCategories, noop } from "../../shared/lib"
 import { HeaderSubMenu } from "../../entities/HeaderSubMenu"
 import { HeaderBrandText } from "../../entities/HeaderBrandText"
-import { Api } from "../../shared/api/Api"
 
-export const Header = () => {
+import { observer } from "mobx-react-lite"
+import { useStore } from "../../entities/Store"
+
+export const Header = observer(() => {
+  const { MainStore: { categories } } = useStore()
+
   const [isSubHeaderVisible, setIsSubHeaderVisible] = useState(false)
 
   const { value: isSubBrandVisible, setFalse: closeSubBrand, setTrue: openSubBrand } = useBoolean()
@@ -21,6 +25,8 @@ export const Header = () => {
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] = useState(false)
   const [isSearchMode, setIsSearchMode] = useState(false)
   const isMobile = useMediaQuery(MOBILE_QUERY)
+
+  const [subCategories, setSubCategories] = useState<SubCategories>()
 
   const toggleSubHeaderVisible = () => {
     setIsSubHeaderVisible(prev => !prev)
@@ -48,17 +54,41 @@ export const Header = () => {
   const onBrandClickOutside = () => {
     // closeSubBrand()
   }
+  const onUpdateSubCategory = (subCategories: SubCategories) => {
+    setSubCategories(subCategories)
+    openSubBrand()
+  }
+
+  const onRedirectToBrand = (id: number) => {
+    console.log('id: ', id);
+  }
 
   const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
   const isMobileModeSearch = isSearchMode && isMobile
 
 
+  console.log('categories: ', categories);
 
-  const getCateg = async () => {
-    const some = await Api.getCategories();
-    console.log(some);
+  const renderSubMenu = (categories: Categories) => {
+
+    const entries = Object.entries(categories).slice(7)
+    return <HeaderSubMenu style={{ top: '110px' }} isVisible={isSubHeaderVisible}
+      // @ts-expect-error len
+      onBrandClick={onUpdateSubCategory}
+      items={entries} />
 
   }
+
+  const renderSubCategoryMenu = (subCategories: SubCategories) => {
+    return <HeaderSubMenu
+      // @ts-expect-error len
+      onBrandClick={onRedirectToBrand}
+      className={classNames(cn.subBrand, Boolean(isSubBrandVisible && isSubHeaderVisible) && cn.subHeaderVisible)}
+      isVisible={isSubBrandVisible} items={Object.entries(subCategories)}
+    />
+  }
+
+  if (!categories) return null
 
   return <>
     <header className={cn.wrapper}>
@@ -81,13 +111,16 @@ export const Header = () => {
                   <>
                     <BurgerButton isActive={isSubHeaderVisible} onClick={toggleSubHeaderVisible} />
                     <div className={cn.navigationButtons}>
-                      <HeaderBrandText onClickOutside={onBrandClickOutside} onClick={openSubBrand}>ADIDAS</HeaderBrandText>
-                      <HeaderBrandText onClickOutside={onBrandClickOutside} onClick={openSubBrand}>YEEZY</HeaderBrandText>
-                      <HeaderBrandText onClick={noop}>NIKE</HeaderBrandText>
-                      <HeaderBrandText onClick={noop}>JORDAN</HeaderBrandText>
-                      <HeaderBrandText onClick={noop}>NEW BALANCE</HeaderBrandText>
-                      <HeaderBrandText onClick={noop}>ОДЕЖДА</HeaderBrandText>
-                      <HeaderBrandText onClick={noop}>ДЕТСКОЕ</HeaderBrandText>
+                      {
+                        Object.entries(categories).slice(0, 7).map(([key, value], index) => {
+                          return <HeaderBrandText
+                            key={index}
+                            onClickOutside={onBrandClickOutside}
+                            onClick={() => onUpdateSubCategory(value)}>
+                            {key}
+                          </HeaderBrandText>
+                        })
+                      }
                     </div>
                   </>
                 )
@@ -109,40 +142,25 @@ export const Header = () => {
 
     {!isMobile && (
       <>
-        <HeaderSubMenu style={{ top: '110px' }} isVisible={isSubHeaderVisible} items={[
-          'ADIDAS',
-          'YEEZY',
-          'NIKE',
-          'JORDAN',
-          'JORDAN',
-        ]} />
+        {renderSubMenu(categories)}
+        {
+          subCategories && renderSubCategoryMenu(subCategories)
+        }
 
-        <HeaderSubMenu
-          className={classNames(cn.subBrand, isSubBrandVisible && isSubHeaderVisible && cn.subHeaderVisible)}
-          isVisible={isSubBrandVisible} items={[
-            'ADIDAS',
-            'YEEZY',
-            'NIKE',
-            'JORDAN',
-            'JORDAN',
-            'JORDAN',
-            'JORDAN',
-            'JORDAN',
-            'JORDAN',
-            'JORDAN',
-            'JORDAN',
-          ]} />
       </>
     )}
 
-
-    <AnimatedToggleElements
-      isFirst={isFocusBackgroundVisible}
-      first={<div
-        onClick={onFocusBackgroundClick}
-        className={cn.focusBackground}
-      />}
-    />
+    {
+      isFocusBackgroundVisible && (
+        <AnimatedToggleElements
+          isFirst={isFocusBackgroundVisible}
+          first={<div
+            onClick={onFocusBackgroundClick}
+            className={cn.focusBackground}
+          />}
+        />
+      )
+    }
 
     <div className={classNames(cn.burgerMenu, isBurgerMenuVisible && cn.visible)}>
       <BurgerMenu items={[
@@ -383,4 +401,4 @@ export const Header = () => {
       ]} />
     </div>
   </>
-}
+})

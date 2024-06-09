@@ -1,6 +1,8 @@
+import { SortOrder } from "./Api.types";
+
 export interface SortOption {
   title: string;
-  value: string
+  value: SortOrder
 }
 
 export interface ItemSizeOption {

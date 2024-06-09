@@ -2,8 +2,24 @@ import { Outlet } from "react-router-dom"
 import cn from './App.module.scss'
 import { Header } from "./features/Header"
 import { Footer } from "./features/Footer"
+import { observer } from "mobx-react-lite"
+import { useStore } from "./entities/Store"
+import { useEffect } from "react"
+import { Api } from "./shared/api/Api"
 
-function App() {
+const App = observer(() => {
+  const { MainStore: { updateCategories } } = useStore()
+
+  useEffect(() => {
+    Api.getCategories().then(categories => {
+      const entries = Object.entries(categories).filter((([key, value]) => {
+        return Boolean(Object.values(value).length)
+      }));
+
+      updateCategories(Object.fromEntries(entries))
+    })
+  }, [updateCategories]);
+
   return <div className={cn.wrapper}>
     <Header />
 
@@ -13,6 +29,6 @@ function App() {
 
     <Footer />
   </div>
-}
+})
 
 export default App

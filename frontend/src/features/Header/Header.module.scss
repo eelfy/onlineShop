@@ -9,7 +9,7 @@
   padding: 22px 80px;
 
   display: grid;
-  grid-template-columns: 100px minmax(100px, 850px) 100px;
+  grid-template-columns: 100px 1fr 100px;
   justify-content:space-between;
   place-items: center;
 }

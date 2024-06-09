@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         element: <SearchResults />
       },
       {
-        path: `${Routes.Brand}/:brandName/:itemName`,
+        path: `${Routes.Product}/:productId`,
         element: <ItemPage />
       },
       {

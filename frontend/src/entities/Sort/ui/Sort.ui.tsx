@@ -7,9 +7,11 @@ import { useDetectClickOutside } from "react-detect-click-outside";
 
 interface SortProps {
   options: SortOption[]
+  activeSort: SortOption['value']
+  onClick: (order: SortOption['value']) => void
 }
 
-export const Sort = ({ options }: SortProps) => {
+export const Sort = ({ options, onClick, activeSort }: SortProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(prev => !prev)
 
@@ -25,7 +27,12 @@ export const Sort = ({ options }: SortProps) => {
 
     <div className={classNames(cn.modal, isOpen && cn.modalOpen)}>
       {options.map(({ title, value }) => {
-        return <div key={value} className={cn.option} onClick={() => console.log(title)}> {title}</div>
+        return <div
+          key={value}
+          className={classNames(cn.option, activeSort === value && cn.active)}
+          onClick={() => onClick(value)}>
+          {title}
+        </div>
       })}
     </div>
   </div >

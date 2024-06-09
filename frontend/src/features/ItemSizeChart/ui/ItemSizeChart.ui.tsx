@@ -3,9 +3,9 @@ import { ItemSizeOption } from '../../../shared/lib'
 import cn from './ItemSizeChart.module.scss'
 
 interface ItemSizeChartProps {
-  sizes: ItemSizeOption[];
-  activeSize: number | null,
-  onChangeActive: (id: ItemSizeOption['id']) => void
+  sizes: string[];
+  activeSize: string,
+  onChangeActive: (id: string) => void
 }
 
 export const ItemSizeChart = ({ sizes, activeSize, onChangeActive }: ItemSizeChartProps) => {
@@ -14,7 +14,7 @@ export const ItemSizeChart = ({ sizes, activeSize, onChangeActive }: ItemSizeCha
 
     <div className={cn.chart}>
       {sizes.map(size => {
-        return <ItemSize {...size} key={size.id} isActive={size.id === activeSize} onChangeActive={onChangeActive} />
+        return <ItemSize key={size} isActive={size === activeSize} onChangeActive={onChangeActive} name={size} />
       })}
     </div>
   </div>

@@ -8,6 +8,6 @@ interface MainPageSectionProps {
 export const MainPageSection = ({ title }: MainPageSectionProps) => {
   return <div className={cn.wrapper}>
     <h2 className={cn.title}>{title}</h2>
-    <StuffSlider />
+    <StuffSlider cname={title} />
   </div>
 }
