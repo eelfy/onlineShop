@@ -32,6 +32,7 @@
 }
 
 .brand {
+  cursor: pointer;
   font-size: 16px;
   font-weight: 600;
 }
@@ -66,4 +67,11 @@ color: #1A1A1A;
   gap: 20px;
 
   width: 100%;
+}
+
+@media (max-width: 1180px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
 }

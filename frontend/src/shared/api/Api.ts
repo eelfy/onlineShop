@@ -1,4 +1,4 @@
-import { Banner, Categories, Product, ProductResponse, ProductsInCategoryParams, ProductsSearchParams } from "../lib/Api.types"
+import { Banner, Categories, MakeOrderBody, Product, ProductResponse, ProductsInCategoryParams, ProductsSearchParams, SearchProductsParams } from "../lib/Api.types"
 
 export const ApiUrl = import.meta.env.VITE_API
 
@@ -29,6 +29,24 @@ export const Api = {
     const search = new URLSearchParams(params)
 
     return fetch(`${ApiUrl}/products-in-category?${search}`).then(r => r.json())
-  }
+  },
 
+  makeOrder(body: MakeOrderBody) {
+
+    return fetch(`${ApiUrl}/order`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }).then(r => r.json())
+  },
+
+  getSearch(params: SearchProductsParams): Promise<ProductResponse> {
+    // @ts-expect-error hmf
+    const search = new URLSearchParams(params)
+
+    return fetch(`${ApiUrl}/search?${search}`).then(r => r.json())
+  }
 } 

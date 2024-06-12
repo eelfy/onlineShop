@@ -4,9 +4,9 @@ import cn from './Radio.module.scss'
 
 interface RadioProps {
   radios: RadioOption[],
-  checked: RadioOption['id'] | null,
+  checked?: RadioOption['id'] | null,
   name: string,
-  onChangeChecked: (active: RadioOption['id']) => void
+  onChangeChecked: (active: RadioOption['id']) => void,
 }
 
 export const Radio = ({ radios, name, checked, onChangeChecked }: RadioProps) => {

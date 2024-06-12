@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { Pagination } from "../../../entities/Pagination"
 import { Sort } from "../../../entities/Sort"
-import { ProductResponse, SortOption, SortOrder, noop } from "../../../shared/lib"
+import { ProductResponse, SortOption, SortOrder } from "../../../shared/lib"
 import { StuffBlock } from "../../StuffBlock"
 
 import cn from './StuffList.module.scss'
 import { Api } from "../../../shared/api/Api"
 import { useParams } from "react-router-dom"
-import { NotFound } from "../../../entities/NotFound"
 
 const OPTIONS: SortOption[] = [
   { title: 'Новинки', value: SortOrder.CREATED },
@@ -15,28 +14,17 @@ const OPTIONS: SortOption[] = [
   { title: 'По возрастанию цены', value: SortOrder.PRICE_DESC }
 ]
 
-const limit = 30
-
-export const StuffList = () => {
+export const StuffList = ({ products, setProducts, limit }: {
+  products: ProductResponse,
+  setProducts: (prod: ProductResponse) => void
+  limit: number
+}) => {
   const { brandName } = useParams()
-  const [products, setProducts] = useState<ProductResponse>()
   const [activeSort, setActiveSort] = useState<SortOrder>(SortOrder.CREATED)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const ref = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!brandName) return;
-
-    Api.getProductsInCategory({
-      cname: brandName,
-      limit,
-      offset: 0,
-      ordered: SortOrder.CREATED
-    }).then((products) => {
-      setProducts(products)
-    })
-  }, [brandName])
 
   const onUpdateSort = (sort: SortOption['value']) => {
     setActiveSort(sort)
@@ -55,6 +43,8 @@ export const StuffList = () => {
     })
   }
 
+  const smoothScroll = () => ref.current?.scrollIntoView({ behavior: "smooth" })
+
   const onPaginationNext = () => {
     if (!brandName || !products) return;
 
@@ -71,7 +61,7 @@ export const StuffList = () => {
       ordered: activeSort
     }).then((products) => {
       setProducts(products)
-      // ref.current?.scrollIntoView({ behavior: "smooth" })
+      smoothScroll()
     })
   }
 
@@ -88,13 +78,10 @@ export const StuffList = () => {
       ordered: activeSort
     }).then((products) => {
       setProducts(products)
-      // ref.current?.scrollIntoView({ behavior: "smooth" })
+      smoothScroll()
     })
   }
 
-  if (!products || !products.products.length) {
-    return <NotFound />
-  }
 
   return <div className={cn.list}>
     <div className={cn.sort} ref={ref}>

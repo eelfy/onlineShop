@@ -1,57 +1,31 @@
 import { useEffect, useState } from "react";
 import { Dropdown } from "../../../entities/Dropdown";
 import { ItemSizeChart } from "../../../features/ItemSizeChart";
-import { HistoryLegendOption, ItemSizeOption, Product, noop } from "../../../shared/lib";
+import { CacheProduct, HistoryLegendOption, Product, noop } from "../../../shared/lib";
 import { IconName } from "../../../shared/ui";
 import { HistoryLegend } from "../../../entities/HistoryLegend";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Routes } from "../../../shared/routes";
 import { Button } from "../../../shared/ui/Button/ui/Button.ui";
 import { ButtonType } from "../../../shared/ui/Button";
-import { Input } from "../../../shared/ui/Input";
-import { Radio, RadioOption } from "../../../shared/ui/Radio";
-import { OneClickModal } from "../../../features/OneClickModal";
 
-import cn from "./ItemPage.module.scss";
-import { ProductCarousel } from "../../../features/ProductCarousel";
 import { Api } from "../../../shared/api/Api";
 import { NotFound } from "../../../entities/NotFound";
 
-const SIZES: ItemSizeOption[] = [
-  { size: "US 5", price: "price", id: 1 },
-  { size: "US 5", price: "price", id: 2 },
-  { size: "US 5", price: "price", id: 3 },
-  { size: "US 5", price: "price", id: 4 },
-  { size: "US 5", price: "price", id: 5 },
-  { size: "US 5", price: "price", id: 6 },
-  { size: "US 5", price: "price", id: 7 },
-  { size: "US 5", price: "price", id: 8 },
-  { size: "US 5", price: "price", id: 9 },
-  { size: "US 5", price: "price", id: 10 },
-  { size: "US 5", price: "price", id: 11 },
-  { size: "US 5", price: "price", id: 12 },
-];
+import cn from "./ItemPage.module.scss";
+import { CardCache } from "../../../entities/Store/stores/Cache";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../../entities/Store";
+import { ItemPreview } from "../../../features/ItemPreview";
 
-const RADIOS: RadioOption[] = [
-  {
-    label: "label",
-    id: 1,
-  },
-  {
-    label: "label2",
-    id: 2,
-  },
-  {
-    label: "label3",
-    id: 3,
-  },
-];
-
-export const ItemPage = () => {
+export const ItemPage = observer(() => {
+  const { MainStore: { updateCardCount, cardCount } } = useStore()
   const { productId } = useParams();
+  const [parans] = useSearchParams();
+  console.log(parans);
+
   const navigate = useNavigate()
   const [product, setProduct] = useState<Product>()
-
 
   const LEGEND: HistoryLegendOption[] = [
     {
@@ -71,48 +45,86 @@ export const ItemPage = () => {
   const [activeSize, setActiveSize] = useState<string>(
     ''
   );
-  // const [activeRadio, setActiveRadio] = useState<RadioOption["id"] | null>(
-  //   null
-  // );
-  // const [value, setValue] = useState("");
 
   useEffect(() => {
     if (!productId) return
 
     Api.getProduct(Number(productId)).then(product => {
       setProduct(product)
-    }).catch(() => {
-      // navigate(Routes.Main)
     })
   }, [navigate, productId]);
 
 
   if (!product) return <NotFound />
 
+  const isHaveSize = Boolean(product.sizes.length)
+  const isAddToCardButtonDisabled = (isHaveSize && activeSize === '') || !product
+
+  const onAddToCard = () => {
+    if (isAddToCardButtonDisabled) return
+
+    let newItems: CacheProduct[] = []
+
+    const oldItems = CardCache.getItems()
+    const newItem: CacheProduct = {
+      size: activeSize,
+      name: product.name,
+      brand: product.brand,
+      id: product.id,
+      image: product.photo1_url,
+      price: product.min_price
+    }
+
+    if (
+      oldItems
+      && !oldItems.find(old => old.id === newItem.id && old.size === newItem.size)
+    ) newItems = [...oldItems]
+
+    newItems.push(newItem)
+
+    const newCount = cardCount ? cardCount + 1 : 1
+    updateCardCount(newCount)
+    CardCache.setItem(newItems)
+  }
+  const productsImage = [
+    product.photo1_url,
+    "https://thesortage.com/cdn/shop/files/IMG_8820.jpg",
+    "https://thesortage.com/cdn/shop/files/Photoroom-20240307_212746_3.png",
+    "https://thesortage.com/cdn/shop/files/IMG_3183.jpg",
+    "https://thesortage.com/cdn/shop/files/IMG_1742.jpg",
+    "https://thesortage.com/cdn/shop/files/IMG_6308.jpg"
+  ]
   return (
     <div className={cn.wrapper}>
       <div className={cn.firstSection}>
         <HistoryLegend options={LEGEND} />
-        <div style={{
-          backgroundImage: `url(${product.photo1_url})`
-        }} className={cn.carousel}>{/* <ProductCarousel /> */}</div>
+        <div className={cn.itemImages}>
+          <ItemPreview
+
+            images={productsImage}
+            activeImage={productsImage[0]} />
+        </div>
       </div>
       <div className={cn.secondSection}>
         <div className={cn.name}>
-          <span className={cn.brand}>{product.brand}</span>
+          <span className={cn.brand} onClick={() => navigate(`${Routes.Brand}/${product?.brand}`)}>{product.brand}</span>
           <span className={cn.model}>{product.name}</span>
         </div>
 
         <span className={cn.price}>От {product.min_price} ₽</span>
+        {
+          isHaveSize && (
+            <ItemSizeChart
+              onChangeActive={setActiveSize}
+              sizes={product.sizes}
+              activeSize={activeSize}
+            />
+          )
+        }
 
-        <ItemSizeChart
-          onChangeActive={setActiveSize}
-          sizes={product.sizes}
-          activeSize={activeSize}
-        />
 
         <div className={cn.buttons}>
-          <Button onClick={noop} text="Добавить в корзину" />
+          <Button onClick={onAddToCard} text="Добавить в корзину" isDisabled={isAddToCardButtonDisabled} />
           <Button
             onClick={noop}
             type={ButtonType.Dark}
@@ -144,6 +156,7 @@ export const ItemPage = () => {
             }
           />
           <Dropdown
+            withSeparator={false}
             icon={IconName.Refund}
             title={"Обмен и возврат"}
             content={`Вы можете обменять товар, купленный в нашем магазине, при соблюдении следующих условий:
@@ -155,7 +168,7 @@ export const ItemPage = () => {
       </div>
     </div>
   );
-};
+});
 
 /**
  * <OneClickModal isOpen closeModal={noop} />

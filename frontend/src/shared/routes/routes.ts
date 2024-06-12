@@ -4,6 +4,7 @@ export enum Routes {
   Refund = '/refund',
   Reviews = '/reviews',
   Brand = '/brand',
+  Category = '/category',
   Search = '/search',
   Bag = '/bag',
   Product = '/product',

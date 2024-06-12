@@ -1,7 +1,7 @@
 import cn from './NotFound.module.scss'
 
-export const NotFound = () => {
+export const NotFound = ({ title = 'Ничего не найдено' }: { title?: string }) => {
   return <div className={cn.wrapper}>
-    <h1>Ничего не найдено</h1>
+    <h1>{title}</h1>
   </div>
 }

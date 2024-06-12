@@ -10,6 +10,7 @@ import { Brand } from './pages/Brand'
 import { SearchResults } from './pages/SearchResults'
 import { ItemPage } from './pages/Item'
 import { BagPage } from './pages/BagPage'
+import { CategoryPage } from './pages/CategoryPage'
 
 // картошка добавить страницу ошибки
 
@@ -28,8 +29,12 @@ const router = createBrowserRouter([
         element: <div>Payments</div>
       },
       {
-        path: `${Routes.Brand}/:brandName`,
+        path: `${Routes.Brand}/:brandName`, // /brand/Nike
         element: <Brand />
+      },
+      {
+        path: `${Routes.Category}/:categoryName`, // /category/Kaws(id)
+        element: <CategoryPage />
       },
       {
         path: `${Routes.Search}/:text`,

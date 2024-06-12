@@ -14,8 +14,13 @@ import { HeaderBrandText } from "../../entities/HeaderBrandText"
 
 import { observer } from "mobx-react-lite"
 import { useStore } from "../../entities/Store"
+import { useNavigate } from "react-router-dom"
+import { Routes } from "../../shared/routes"
+import { CardIcon } from "../../entities/CardIcon"
 
 export const Header = observer(() => {
+  const navigate = useNavigate()
+
   const { MainStore: { categories } } = useStore()
 
   const [isSubHeaderVisible, setIsSubHeaderVisible] = useState(false)
@@ -24,6 +29,9 @@ export const Header = observer(() => {
 
   const [isBurgerMenuVisible, setIsBurgerMenuVisible] = useState(false)
   const [isSearchMode, setIsSearchMode] = useState(false)
+
+  const [searchValue, setSearchValue] = useState('')
+
   const isMobile = useMediaQuery(MOBILE_QUERY)
 
   const [subCategories, setSubCategories] = useState<SubCategories>()
@@ -43,6 +51,7 @@ export const Header = observer(() => {
 
   const changeModeToNavigation = () => {
     setIsSearchMode(false)
+    setSearchValue('')
   }
 
   const onFocusBackgroundClick = () => {
@@ -59,8 +68,9 @@ export const Header = observer(() => {
     openSubBrand()
   }
 
-  const onRedirectToBrand = (id: number) => {
+  const onRedirectToBrand = ([brand, id]: [string, number]) => {
     console.log('id: ', id);
+    navigate(`${Routes.Category}/${brand}.${id}`)
   }
 
   const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
@@ -88,11 +98,20 @@ export const Header = observer(() => {
     />
   }
 
+  const onSearch = () => {
+    if (searchValue.trim() === '') return
+
+    navigate(`${Routes.Search}/${searchValue}`)
+  }
+
   if (!categories) return null
 
   return <>
     <header className={cn.wrapper}>
-      {isMobileModeSearch && <Search size={SearchSize.S} onCrossClick={changeModeToNavigation} onSearch={noop} />}
+      {isMobileModeSearch && <Search
+        value={searchValue}
+        setValue={setSearchValue}
+        size={SearchSize.S} onCrossClick={changeModeToNavigation} onSearch={onSearch} />}
 
       {!isMobileModeSearch && (
         <>
@@ -105,7 +124,13 @@ export const Header = observer(() => {
           <nav className={cn.navigation}>
             {
               isSearchMode ? (
-                <Search size={SearchSize.M} onSearch={noop} />
+                <div className={cn.searchWrapper}>
+
+                  <Search
+                    value={searchValue}
+                    setValue={setSearchValue}
+                    size={SearchSize.M} onSearch={onSearch} />
+                </div>
               ) :
                 (
                   <>
@@ -134,8 +159,9 @@ export const Header = observer(() => {
               <Icon name={IconName.Search} onClick={changeModeToSearch} />
             )}
 
-            <Icon name={IconName.ShoppingCard} />
-          </div></>
+            <CardIcon />
+          </div>
+        </>
       )}
 
     </header>

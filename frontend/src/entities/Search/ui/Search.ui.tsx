@@ -5,15 +5,24 @@ import cn from './Search.module.scss'
 interface SearchProps {
   size: SearchSize
 
+  value: string;
+  setValue: (value: string) => void;
   onSearch: () => void;
   onCrossClick?: () => void
 }
 
-export const Search = ({ size, onSearch, onCrossClick }: SearchProps) => {
+export const Search = ({
+  size, onSearch, onCrossClick,
+  value,
+  setValue
 
+}: SearchProps) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value)
+  }
   if (size === SearchSize.S) {
     return <div className={cn.wrapperS}>
-      <input className={cn.input} type='text' placeholder='Поиск' />
+      <input value={value} onChange={onChangeHandler} className={cn.input} type='text' placeholder='Поиск' />
 
       <div className={cn.icons}>
         <Icon name={IconName.Search} onClick={onSearch} />
@@ -24,7 +33,7 @@ export const Search = ({ size, onSearch, onCrossClick }: SearchProps) => {
 
   if (size === SearchSize.M) {
     return <div className={cn.wrapper}>
-      <input className={cn.input} type='text' placeholder='Поиск' />
+      <input value={value} onChange={onChangeHandler} className={cn.input} type='text' placeholder='Поиск' />
       <button className={cn.button} onClick={onSearch}>Найти</button>
     </div>
   }

@@ -14,12 +14,12 @@
   font-weight: 300;
   cursor: pointer;
 
-  &:hover >.customRadio{
+  &:hover >.customCheckbox {
     background-color: #000;
   }
 }
 
-.customRadio {
+.customCheckbox {
   min-width: 20px;
   min-height: 20px;
   border-radius: 50%;

@@ -2,9 +2,9 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { StuffBlock } from "../../StuffBlock";
 import { Pagination } from "../../../entities/Pagination";
-import { Product, SortOrder } from "../../../shared/lib";
 import { useEffect, useState } from "react";
 import { Api } from "../../../shared/api/Api";
+import { Product, SortOrder } from "../../../shared/lib";
 
 // @ts-expect-error afs
 const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {

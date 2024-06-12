@@ -25,9 +25,14 @@
   &:hover .content img {
     transform: scale(1);
   }
+
+  &.disabled {
+    cursor: not-allowed;
+  } 
 }
 
 .content {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,4 +48,9 @@
 
     transform: scale(0);
   }
+}
+
+.iconWrapper {
+  position: absolute;
+  margin-right: 160px;
 }

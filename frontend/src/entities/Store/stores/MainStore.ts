@@ -1,8 +1,9 @@
-import { Categories } from '../../shared/lib/Api.types';
+import { Categories } from '../../../shared/lib/Api.types';
 import { makeAutoObservable } from 'mobx';
 
 export class MainStore {
-  categories?: Categories = undefined;
+  categories?: Categories;
+  cardCount?: number
 
   constructor() {
     makeAutoObservable(this);
@@ -11,4 +12,8 @@ export class MainStore {
   updateCategories = (newCategories: Categories) => {
     this.categories = newCategories
   };
+
+  updateCardCount = (newCardCount: number | undefined) => {
+    this.cardCount = newCardCount
+  }
 }

@@ -8,8 +8,10 @@ interface SocialsProps {
 
 export const Socials = ({ isBlack }: SocialsProps) => {
   return <div className={classNames(cn.icons, isBlack && cn.invert)}>
-    <Icon size={30} name={IconName.Whatsapp} />
-    <Icon size={30} name={IconName.Insta} />
-    <Icon size={30} name={IconName.Telegram} />
+    <a href='https://Wa.me/79661113322'>
+      <Icon size={30} name={IconName.Whatsapp} />
+    </a>
+    <a href='https://www.instagram.com/ramster_shop'><Icon size={30} name={IconName.Insta} /></a>
+    <a href='https://t.me/Ramster_shop'> <Icon size={30} name={IconName.Telegram} /></a>
   </div>
 }

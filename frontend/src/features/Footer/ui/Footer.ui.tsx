@@ -1,8 +1,9 @@
-import { redirect, useNavigate } from 'react-router-dom'
+import { redirect } from 'react-router-dom'
 import { Routes } from '../../../shared/routes'
 import cn from './Footer.module.scss'
-import { Icon, IconName, Logo } from '../../../shared/ui'
+import { Logo } from '../../../shared/ui'
 import { Socials } from '../../../entities/Socials'
+import { observer } from 'mobx-react-lite'
 
 interface Cell {
   label: string,
@@ -73,13 +74,10 @@ const FooterBlock = ({
   )
 }
 
-export const Footer = () => {
+export const Footer = observer(() => {
   return <footer className={cn.wrapper}>
     <div className={cn.footerTop}>
       <div className={cn.about}>
-        <div className={cn.brandsVisible}>
-          <FooterBlock header='Разделы' columns={columnBrands} />
-        </div>
         <FooterBlock header='Информация' columns={INFORMATION} />
       </div>
 
@@ -95,4 +93,4 @@ export const Footer = () => {
       <span className={cn.rights}>© 2023 Ramster Shop. All Rights Reserved</span>
     </div>
   </footer>
-}
+})

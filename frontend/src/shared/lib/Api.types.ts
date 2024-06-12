@@ -9,6 +9,12 @@ export enum SortOrder {
   CREATED = "CREATED",
 }
 
+interface BaseGetProductsParams {
+  limit: number
+  offset: number
+  ordered: SortOrder
+}
+
 export interface Banner {
   id: number,
   name: string
@@ -21,21 +27,31 @@ export interface Product {
   brand: string,
   min_price: number,
   sizes: string[]
-  photo1_url: URL
+  photo1_url: string
 }
 
-export interface ProductsSearchParams {
-  limit: number
-  offset: number
-  ordered: SortOrder
+export interface ProductsSearchParams extends BaseGetProductsParams {
   category_id: number
 }
 
-export interface ProductsInCategoryParams extends Omit<ProductsSearchParams, 'category_id'> {
+export interface ProductsInCategoryParams extends BaseGetProductsParams {
   cname: string
+}
+
+export interface SearchProductsParams extends BaseGetProductsParams {
+  search: string
 }
 
 export interface ProductResponse {
   total_count: number,
   products: Product[]
+}
+
+
+export interface MakeOrderBody {
+  name: string,
+  surname: string,
+  phone: string,
+  mail: string,
+  products_id: number[]
 }

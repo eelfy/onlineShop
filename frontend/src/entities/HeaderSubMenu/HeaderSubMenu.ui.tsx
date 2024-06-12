@@ -5,11 +5,11 @@ import { HeaderBrandText } from '../HeaderBrandText';
 import { SubCategories } from '../../shared/lib';
 
 interface HeaderSubMenuProps {
-  items: [string, SubCategories | number][];
+  items: [string, SubCategories][] | [string, number][];
   isVisible: boolean,
   style?: CSSProperties,
   className?: string
-  onBrandClick: (arg: SubCategories | number) => void
+  onBrandClick: (arg: SubCategories | [string, number]) => void
 }
 
 export const HeaderSubMenu = ({ isVisible, items, style, className, onBrandClick }: HeaderSubMenuProps) => {
@@ -18,7 +18,13 @@ export const HeaderSubMenu = ({ isVisible, items, style, className, onBrandClick
 
     <div className={cn.subHeaderNavigation}>
       {items.map(([key, value], index) => {
-        return <HeaderBrandText onClick={() => onBrandClick(value)} key={index}>{key}</HeaderBrandText>
+        const onBrandClickHandler = () => {
+          if (typeof value === 'number') {
+            return onBrandClick([key, value])
+          }
+          return onBrandClick(value)
+        }
+        return <HeaderBrandText onClick={onBrandClickHandler} key={index}>{key}</HeaderBrandText>
       })}
     </div>
 
