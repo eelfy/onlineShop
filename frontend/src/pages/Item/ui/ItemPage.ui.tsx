@@ -19,6 +19,7 @@ import { useStore } from "../../../entities/Store";
 import { ItemPreview } from "../../../features/ItemPreview";
 import { useBoolean } from "usehooks-ts";
 import { OneClickModal } from "../../../features/OneClickModal";
+import toast, { Toaster } from "react-hot-toast";
 
 export const ItemPage = observer(() => {
   const { MainStore: { updateCardCount, cardCount } } = useStore()
@@ -62,7 +63,9 @@ export const ItemPage = observer(() => {
   const isAddToCardButtonDisabled = (isHaveSize && activeSize === '') || !product
 
   const onAddToCard = () => {
-    if (isAddToCardButtonDisabled) return
+    if (isAddToCardButtonDisabled) {
+      return toast.error('Выберите размер')
+    }
 
     let newItems: CacheProduct[] = []
 
@@ -76,6 +79,7 @@ export const ItemPage = observer(() => {
       price: product.min_price
     }
 
+    // картошка если продукт уже в корзине не нужно добавлять
     if (
       oldItems
       && !oldItems.find(old => old.id === newItem.id && old.size === newItem.size)
@@ -83,6 +87,7 @@ export const ItemPage = observer(() => {
 
     newItems.push(newItem)
 
+    toast.success('Продукт добавлен в корзину')
     const newCount = cardCount ? cardCount + 1 : 1
     updateCardCount(newCount)
     CardCache.setItem(newItems)
@@ -97,6 +102,7 @@ export const ItemPage = observer(() => {
   ]
   return (
     <>
+      <Toaster />
       <OneClickModal product={product} isOpen={isModalOpen} closeModal={closeModal} />
 
       <div className={cn.wrapper}>
@@ -128,7 +134,7 @@ export const ItemPage = observer(() => {
 
 
           <div className={cn.buttons}>
-            <Button onClick={onAddToCard} text="Добавить в корзину" isDisabled={isAddToCardButtonDisabled} />
+            <Button onClick={onAddToCard} text="Добавить в корзину" />
             <Button
               onClick={openModal}
               type={ButtonType.Dark}
