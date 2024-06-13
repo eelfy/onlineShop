@@ -1,7 +1,7 @@
 import { Banner, Categories, MakeOrderBody, Product, ProductResponse, ProductsInCategoryParams, ProductsSearchParams, SearchProductsParams } from "../lib/Api.types"
 
 export const ApiUrl = import.meta.env.VITE_API
-
+console.log('ApiUrl', ApiUrl)
 export const Api = {
   getProducts(params: ProductsSearchParams): Promise<ProductResponse> {
     // @ts-expect-error hmf
