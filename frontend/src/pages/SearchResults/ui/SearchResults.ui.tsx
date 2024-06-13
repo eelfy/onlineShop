@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom"
 import { Search, SearchSize } from "../../../entities/Search"
-import { StuffList } from "../../../features/StuffList"
-import { ProductResponse, SortOrder, noop } from "../../../shared/lib"
+import { ProductResponse, SortOrder } from "../../../shared/lib"
 import cn from './SearchResults.module.scss'
 import { useEffect, useState } from "react"
 import { Api } from "../../../shared/api/Api"
-import { NotFound } from "../../../entities/NotFound"
 import { ProductListWrapper } from "../../../features/ProductListWrapper"
 
 const limit = 30

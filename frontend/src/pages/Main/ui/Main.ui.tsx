@@ -13,7 +13,7 @@ export const Main = observer(() => {
       <MainPageSlider />
     </div>
 
-    {categories && Object.entries(categories).map(([key, value], index) => {
+    {categories && Object.entries(categories).map(([key], index) => {
       return <MainPageSection title={key} key={index} />
     })}
   </div>

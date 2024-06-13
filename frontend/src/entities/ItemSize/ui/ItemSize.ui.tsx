@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import cn from './ItemSize.module.scss'
-import { ItemSizeOption } from '../../../shared/lib'
 
 interface ItemSizeProps {
   name: string;

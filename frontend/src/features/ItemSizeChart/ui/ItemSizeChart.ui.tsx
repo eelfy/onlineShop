@@ -1,5 +1,4 @@
 import { ItemSize } from '../../../entities/ItemSize';
-import { ItemSizeOption } from '../../../shared/lib'
 import cn from './ItemSizeChart.module.scss'
 
 interface ItemSizeChartProps {
