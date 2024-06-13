@@ -8,7 +8,7 @@ import cn from './Header.module.scss'
 import classNames from "classnames"
 import { SearchSize } from "../../entities/Search"
 import { MOBILE_QUERY } from "../../shared/config"
-import { Categories, SubCategories, noop } from "../../shared/lib"
+import { Categories, SubCategories } from "../../shared/lib"
 import { HeaderSubMenu } from "../../entities/HeaderSubMenu"
 import { HeaderBrandText } from "../../entities/HeaderBrandText"
 
@@ -17,6 +17,8 @@ import { useStore } from "../../entities/Store"
 import { useNavigate } from "react-router-dom"
 import { Routes } from "../../shared/routes"
 import { CardIcon } from "../../entities/CardIcon"
+
+const MAX_HEADER_ELEMENTS = 5
 
 export const Header = observer(() => {
   const navigate = useNavigate()
@@ -81,7 +83,7 @@ export const Header = observer(() => {
 
   const renderSubMenu = (categories: Categories) => {
 
-    const entries = Object.entries(categories).slice(7)
+    const entries = Object.entries(categories).slice(MAX_HEADER_ELEMENTS)
     return <HeaderSubMenu style={{ top: '110px' }} isVisible={isSubHeaderVisible}
       // @ts-expect-error len
       onBrandClick={onUpdateSubCategory}
@@ -137,7 +139,7 @@ export const Header = observer(() => {
                     <BurgerButton isActive={isSubHeaderVisible} onClick={toggleSubHeaderVisible} />
                     <div className={cn.navigationButtons}>
                       {
-                        Object.entries(categories).slice(0, 7).map(([key, value], index) => {
+                        Object.entries(categories).slice(0, MAX_HEADER_ELEMENTS).map(([key, value], index) => {
                           return <HeaderBrandText
                             key={index}
                             onClickOutside={onBrandClickOutside}

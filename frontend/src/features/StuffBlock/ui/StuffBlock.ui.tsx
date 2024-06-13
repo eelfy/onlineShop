@@ -12,11 +12,12 @@ interface StuffBlockProps {
   size?: StuffBlockSize
   withDivider?: boolean
   imageUrl?: string
-  productId?: number
+  productId: number
 }
 
 const sizeToCn = {
   [StuffBlockSize.S]: cn.sizeS,
+  [StuffBlockSize.SM]: cn.sizeSM,
   [StuffBlockSize.M]: cn.sizeM,
   [StuffBlockSize.L]: cn.sizeL
 }
@@ -33,7 +34,7 @@ export const StuffBlock = (
   }: StuffBlockProps
 ) => {
   const navigate = useNavigate()
-  const onClickHandler = (e) => {
+  const onClickHandler = () => {
     navigate(`${Routes.Product}/${productId}`)
   }
 
@@ -60,6 +61,18 @@ export const StuffBlock = (
     </div>
 
     {withDivider && <div className={cn.divider}></div>}
+  </div>
+
+  if (size === StuffBlockSize.SM) return <div className={cn.dividerWrapper} onClick={onClickHandler}>
+    <div className={cn.wrapperL}>
+      <div className={cn.left}>
+        {renderImage()}
+        <div className={cn.field}>
+          <span className={cn.name}>{name} {description}</span>
+          <span className={cn.right}>От {price}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   return <div className={cn.wrapper} onClick={onClickHandler}>

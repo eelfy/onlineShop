@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Brand />
       },
       {
-        path: `${Routes.Category}/:categoryName`, // /category/Kaws(id)
+        path: `${Routes.Category}/:categoryName`, // /category/Kaws.id
         element: <CategoryPage />
       },
       {
