@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import './index.module.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Main } from './pages/Main'
 import { Error } from './pages/Error'
@@ -11,6 +10,8 @@ import { SearchResults } from './pages/SearchResults'
 import { ItemPage } from './pages/Item'
 import { BagPage } from './pages/BagPage'
 import { CategoryPage } from './pages/CategoryPage'
+
+import './index.css'
 
 // картошка добавить страницу ошибки
 
