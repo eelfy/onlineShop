@@ -3,6 +3,7 @@ import { StuffBlockSize } from '../lib/StuffBlock.types';
 import cn from './StuffBlock.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../../shared/routes';
+import { ImageId, getImageUrlForBackground } from '../../../shared/lib';
 
 interface StuffBlockProps {
   name: string;
@@ -11,7 +12,7 @@ interface StuffBlockProps {
   stuffSize?: string;
   size?: StuffBlockSize
   withDivider?: boolean
-  imageUrl?: string
+  imageId: ImageId
   productId: number
 }
 
@@ -30,7 +31,7 @@ export const StuffBlock = (
     stuffSize,
     size = StuffBlockSize.M,
     withDivider,
-    imageUrl, productId
+    imageId, productId
   }: StuffBlockProps
 ) => {
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ export const StuffBlock = (
   const renderImage = () => {
     return (
       <div style={{
-        backgroundImage: `url(${imageUrl})`
+        backgroundImage: getImageUrlForBackground(imageId)
       }} className={classNames(cn.image, sizeToCn[size])}></div>
     )
   }

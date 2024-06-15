@@ -1,7 +1,7 @@
-import { Banner, Categories, MakeOrderBody, Product, ProductResponse, ProductsInCategoryParams, ProductsSearchParams, SearchProductsParams } from "../lib/Api.types"
+import { Banner, Categories, ImageId, MakeOrderBody, Product, ProductResponse, ProductsInCategoryParams, ProductsSearchParams, SearchProductsParams } from "../lib/Api.types"
 
 export const ApiUrl = import.meta.env.VITE_API
-console.log('ApiUrl', ApiUrl)
+
 export const Api = {
   getProducts(params: ProductsSearchParams): Promise<ProductResponse> {
     // @ts-expect-error hmf
@@ -48,5 +48,9 @@ export const Api = {
     const search = new URLSearchParams(params)
 
     return fetch(`${ApiUrl}/search?${search}`).then(r => r.json())
+  },
+
+  getImageUrl(id: ImageId) {
+    return `${ApiUrl}/photo/${id}`
   }
 } 

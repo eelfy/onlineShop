@@ -39,7 +39,7 @@ export const OrderForm = ({
 }: OrderFormProps) => {
   return <div className={cn.form}>
     <Input value={name} onChange={setName} label='Имя' />
-    <Input value={number} onChange={setNumber} label='Номер телефона' />
+    <Input maxLength={11} value={number} onChange={setNumber} label='Номер телефона' />
     <Input value={email} onChange={setEmail} label='E-mail' />
 
     <div>

@@ -20,7 +20,6 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
   const [products, setProducts] = useState<Product[]>()
 
   useEffect(() => {
-
     Api.getProductsInCategory({
       cname,
       limit: 15,
@@ -75,8 +74,14 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
         // slidesToSlide={5}
         swipeable
       >
-        {products.map(({ name, brand, min_price, photo1_url, id }, index) => {
-          return <StuffBlock productId={id} name={brand} description={name} price={String(min_price)} imageUrl={photo1_url} key={index} />
+        {products.map(({ name, brand, min_price, images, id }, index) => {
+          return <StuffBlock
+            productId={id}
+            name={brand}
+            description={name}
+            price={String(min_price)}
+            imageId={images[0]}
+            key={index} />
         })}
       </Carousel>
     </div>

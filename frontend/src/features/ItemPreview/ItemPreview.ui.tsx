@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import cn from './ItemPreview.module.scss'
 import classNames from 'classnames';
+import { ImageId, Product, getImageUrlForBackground } from '../../shared/lib';
 
 interface ItemPreviewProps {
-  images: string[]
-  activeImage: string
+  images: Product['images']
+  activeImage: ImageId
 }
 
 export const ItemPreview = ({ images, activeImage }: ItemPreviewProps) => {
@@ -13,7 +14,7 @@ export const ItemPreview = ({ images, activeImage }: ItemPreviewProps) => {
   return <div className={cn.wrapper}>
     <div
       style={{
-        backgroundImage: `url(${active})`
+        backgroundImage: getImageUrlForBackground(active)
       }}
       className={cn.bigImage} />
 
@@ -25,7 +26,7 @@ export const ItemPreview = ({ images, activeImage }: ItemPreviewProps) => {
             onClick={() => setActive(image)}
             key={index}
             style={{
-              backgroundImage: `url(${image})`
+              backgroundImage: getImageUrlForBackground(image)
             }}
             className={classNames(
               cn.image,

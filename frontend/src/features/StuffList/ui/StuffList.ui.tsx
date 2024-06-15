@@ -1,85 +1,74 @@
 import { useRef, useState } from "react"
 import { Pagination } from "../../../entities/Pagination"
 import { Sort } from "../../../entities/Sort"
-import { ProductResponse, SortOption, SortOrder } from "../../../shared/lib"
+import { BaseGetProductsParams, ProductResponse, SortOption, SortOrder } from "../../../shared/lib"
 import { StuffBlock } from "../../StuffBlock"
 
 import cn from './StuffList.module.scss'
-import { Api } from "../../../shared/api/Api"
-import { useParams } from "react-router-dom"
+import { CustomSort } from "../StuffList.types"
 
 const OPTIONS: SortOption[] = [
   { title: 'Новинки', value: SortOrder.CREATED },
-  { title: 'По убыванию цены', value: SortOrder.PRICE_ASC },
-  { title: 'По возрастанию цены', value: SortOrder.PRICE_DESC }
+  { title: 'По убыванию цены', value: SortOrder.PRICE_DESC },
+  { title: 'По возрастанию цены', value: SortOrder.PRICE_ASC }
 ]
 
-export const StuffList = ({ products, setProducts, limit }: {
+interface StuffListProps {
   products: ProductResponse,
-  setProducts: (prod: ProductResponse) => void
-  limit: number
-}) => {
-  const { brandName } = useParams()
-  const [activeSort, setActiveSort] = useState<SortOrder>(SortOrder.CREATED)
+  updateProducts: (params: BaseGetProductsParams) => void
+  limit: number,
+  customSort?: CustomSort
+}
+
+export const StuffList = ({ products, updateProducts, limit, customSort }: StuffListProps) => {
+  const [activeSort, setActiveSort] = useState<SortOrder>(customSort?.active ?? SortOrder.CREATED)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const ref = useRef<HTMLDivElement>(null)
 
-
-  const onUpdateSort = (sort: SortOption['value']) => {
+  const onUpdateSort = (sort: SortOrder) => {
     setActiveSort(sort)
 
-    if (!brandName) return;
-
-    setCurrentPage(1)
-
-    Api.getProductsInCategory({
-      cname: brandName,
+    if (customSort) {
+      return customSort.update(sort)
+    }
+    updateProducts({
       limit,
       offset: 0,
       ordered: sort
-    }).then((products) => {
-      setProducts(products)
     })
   }
 
-  const smoothScroll = () => ref.current?.scrollIntoView({ behavior: "smooth" })
+  const scrollToTop = () => ref.current?.scrollIntoView()
 
-  const onPaginationNext = () => {
-    if (!brandName || !products) return;
+  const lastPage = Math.ceil(products.total_count / limit)
 
-    const page = currentPage === (products.total_count / limit) - 1
-      ? products.total_count
-      : currentPage + 1
+  const updatePagination = (page: number) => {
+    if (page === currentPage) return
 
     setCurrentPage(page)
 
-    Api.getProductsInCategory({
-      offset: page * limit + 1,
-      cname: brandName,
+    updateProducts({
+      offset: page * products.total_count % limit,
       limit,
       ordered: activeSort
-    }).then((products) => {
-      setProducts(products)
-      smoothScroll()
     })
+    scrollToTop()
+  }
+
+  const onPaginationNext = () => {
+    if (!products) return;
+    const page = currentPage >= lastPage - 1
+      ? lastPage
+      : currentPage + 1
+
+    updatePagination(page)
   }
 
   const onPaginationPrev = () => {
-    if (!brandName) return;
+    const page = currentPage <= 2 ? 1 : currentPage - 1
 
-    const page = currentPage === 2 ? 1 : currentPage - 1
-    setCurrentPage(page)
-
-    Api.getProductsInCategory({
-      offset: page * limit + 1,
-      cname: brandName,
-      limit,
-      ordered: activeSort
-    }).then((products) => {
-      setProducts(products)
-      smoothScroll()
-    })
+    updatePagination(page)
   }
 
 
@@ -94,12 +83,13 @@ export const StuffList = ({ products, setProducts, limit }: {
           name={product.brand}
           description={product.name}
           price={String(product.min_price)}
-          imageUrl={product.photo1_url}
+          imageId={product.images[0]}
           productId={product.id}
+          key={product.id}
         />
       })}
     </div>
 
-    <Pagination onNext={onPaginationNext} onPrev={onPaginationPrev} current={currentPage} total={Math.ceil(products.total_count / limit)} />
+    <Pagination onNext={onPaginationNext} onPrev={onPaginationPrev} current={currentPage} total={lastPage} />
   </div>
 }

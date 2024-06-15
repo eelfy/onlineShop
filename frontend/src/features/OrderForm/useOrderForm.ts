@@ -20,6 +20,10 @@ export const useOrderForm = () => {
   const [number, setNumber] = useState(INPUT_DEFAULT)
   const [email, setEmail] = useState(INPUT_DEFAULT)
 
+  const updateNumber = (value: string) => {
+    setNumber(value.replace(/[^0-9]/g, ''))
+  }
+
   const isDisabled = isValueWrong(name)
     || isValueWrong(number)
     || isValueWrong(email)
@@ -48,7 +52,7 @@ export const useOrderForm = () => {
     social,
     isDisabled,
     setName,
-    setNumber,
+    setNumber: updateNumber,
     setEmail,
     setSocial,
     setRules,

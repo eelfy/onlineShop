@@ -35,9 +35,8 @@ export const BagPage = () => {
       <div className={cn.lastPart}>
         <div className={cn.products}>
           {cacheItems.map((item, index, arr) => {
-            const lastElem = arr.at(-1)
             return <StuffBlock
-              imageUrl={item.image}
+              imageId={item.image}
               name={item.brand}
               description={item.name}
               price={String(item.price)}
@@ -45,7 +44,7 @@ export const BagPage = () => {
               stuffSize={item.size}
               key={index}
               productId={item.id}
-              withDivider={!(lastElem?.id === item.id && lastElem?.size === item.size)}
+              withDivider={arr.length !== index + 1}
             />
           })}
         </div>

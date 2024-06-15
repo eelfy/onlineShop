@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom"
 import { Search, SearchSize } from "../../../entities/Search"
-import { ProductResponse, SortOrder } from "../../../shared/lib"
+import { BaseGetProductsParams, ProductResponse, SortOrder } from "../../../shared/lib"
 import cn from './SearchResults.module.scss'
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Api } from "../../../shared/api/Api"
 import { ProductListWrapper } from "../../../features/ProductListWrapper"
+import { CustomSort } from "../../../features/StuffList"
 
 const limit = 30
 
@@ -12,32 +13,46 @@ export const SearchResults = () => {
   const { text } = useParams()
   const [searchValue, setSearchValue] = useState(text ?? '');
   const [products, setProducts] = useState<ProductResponse>()
-  console.log('products: ', products);
+  const [sort, setSort] = useState(SortOrder.CREATED)
+
+  const updateProducts = useCallback((params: BaseGetProductsParams) => {
+    Api.getSearch({
+      ...params,
+      query: searchValue,
+    }).then(products => {
+      setProducts(products)
+    })
+  }, [searchValue])
+
 
   useEffect(() => {
-    if (!text) return;
-
-    Api.getSearch({
-      search: text,
+    updateProducts({
       limit,
       offset: 0,
       ordered: SortOrder.CREATED
-    }).then((products) => {
-      setProducts(products)
     })
-  }, [text])
+  }, [])
 
   const onSearch = () => {
     if (!searchValue.trim().length) return
 
-    Api.getSearch({
-      search: searchValue,
+    updateProducts({
       limit,
       offset: 0,
-      ordered: SortOrder.CREATED
-    }).then((products) => {
-      setProducts(products)
+      ordered: sort
     })
+  }
+
+  const customSort: CustomSort = {
+    active: sort,
+    update: (sort) => {
+      setSort(sort)
+      updateProducts({
+        limit,
+        offset: 0,
+        ordered: sort
+      })
+    }
   }
 
   return <div className={cn.wrapper}>
@@ -48,6 +63,11 @@ export const SearchResults = () => {
         setValue={setSearchValue}
         size={SearchSize.M} onSearch={onSearch} />
     </div>
-    <ProductListWrapper products={products} setProducts={setProducts} limit={limit} />
+    <ProductListWrapper
+      customSort={customSort}
+      products={products}
+      updateProducts={updateProducts}
+      limit={limit}
+    />
   </div>
 }

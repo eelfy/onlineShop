@@ -56,30 +56,25 @@ export const Header = observer(() => {
     setSearchValue('')
   }
 
-  const onFocusBackgroundClick = () => {
+  const onCloseAllNavigate = () => {
     setIsSubHeaderVisible(false)
     setIsBurgerMenuVisible(false)
     closeSubBrand()
+    changeModeToNavigation()
   }
 
-  const onBrandClickOutside = () => {
-    // closeSubBrand()
-  }
   const onUpdateSubCategory = (subCategories: SubCategories) => {
     setSubCategories(subCategories)
     openSubBrand()
   }
 
   const onRedirectToBrand = ([brand, id]: [string, number]) => {
-    console.log('id: ', id);
+    onCloseAllNavigate()
     navigate(`${Routes.Category}/${brand}.${id}`)
   }
 
   const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
   const isMobileModeSearch = isSearchMode && isMobile
-
-
-  console.log('categories: ', categories);
 
   const renderSubMenu = (categories: Categories) => {
 
@@ -102,7 +97,7 @@ export const Header = observer(() => {
 
   const onSearch = () => {
     if (searchValue.trim() === '') return
-
+    onCloseAllNavigate()
     navigate(`${Routes.Search}/${searchValue}`)
   }
 
@@ -142,7 +137,6 @@ export const Header = observer(() => {
                         Object.entries(categories).slice(0, MAX_HEADER_ELEMENTS).map(([key, value], index) => {
                           return <HeaderBrandText
                             key={index}
-                            onClickOutside={onBrandClickOutside}
                             onClick={() => onUpdateSubCategory(value)}>
                             {key}
                           </HeaderBrandText>
@@ -183,7 +177,7 @@ export const Header = observer(() => {
         <AnimatedToggleElements
           isFirst={isFocusBackgroundVisible}
           first={<div
-            onClick={onFocusBackgroundClick}
+            onClick={onCloseAllNavigate}
             className={cn.focusBackground}
           />}
         />
@@ -191,242 +185,7 @@ export const Header = observer(() => {
     }
 
     <div className={classNames(cn.burgerMenu, isBurgerMenuVisible && cn.visible)}>
-      <BurgerMenu items={[
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-        {
-          name: 'Adidas',
-
-          items: [{
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          }, {
-            name: 'Adidas',
-          },
-          ]
-        },
-      ]} />
+      <BurgerMenu items={categories} onCloseAllNavigate={onCloseAllNavigate} />
     </div>
   </>
 })

@@ -1,22 +1,27 @@
-import { ProductResponse } from "../../shared/lib"
+import { BaseGetProductsParams, ProductResponse } from "../../shared/lib"
 import { NotFound } from "../../entities/NotFound"
-import { StuffList } from "../StuffList"
+import { CustomSort, StuffList } from "../StuffList"
+
+interface ProductListWrapperProps {
+  limit: number
+  updateProducts: (params: BaseGetProductsParams) => void,
+  products?: ProductResponse;
+  customSort?: CustomSort
+}
 
 export const ProductListWrapper = ({
-  setProducts,
+  updateProducts,
   products,
-  limit
-}: {
-  limit: number
-  setProducts: (products: ProductResponse) => void,
-  products?: ProductResponse
-}) => {
-  return products && Boolean(products.products.length)
+  limit,
+  customSort
+}: ProductListWrapperProps) => {
+
+  return products && Boolean(products?.products?.length)
     ? <StuffList
       limit={limit}
       products={products}
-      setProducts={setProducts}
+      updateProducts={updateProducts}
+      customSort={customSort}
     />
     : <NotFound />
-
 }

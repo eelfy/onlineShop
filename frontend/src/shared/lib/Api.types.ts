@@ -9,7 +9,7 @@ export enum SortOrder {
   CREATED = "CREATED",
 }
 
-interface BaseGetProductsParams {
+export interface BaseGetProductsParams {
   limit: number
   offset: number
   ordered: SortOrder
@@ -20,6 +20,8 @@ export interface Banner {
   name: string
 }
 
+export type ImageId = number
+
 export interface Product {
   id: number
   category_id: number,
@@ -27,7 +29,7 @@ export interface Product {
   brand: string,
   min_price: number,
   sizes: string[]
-  photo1_url: string
+  images: ImageId[]
 }
 
 export interface ProductsSearchParams extends BaseGetProductsParams {
@@ -39,7 +41,7 @@ export interface ProductsInCategoryParams extends BaseGetProductsParams {
 }
 
 export interface SearchProductsParams extends BaseGetProductsParams {
-  search: string
+  query: string
 }
 
 export interface ProductResponse {

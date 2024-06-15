@@ -13,8 +13,6 @@ import { CategoryPage } from './pages/CategoryPage'
 
 import './index.css'
 
-// картошка добавить страницу ошибки
-
 const router = createBrowserRouter([
   {
     path: '/',

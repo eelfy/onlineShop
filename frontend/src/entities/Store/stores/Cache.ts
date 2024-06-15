@@ -8,7 +8,7 @@ class Cache<T> {
   }
 
   getItems = (): T | null => {
-    const rawCache = localStorage.getItem(this.cacheId)
+    const rawCache = sessionStorage.getItem(this.cacheId)
 
     if (!rawCache) return null
 
@@ -16,7 +16,7 @@ class Cache<T> {
   }
 
   setItem = (newItems: T) => {
-    localStorage.setItem(this.cacheId, JSON.stringify(newItems))
+    sessionStorage.setItem(this.cacheId, JSON.stringify(newItems))
   }
 }
 

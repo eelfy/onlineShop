@@ -35,7 +35,7 @@ export const OneClickModal = ({ isOpen, closeModal, product }: OneClickModalProp
             name={product.brand}
             description={product.name}
             price={String(product.min_price)}
-            imageUrl={product.photo1_url}
+            imageId={product.images[0]}
             productId={product.id}
           />
         </div>

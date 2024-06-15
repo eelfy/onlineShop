@@ -14,7 +14,6 @@ export const Checkbox = ({ checkboxes, name, checked, onChangeChecked }: Checkbo
     const alreadyChecked = checked?.includes(id)
 
     let newChecked: CheckboxOption['id'][] = [...checked]
-    debugger
     if (alreadyChecked) {
       newChecked = newChecked.filter(el => el !== id)
     } else {

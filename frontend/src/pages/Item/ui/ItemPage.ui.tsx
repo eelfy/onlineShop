@@ -75,15 +75,11 @@ export const ItemPage = observer(() => {
       name: product.name,
       brand: product.brand,
       id: product.id,
-      image: product.photo1_url,
+      image: product.images[0],
       price: product.min_price
     }
 
-    // картошка если продукт уже в корзине не нужно добавлять
-    if (
-      oldItems
-      && !oldItems.find(old => old.id === newItem.id && old.size === newItem.size)
-    ) newItems = [...oldItems]
+    if (oldItems) newItems = [...oldItems]
 
     newItems.push(newItem)
 
@@ -92,14 +88,7 @@ export const ItemPage = observer(() => {
     updateCardCount(newCount)
     CardCache.setItem(newItems)
   }
-  const productsImage = [
-    product.photo1_url,
-    "https://thesortage.com/cdn/shop/files/IMG_8820.jpg",
-    "https://thesortage.com/cdn/shop/files/Photoroom-20240307_212746_3.png",
-    "https://thesortage.com/cdn/shop/files/IMG_3183.jpg",
-    "https://thesortage.com/cdn/shop/files/IMG_1742.jpg",
-    "https://thesortage.com/cdn/shop/files/IMG_6308.jpg"
-  ]
+  const productsImage = product.images
   return (
     <>
       <Toaster />
@@ -110,7 +99,6 @@ export const ItemPage = observer(() => {
           <HistoryLegend options={LEGEND} />
           <div className={cn.itemImages}>
             <ItemPreview
-
               images={productsImage}
               activeImage={productsImage[0]} />
           </div>
