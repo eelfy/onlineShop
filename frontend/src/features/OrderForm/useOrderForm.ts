@@ -3,6 +3,7 @@ import { Api } from "../../shared/api/Api"
 import { CheckboxOption } from "../../shared/ui/Checkbox/Checkbox.types"
 import { RadioOption } from "../../shared/ui/Radio"
 import { CardCache } from "../../entities/Store"
+import toast from "react-hot-toast"
 
 const INPUT_DEFAULT = ''
 const SOCIAL_DEFAULT: RadioOption['id'] | undefined = undefined
@@ -25,10 +26,12 @@ export const useOrderForm = () => {
   }
 
   const isDisabled = isValueWrong(name)
-    || isValueWrong(number)
+    || (isValueWrong(number) || number.length !== 11)
     || isValueWrong(email)
     || social === undefined
     || rules.length !== 2
+
+  console.log('hm: ', isValueWrong(number) && number.length !== 11);
 
   const onMakeOrder = () => {
     Api.makeOrder({
@@ -38,6 +41,8 @@ export const useOrderForm = () => {
       mail: email,
       products_id: cacheItems.map(item => item.id)
     }).then(() => {
+      toast.success('Заявка отправлена!\n С Вами свяжется менеджер')
+
       setName(INPUT_DEFAULT)
       setNumber(INPUT_DEFAULT)
       setEmail(INPUT_DEFAULT)

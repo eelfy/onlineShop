@@ -1,0 +1,28 @@
+ol {
+  counter-reset: section; /* Вновь сбрасываем счетчик */
+  list-style-type: none; /* Отключаем стандартные маркеры списка */
+}
+
+li {
+  display: table-row; /* Каждый элемент списка представляем как строку таблицы */
+  counter-increment: section;
+}
+
+li::before {
+  display: table-cell; /* Создание псевдо-элемента как ячейки таблицы */
+  text-align: right; /* Выравнивание текста по правому краю */
+  padding-right: 10px; /* Отступ от правого края */
+  content: counters(section, ".") ". "; /* Вывод номера, учитывающего иерархию */
+}
+
+.title {
+ & span { 
+  font-size: 24px;
+  font-weight: 600;
+ }
+
+  & + li::before {
+    font-size: 24px;
+    font-weight: 600;
+  }
+}

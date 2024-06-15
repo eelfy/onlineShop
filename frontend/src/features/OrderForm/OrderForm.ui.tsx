@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import { Button } from '../../shared/ui/Button'
 import { CheckboxOption } from '../../shared/ui/Checkbox/Checkbox.types'
 import { Checkbox } from '../../shared/ui/Checkbox/Checkbox.ui'
@@ -63,4 +64,5 @@ export const OrderForm = ({
 
     {showButton && <Button isDisabled={isDisabled} text='Свяжитесь со мной' onClick={onMakeOrder} />}
   </div>
+
 }

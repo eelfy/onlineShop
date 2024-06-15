@@ -10,6 +10,7 @@ import { SearchResults } from './pages/SearchResults'
 import { ItemPage } from './pages/Item'
 import { BagPage } from './pages/BagPage'
 import { CategoryPage } from './pages/CategoryPage'
+import { TermsPage } from './pages/TermsPage'
 
 import './index.css'
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: Routes.Bag,
         element: <BagPage />
+      },
+      {
+        path: Routes.Terms,
+        element: <TermsPage />
       }
     ]
   }

@@ -31,6 +31,8 @@
 }
 
 .products {
+  max-height: 400px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   gap: 15px;
