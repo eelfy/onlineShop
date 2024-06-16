@@ -6,9 +6,12 @@
 
   display: flex;
   flex-direction: column;
-  padding: 30px 20px;
 
-  gap: 70px;
+  padding-bottom: 30px;
+  padding-inline: 20px;
+
+  gap: 30px;
+  justify-content: space-between;
 
   text-transform: uppercase;
 }
@@ -30,6 +33,7 @@
 }
 
 .item {
+  margin-top: 35px;
   display: flex;
   flex-direction: column;
   .parent {
@@ -52,14 +56,13 @@
   transition: line-height 0.2s, color 0.2s, max-height 0.2s;
 
   margin-left: 20px;
-  margin-bottom: 35px;
 
   &.open {
     line-height: 1.5;
     max-height: 200px;
     color: currentColor;
     margin-top: 35px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     overflow: auto;
   }
 }
