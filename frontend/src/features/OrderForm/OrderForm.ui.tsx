@@ -5,6 +5,7 @@ import { Input } from '../../shared/ui/Input'
 import { Radio, RadioOption } from '../../shared/ui/Radio'
 
 import cn from './OrderForm.module.scss'
+import { FORM_CHECKBOXES, FORM_RADIOS } from './OrederForm.config'
 
 interface OrderFormProps {
   name: string
@@ -44,22 +45,10 @@ export const OrderForm = ({
 
     <div>
       <span>Как с вами связаться?</span>
-      <Radio radios={[{
-        label: "WhatsApp",
-        id: 1,
-      }, {
-        label: "Telegram",
-        id: 2
-      },]} checked={social} name={'contact'} onChangeChecked={setSocial} />
+      <Radio radios={FORM_RADIOS} checked={social} name={'contact'} onChangeChecked={setSocial} />
     </div>
 
-    <Checkbox checkboxes={[{
-      label: "Я даю согласие на обработку персональных данных",
-      id: 1,
-    }, {
-      label: "Я ознакомлен и согласен с условиями оферты и политики конфиденциальности",
-      id: 2
-    },]} checked={rules} name={'rules'} onChangeChecked={setRules} />
+    <Checkbox checkboxes={FORM_CHECKBOXES} checked={rules} name={'rules'} onChangeChecked={setRules} />
 
     {showButton && <Button isDisabled={isDisabled} text='Свяжитесь со мной' onClick={onMakeOrder} />}
   </div>

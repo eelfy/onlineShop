@@ -4,6 +4,7 @@ import { CheckboxOption } from "../../shared/ui/Checkbox/Checkbox.types"
 import { RadioOption } from "../../shared/ui/Radio"
 import { CardCache } from "../../entities/Store"
 import toast from "react-hot-toast"
+import { FORM_RADIOS } from "./OrederForm.config"
 
 const INPUT_DEFAULT = ''
 const SOCIAL_DEFAULT: RadioOption['id'] | undefined = undefined
@@ -39,6 +40,7 @@ export const useOrderForm = () => {
       surname: name,
       phone: number,
       mail: email,
+      messanger_name: FORM_RADIOS.find(el => el.id === social)?.label ?? '',
       products_id: cacheItems.map(item => item.id)
     }).then(() => {
       toast.success('Заявка отправлена!\n С Вами свяжется менеджер')

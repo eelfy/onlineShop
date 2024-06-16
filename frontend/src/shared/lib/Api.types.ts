@@ -55,5 +55,6 @@ export interface MakeOrderBody {
   surname: string,
   phone: string,
   mail: string,
+  messanger_name: string,
   products_id: number[]
 }
