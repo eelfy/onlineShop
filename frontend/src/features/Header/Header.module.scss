@@ -1,3 +1,5 @@
+$MOBILE_HEADER_HEIGH: 80px;
+
 .wrapper {
   z-index: 10;
   position: fixed;
@@ -80,7 +82,7 @@
 .additionalButtons {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
 }
 
 .focusBackground {
@@ -110,6 +112,7 @@
     display: flex;
     flex-direction: row-reverse;
     padding: 20px;
+    height: $MOBILE_HEADER_HEIGH;
   }
 
   .navigation {
@@ -117,7 +120,9 @@
   }
 
   .burgerMobile {
-    display: block;
+    width: 70px;
+    display: flex;
+    justify-content: end;
   }
 
   .burgerMenu {
@@ -125,11 +130,11 @@
     z-index: 5;
     position: fixed;
     transition: all .5s;
-    top: 110px;
+    top: $MOBILE_HEADER_HEIGH;
     right: 0px;
     transform: translate3d(100%, 0px, 0px);
     width: 50vw;
-    height: calc(100% - 110px);
+    height: calc(100% - $MOBILE_HEADER_HEIGH);
     
 
     &.visible {
