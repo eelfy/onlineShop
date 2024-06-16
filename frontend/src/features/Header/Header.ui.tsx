@@ -152,9 +152,9 @@ export const Header = observer(() => {
 
           <div className={cn.additionalButtons}>
             {isSearchMode ? (
-              <Icon name={IconName.Cross} onClick={changeModeToNavigation} />
+              <Icon size={isMobile ? 20 : 25} name={IconName.Cross} onClick={changeModeToNavigation} />
             ) : (
-              <Icon name={IconName.Search} onClick={changeModeToSearch} />
+              <Icon size={isMobile ? 20 : 25} name={IconName.Search} onClick={changeModeToSearch} />
             )}
 
             <CardIcon />
