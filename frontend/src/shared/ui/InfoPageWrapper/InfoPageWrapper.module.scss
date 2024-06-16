@@ -14,3 +14,9 @@
   font-size: 40px;
   font-weight: 700;
 }
+
+@media (max-width: 1180px) {
+  .wrapper {
+    padding-inline: 0px
+  }
+}

@@ -1,0 +1,37 @@
+.ol {
+  counter-reset: section; 
+  list-style-type: none; 
+}
+
+.li {
+  display: table-row;
+  counter-increment: section;
+  
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.li::before {
+  display: table-cell; 
+  text-align: right; 
+  padding-right: 10px;
+  content: counters(section, ".") ". ";
+}
+
+.title {
+
+ & span { 
+  font-size: 24px;
+  font-weight: 600;
+ }
+ 
+  & > li::before {
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+.olChild {
+  margin-top: 14px;
+  margin-bottom: 50px;
+}
