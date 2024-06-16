@@ -25,7 +25,10 @@ export const OneClickModal = ({ isOpen, closeModal, product }: OneClickModalProp
       modal: cn.modalContainer
     }} open={isOpen} onClose={closeModal} center>
       <div className={cn.wrapper}>
-        <OrderForm {...orderParams} />
+        <OrderForm {...orderParams} onMakeOrder={() => {
+          orderParams.onMakeOrder()
+          closeModal()
+        }} />
 
         <div className={cn.divider} />
 

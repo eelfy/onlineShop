@@ -16,3 +16,9 @@
 
   row-gap: 50px;
 }
+
+@media (max-width: 1180px) {
+  .list {
+    gap: 30px;
+  }
+}

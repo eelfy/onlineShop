@@ -25,6 +25,12 @@ export const SearchResults = () => {
   }, [searchValue])
 
 
+
+  useEffect(() => {
+    if (!text) return
+    setSearchValue(text)
+  }, [text]);
+
   useEffect(() => {
     updateProducts({
       limit,

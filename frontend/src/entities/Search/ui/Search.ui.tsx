@@ -20,9 +20,16 @@ export const Search = ({
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onSearch()
+    }
+  }
+
   if (size === SearchSize.S) {
     return <div className={cn.wrapperS}>
-      <input value={value} onChange={onChangeHandler} className={cn.input} type='text' placeholder='Поиск' />
+      <input onKeyDown={onKeyDown} value={value} onChange={onChangeHandler} className={cn.input} type='text' placeholder='Поиск' />
 
       <div className={cn.icons}>
         <Icon name={IconName.Search} onClick={onSearch} />
@@ -33,7 +40,7 @@ export const Search = ({
 
   if (size === SearchSize.M) {
     return <div className={cn.wrapper}>
-      <input value={value} onChange={onChangeHandler} className={cn.input} type='text' placeholder='Поиск' />
+      <input onKeyDown={onKeyDown} value={value} onChange={onChangeHandler} className={cn.input} type='text' placeholder='Поиск' />
       <button className={cn.button} onClick={onSearch}>Найти</button>
     </div>
   }

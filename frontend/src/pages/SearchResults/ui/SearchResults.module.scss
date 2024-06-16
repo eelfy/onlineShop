@@ -14,3 +14,9 @@
   align-items: center;
   width: 100%;
 }
+
+@media (max-width: 1180px) {
+  .wrapper {
+    gap: 30px;
+  }
+}

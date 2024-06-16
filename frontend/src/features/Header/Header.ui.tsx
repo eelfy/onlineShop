@@ -38,17 +38,8 @@ export const Header = observer(() => {
 
   const [subCategories, setSubCategories] = useState<SubCategories>()
 
-  const toggleSubHeaderVisible = () => {
-    setIsSubHeaderVisible(prev => !prev)
-  }
-
   const toggleBurgerMenuVisible = () => {
     setIsBurgerMenuVisible(prev => !prev)
-  }
-
-  const changeModeToSearch = () => {
-    setIsSearchMode(true)
-    setIsSubHeaderVisible(false)
   }
 
   const changeModeToNavigation = () => {
@@ -61,6 +52,17 @@ export const Header = observer(() => {
     setIsBurgerMenuVisible(false)
     closeSubBrand()
     changeModeToNavigation()
+  }
+
+  const changeModeToSearch = () => {
+    onCloseAllNavigate()
+    setIsSearchMode(true)
+  }
+
+  const toggleSubHeaderVisible = () => {
+    setIsSubHeaderVisible(prev => !prev)
+
+    if (isSubBrandVisible) closeSubBrand()
   }
 
   const onUpdateSubCategory = (subCategories: SubCategories) => {

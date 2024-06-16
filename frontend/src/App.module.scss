@@ -1,5 +1,6 @@
 $headerHeigh: 110px;
 
+
 .wrapper {
   width: 100%;
   height: 100%;
@@ -14,8 +15,7 @@ $headerHeigh: 110px;
 
 @media (max-width: 1180px) {
   .content {
-    padding-top: calc(30px + $headerHeigh);
+    padding-top: calc(40px + 80px);
     padding-inline: 20px;
-
   }
 }

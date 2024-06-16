@@ -100,5 +100,13 @@
 .description {
   margin-top: 20px;
   font-weight: 400;
-  font-size: 15;
+  font-size: 15px;
+  display: block;
+  width: 278px;
+}
+
+@media (max-width: 1180px) {
+  .description {
+    width: 165px;
+  }
 }

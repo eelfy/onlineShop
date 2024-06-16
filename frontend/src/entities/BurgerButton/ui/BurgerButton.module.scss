@@ -22,6 +22,14 @@
   }
 }
 
+.burgerButton {
+  height: 40px;
+  width: 30px;
+  cursor: pointer;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .burgerButton div {
   cursor: pointer;
   position: relative;

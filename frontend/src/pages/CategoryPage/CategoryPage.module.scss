@@ -11,3 +11,8 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 1180px) {
+  .wrapper {
+    gap: 30px;
+  }
+}
