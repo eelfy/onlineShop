@@ -28,14 +28,16 @@ export const ItemPage = observer(() => {
   const navigate = useNavigate()
   const [product, setProduct] = useState<Product>()
 
+  const categoryLink = `${Routes.Category}/${product?.category_name}.${product?.category_id}`
+
   const LEGEND: HistoryLegendOption[] = [
     {
       title: "Главная",
       redirectTo: Routes.Main,
     },
     {
-      title: product?.brand ?? "Бренд",
-      redirectTo: `${Routes.Brand}/${product?.brand}`,
+      title: product?.category_name ?? "Категория",
+      redirectTo: categoryLink,
     },
     {
       title: product?.name ?? "Вещь",
@@ -105,7 +107,7 @@ export const ItemPage = observer(() => {
         </div>
         <div className={cn.secondSection}>
           <div className={cn.name}>
-            <span className={cn.brand} onClick={() => navigate(`${Routes.Brand}/${product?.brand}`)}>{product.brand}</span>
+            <span className={cn.brand} onClick={() => navigate(categoryLink)}>{product.category_name}</span>
             <span className={cn.model}>{product.name}</span>
           </div>
 

@@ -25,6 +25,7 @@ export type ImageId = number
 export interface Product {
   id: number
   category_id: number,
+  category_name: string,
   name: string,
   brand: string,
   min_price: number,

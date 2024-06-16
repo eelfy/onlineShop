@@ -13,6 +13,13 @@ export const Api = {
     return fetch(`${ApiUrl}/categories`).then(r => r.json())
   },
 
+  getProductsInCategory(params: ProductsInCategoryParams): Promise<ProductResponse> {
+    // @ts-expect-error hmf
+    const search = new URLSearchParams(params)
+
+    return fetch(`${ApiUrl}/products-in-category?${search}`).then(r => r.json())
+  },
+
   getBanners(): Promise<Banner[]> {
     return fetch(`${ApiUrl}/banners`).then(r => r.json())
   },
@@ -22,13 +29,6 @@ export const Api = {
     const search = new URLSearchParams({ pid })
 
     return fetch(`${ApiUrl}/product?${search}`).then(r => r.json())
-  },
-
-  getProductsInCategory(params: ProductsInCategoryParams): Promise<ProductResponse> {
-    // @ts-expect-error hmf
-    const search = new URLSearchParams(params)
-
-    return fetch(`${ApiUrl}/products-in-category?${search}`).then(r => r.json())
   },
 
   makeOrder(body: MakeOrderBody) {

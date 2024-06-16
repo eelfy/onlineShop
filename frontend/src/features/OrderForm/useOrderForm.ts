@@ -32,8 +32,6 @@ export const useOrderForm = () => {
     || social === undefined
     || rules.length !== 2
 
-  console.log('hm: ', isValueWrong(number) && number.length !== 11);
-
   const onMakeOrder = () => {
     Api.makeOrder({
       name,
