@@ -5,24 +5,6 @@ import { Logo } from '../../../shared/ui'
 import { Socials } from '../../../entities/Socials'
 import { observer } from 'mobx-react-lite'
 
-interface Cell {
-  label: string,
-  link?: Routes
-}
-
-const rawBrands: string[] = ['Adidas', 'Adidas', 'Adidas', 'Adidas', 'AdidasAdidas', 'AdidasAdidasAdidasAdidasAdidasAdidasAdidasAdidasAdidasAdidas', 'Adidas', 'AdidasAdidas', 'AdidasAdidasAdidasAdidas', 'Adidas', 'Adidas', 'Adidas', 'Adidas', 'Adidas']
-const columnBrands: Cell[][] = []
-let tempBrands: Cell[] = []
-
-rawBrands.forEach((brand, index) => {
-  if (index !== 0 && (index % 4 === 0 || index + 1 === rawBrands.length)) {
-    columnBrands.push([...tempBrands])
-    tempBrands = []
-  }
-
-  tempBrands.push({ label: brand })
-})
-
 export const Footer = observer(() => {
   const navigate = useNavigate()
   return <footer className={cn.wrapper}>
