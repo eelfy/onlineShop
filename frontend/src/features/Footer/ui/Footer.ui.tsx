@@ -1,4 +1,4 @@
-import { redirect } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Routes } from '../../../shared/routes'
 import cn from './Footer.module.scss'
 import { Logo } from '../../../shared/ui'
@@ -23,62 +23,23 @@ rawBrands.forEach((brand, index) => {
   tempBrands.push({ label: brand })
 })
 
-const INFORMATION: Cell[][] = [[
-  {
-    label: 'Доставка и оплата',
-    link: Routes.Payments
-  },
-  {
-    label: 'Обмен и возврат',
-    link: Routes.Refund
-  },
-  {
-    label: 'Отзывы',
-    link: Routes.Reviews
-  },
-]]
-
-const FooterBlock = ({
-  header,
-  columns
-}: {
-  header: string,
-  columns: Cell[][]
-}) => {
-  const onRedirect = (link?: string) => {
-    if (link) {
-      redirect(link);
-    }
-  }
-
-  return (
-    <div>
-      <h1 className={cn.header}>{header}</h1>
-
-      <div className={cn.brands}>
-        {columns.map((column, indexColumn) => {
-          return (
-            <div className={cn.brandsColumn} key={indexColumn}>
-              {
-                column.map((cell, indexCell) => {
-                  return <div onClick={() => {
-                    onRedirect(cell.link)
-                  }} className={cn.brandCell} key={indexCell}>{cell.label}</div>
-                })
-              }
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
-
 export const Footer = observer(() => {
+  const navigate = useNavigate()
   return <footer className={cn.wrapper}>
     <div className={cn.footerTop}>
       <div className={cn.about}>
-        <FooterBlock header='Информация' columns={INFORMATION} />
+        <div>
+          <h1 className={cn.header}>Информация</h1>
+
+          <div className={cn.brands}>
+            <div className={cn.brandsColumn}>
+              <div onClick={() => navigate(Routes.Delivery)} className={cn.brandCell}>Доставка и оплата</div>
+              <div onClick={() => navigate(Routes.Terms)} className={cn.brandCell}>Условия предоставления услуг</div>
+              <div onClick={() => navigate(Routes.Refund)} className={cn.brandCell}>Обмен и возврат</div>
+              <div onClick={() => window.open('https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTM4NjA4MzUwMjg4ODY4?igsh=MWs5dXZxZjNqbjBodQ==', '_blank')} className={cn.brandCell}>Отзывы</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className={cn.socials}>

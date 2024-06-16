@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import cn from './App.module.scss'
 import { Header } from "./features/Header"
 import { Footer } from "./features/Footer"
@@ -9,6 +9,12 @@ import { Api } from "./shared/api/Api"
 
 const App = observer(() => {
   const { MainStore: { updateCategories } } = useStore()
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     Api.getCategories().then(categories => {

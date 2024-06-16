@@ -11,6 +11,8 @@ import { ItemPage } from './pages/Item'
 import { BagPage } from './pages/BagPage'
 import { CategoryPage } from './pages/CategoryPage'
 import { TermsPage } from './pages/TermsPage'
+import { DeliveryPage } from './pages/DeliveryPage'
+import { RefundPage } from './pages/RefundPage'
 
 import './index.css'
 
@@ -51,7 +53,15 @@ const router = createBrowserRouter([
       {
         path: Routes.Terms,
         element: <TermsPage />
-      }
+      },
+      {
+        path: Routes.Delivery,
+        element: <DeliveryPage />
+      },
+      {
+        path: Routes.Refund,
+        element: <RefundPage />
+      },
     ]
   }
 ])
