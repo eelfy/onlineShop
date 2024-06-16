@@ -51,19 +51,18 @@
 
   overflow: hidden;
   line-height: 0;
-  max-height: 0;
+  height: 0;
   color: transparent;
-  transition: line-height 0.2s, color 0.2s, max-height 0.2s;
+  transition: line-height 0.2s, color 0.2s, height 0.2s;
 
   margin-left: 20px;
 
   &.open {
     line-height: 1.5;
-    max-height: 200px;
+    height: 100%;
     color: currentColor;
     margin-top: 35px;
     margin-bottom: 0px;
-    overflow: auto;
   }
 }
 

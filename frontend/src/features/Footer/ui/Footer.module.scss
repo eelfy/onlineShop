@@ -91,12 +91,23 @@
   .footerBottom {
     justify-content: center;
   }
-  .socials {
-    align-self: center;
-  }
 
   .brandsVisible {
     display: none;
-  
+  }
+
+  .wrapper {
+   padding-inline: 20px;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .footerTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .socials {
+    align-self: flex-start;
   }
 }
