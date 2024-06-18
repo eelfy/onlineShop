@@ -81,9 +81,13 @@ export const StuffBlock = (
 
     <div className={cn.field}>
       <h2 className={cn.brandName}>{name}</h2>
-      <span className={cn.description}>{description}</span>
+      <span style={{
+        marginTop: '5px'
+      }} className={cn.description}>{description}</span>
     </div>
 
-    <span className={cn.description}>От {price} ₽</span>
+    <span style={{
+      marginTop: '20px'
+    }} className={cn.description}>От {price} ₽</span>
   </div>
 }
