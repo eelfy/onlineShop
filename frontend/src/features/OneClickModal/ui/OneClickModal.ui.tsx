@@ -37,7 +37,7 @@ export const OneClickModal = ({ isOpen, closeModal, product }: OneClickModalProp
           <StuffBlock size={isModal ? StuffBlockSize.SM : StuffBlockSize.S}
             name={product.brand}
             description={product.name}
-            price={String(product.min_price)}
+            price={product.min_price}
             imageId={product.images[0]}
             productId={product.id}
           />

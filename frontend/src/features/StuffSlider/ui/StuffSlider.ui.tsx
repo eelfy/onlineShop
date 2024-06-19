@@ -79,7 +79,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
             productId={id}
             name={brand}
             description={name}
-            price={String(min_price)}
+            price={min_price}
             imageId={images[0]}
             key={index} />
         })}

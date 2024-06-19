@@ -3,12 +3,12 @@ import { StuffBlockSize } from '../lib/StuffBlock.types';
 import cn from './StuffBlock.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../../shared/routes';
-import { ImageId, getImageUrlForBackground } from '../../../shared/lib';
+import { ImageId, convertNumberToSum, getImageUrlForBackground } from '../../../shared/lib';
 
 interface StuffBlockProps {
   name: string;
   description: string;
-  price: string
+  price: number
   stuffSize?: string;
   size?: StuffBlockSize
   withDivider?: boolean
@@ -39,6 +39,8 @@ export const StuffBlock = (
     navigate(`${Routes.Product}/${productId}`)
   }
 
+  const convertedPrice = convertNumberToSum(price)
+
   const renderImage = () => {
     return (
       <div style={{
@@ -58,7 +60,7 @@ export const StuffBlock = (
         </div>
       </div>
 
-      <span className={cn.right}>От {price}</span>
+      <span className={cn.right}>От {convertedPrice}</span>
     </div>
 
     {withDivider && <div className={cn.divider}></div>}
@@ -70,7 +72,7 @@ export const StuffBlock = (
         {renderImage()}
         <div className={cn.field}>
           <span className={cn.name}>{name} {description}</span>
-          <span className={cn.right}>От {price}</span>
+          <span className={cn.right}>От {convertedPrice}</span>
         </div>
       </div>
     </div>
@@ -87,7 +89,9 @@ export const StuffBlock = (
     </div>
 
     <span style={{
-      marginTop: '20px'
-    }} className={cn.description}>От {price} ₽</span>
+      marginTop: '20px',
+      fontWeight: 600
+    }} className={cn.description}>От {convertedPrice}</span>
+
   </div>
 }

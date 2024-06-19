@@ -20,6 +20,7 @@ import { ItemPreview } from "../../../features/ItemPreview";
 import { useBoolean } from "usehooks-ts";
 import { OneClickModal } from "../../../features/OneClickModal";
 import toast, { Toaster } from "react-hot-toast";
+import { convertNumberToSum } from '../../../shared/lib'
 
 export const ItemPage = observer(() => {
   const { MainStore: { updateCardCount, cardCount } } = useStore()
@@ -91,6 +92,7 @@ export const ItemPage = observer(() => {
     CardCache.setItem(newItems)
   }
   const productsImage = product.images
+
   return (
     <>
       <Toaster />
@@ -111,7 +113,7 @@ export const ItemPage = observer(() => {
             <span className={cn.model}>{product.name}</span>
           </div>
 
-          <span className={cn.price}>От {product.min_price} ₽</span>
+          <span className={cn.price}>От {convertNumberToSum(product.min_price)}</span>
           {
             isHaveSize && (
               <ItemSizeChart

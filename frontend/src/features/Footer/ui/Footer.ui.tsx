@@ -29,11 +29,11 @@ export const Footer = observer(() => {
 
         <Socials />
 
-        <span className={cn.madeBy}>made by <a href='https://rightshift.dev' target='_blank' className={cn.madeByLink}>right.shift</a></span>
+        {/* <span className={cn.madeBy}>made by <a href='https://rightshift.dev' target='_blank' className={cn.madeByLink}>right.shift</a></span> */}
+        <div className={cn.footerBottom}>
+          <span className={cn.rights}>© 2023 Ramster Shop. All Rights Reserved</span>
+        </div>
       </div>
-    </div>
-    <div className={cn.footerBottom}>
-      <span className={cn.rights}>© 2023 Ramster Shop. All Rights Reserved</span>
     </div>
   </footer>
 })

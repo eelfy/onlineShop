@@ -82,7 +82,7 @@ export const StuffList = ({ products, updateProducts, limit, customSort }: Stuff
         return <StuffBlock
           name={product.brand}
           description={product.name}
-          price={String(product.min_price)}
+          price={product.min_price}
           imageId={product.images[0]}
           productId={product.id}
           key={product.id}
