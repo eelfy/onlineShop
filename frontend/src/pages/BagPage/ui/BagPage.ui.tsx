@@ -43,7 +43,7 @@ export const BagPage = () => {
                 imageId={item.image}
                 name={item.brand}
                 description={item.name}
-                price={String(item.price)}
+                price={item.price}
                 size={StuffBlockSize.L}
                 stuffSize={item.size}
                 key={index}

@@ -8,7 +8,7 @@ import { ImageId, convertNumberToSum, getImageUrlForBackground } from '../../../
 interface StuffBlockProps {
   name: string;
   description: string;
-  price: number
+  price: number;
   stuffSize?: string;
   size?: StuffBlockSize
   withDivider?: boolean
