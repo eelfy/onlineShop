@@ -14,7 +14,6 @@ export const BagPage = () => {
   const cacheItems = CardCache.getItems()
   const isMobile = useMediaQuery(MOBILE_QUERY)
 
-
   const orderParams = useOrderForm()
 
   const {

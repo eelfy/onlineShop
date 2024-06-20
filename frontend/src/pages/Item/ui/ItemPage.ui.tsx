@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dropdown } from "../../../entities/Dropdown";
 import { ItemSizeChart } from "../../../features/ItemSizeChart";
 import { CacheProduct, HistoryLegendOption, Product } from "../../../shared/lib";
-import { IconName } from "../../../shared/ui";
+import { IconName, Loader } from "../../../shared/ui";
 import { HistoryLegend } from "../../../entities/HistoryLegend";
 import { useNavigate, useParams } from "react-router-dom";
 import { Routes } from "../../../shared/routes";
@@ -28,7 +28,7 @@ export const ItemPage = observer(() => {
 
   const navigate = useNavigate()
   const [product, setProduct] = useState<Product>()
-  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean(true)
 
   const categoryLink = `${Routes.Category}/${product?.category_name}.${product?.category_id}`
 
@@ -54,8 +54,6 @@ export const ItemPage = observer(() => {
 
   useEffect(() => {
     if (!productId) return
-
-    startLoading()
 
     Api.getProduct(Number(productId)).then(product => {
       setProduct(product)

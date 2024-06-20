@@ -15,7 +15,7 @@ export const SearchResults = () => {
   const [searchValue, setSearchValue] = useState(text ?? '');
   const [products, setProducts] = useState<ProductResponse>()
   const [sort, setSort] = useState(SortOrder.CREATED)
-  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean(true)
 
   const updateProducts = useCallback((params: BaseGetProductsParams) => {
     startLoading()
@@ -26,8 +26,6 @@ export const SearchResults = () => {
       setProducts(products)
     }).finally(() => stopLoading())
   }, [searchValue, startLoading, stopLoading])
-
-
 
   useEffect(() => {
     if (!text) return

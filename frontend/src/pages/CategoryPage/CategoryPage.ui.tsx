@@ -13,7 +13,7 @@ const limit = 30
 export const CategoryPage = () => {
   const { categoryName } = useParams()
   const [products, setProducts] = useState<ProductResponse>()
-  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean(true)
 
   const [name, category_id] = categoryName ? categoryName.split('.') : []
 
@@ -25,7 +25,7 @@ export const CategoryPage = () => {
     }).then(products => {
       setProducts(products)
     }).finally(() => stopLoading())
-  }, [category_id])
+  }, [category_id, startLoading, stopLoading])
 
   useEffect(() => {
     if (!category_id) return;
