@@ -1,4 +1,5 @@
 export * from './Logo/Logo.ui'
+export * from './Loader/Loader.ui'
 export * from './Icon'
 export * from './AnimatedToggleElement/AnimatedToggleElements.ui'
 export * from './InfoPageWrapper'

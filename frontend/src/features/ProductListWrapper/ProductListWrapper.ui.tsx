@@ -6,15 +6,18 @@ interface ProductListWrapperProps {
   limit: number
   updateProducts: (params: BaseGetProductsParams) => void,
   products?: ProductResponse;
-  customSort?: CustomSort
+  customSort?: CustomSort;
+  isLoading: boolean
 }
 
 export const ProductListWrapper = ({
   updateProducts,
   products,
   limit,
-  customSort
+  customSort,
+  isLoading
 }: ProductListWrapperProps) => {
+  if (isLoading) return <NotFound isLoading />
 
   return products && Boolean(products?.products?.length)
     ? <StuffList
@@ -23,5 +26,5 @@ export const ProductListWrapper = ({
       updateProducts={updateProducts}
       customSort={customSort}
     />
-    : <NotFound />
+    : <NotFound isLoading={isLoading} />
 }

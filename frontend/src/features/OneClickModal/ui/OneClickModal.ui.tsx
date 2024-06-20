@@ -26,7 +26,12 @@ export const OneClickModal = ({ isOpen, closeModal, product }: OneClickModalProp
     }} open={isOpen} onClose={closeModal} center>
       <div className={cn.wrapper}>
         <OrderForm {...orderParams} onMakeOrder={() => {
-          orderParams.onMakeOrder()
+          orderParams.onMakeOrder([
+            {
+              product_id: product.id,
+              size: ''
+            }
+          ])
           closeModal()
         }} />
 

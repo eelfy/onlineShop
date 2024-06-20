@@ -1,7 +1,8 @@
+import { Loader } from '../../shared/ui'
 import cn from './NotFound.module.scss'
 
-export const NotFound = ({ title = 'Ничего не найдено' }: { title?: string }) => {
+export const NotFound = ({ title = 'Ничего не найдено', isLoading }: { title?: string, isLoading?: boolean }) => {
   return <div className={cn.wrapper}>
-    <h1>{title}</h1>
+    {isLoading ? <Loader /> : <h1>{title}</h1>}
   </div>
 }

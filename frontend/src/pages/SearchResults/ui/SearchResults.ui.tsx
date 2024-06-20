@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 import { Api } from "../../../shared/api/Api"
 import { ProductListWrapper } from "../../../features/ProductListWrapper"
 import { CustomSort } from "../../../features/StuffList"
+import { useBoolean } from "usehooks-ts"
 
 const limit = 30
 
@@ -14,15 +15,17 @@ export const SearchResults = () => {
   const [searchValue, setSearchValue] = useState(text ?? '');
   const [products, setProducts] = useState<ProductResponse>()
   const [sort, setSort] = useState(SortOrder.CREATED)
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
 
   const updateProducts = useCallback((params: BaseGetProductsParams) => {
+    startLoading()
     Api.getSearch({
       ...params,
       query: searchValue,
     }).then(products => {
       setProducts(products)
-    })
-  }, [searchValue])
+    }).finally(() => stopLoading())
+  }, [searchValue, startLoading, stopLoading])
 
 
 
@@ -70,6 +73,7 @@ export const SearchResults = () => {
         size={SearchSize.M} onSearch={onSearch} />
     </div>
     <ProductListWrapper
+      isLoading={isLoading}
       customSort={customSort}
       products={products}
       updateProducts={updateProducts}

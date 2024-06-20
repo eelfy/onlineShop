@@ -5,6 +5,7 @@ import { RadioOption } from "../../shared/ui/Radio"
 import { CardCache } from "../../entities/Store"
 import toast from "react-hot-toast"
 import { FORM_RADIOS } from "./OrederForm.config"
+import { ProductOrder } from "../../shared/lib"
 
 const INPUT_DEFAULT = ''
 const SOCIAL_DEFAULT: RadioOption['id'] | undefined = undefined
@@ -32,23 +33,30 @@ export const useOrderForm = () => {
     || social === undefined
     || rules.length !== 2
 
-  const onMakeOrder = () => {
+  const successToastShow = () => toast.success('Заявка отправлена!\n С Вами свяжется менеджер')
+
+  const clearForm = () => {
+    setName(INPUT_DEFAULT)
+    setNumber(INPUT_DEFAULT)
+    setEmail(INPUT_DEFAULT)
+  }
+
+  const onMakeOrder = (products?: ProductOrder[]) => {
     Api.makeOrder({
       name,
       surname: name,
       phone: number,
       mail: email,
       messanger_name: FORM_RADIOS.find(el => el.id === social)?.label ?? '',
-      products_id: cacheItems.map(item => item.id)
+      products: products ?? cacheItems.map(item => ({
+        size: item.size,
+        product_id: item.id
+      }))
     }).then(() => {
-      toast.success('Заявка отправлена!\n С Вами свяжется менеджер')
-
-      setName(INPUT_DEFAULT)
-      setNumber(INPUT_DEFAULT)
-      setEmail(INPUT_DEFAULT)
+      successToastShow()
+      clearForm()
     })
   }
-
   return {
     name,
     number,

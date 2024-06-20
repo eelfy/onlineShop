@@ -5,6 +5,8 @@ import { Pagination } from "../../../entities/Pagination";
 import { useEffect, useState } from "react";
 import { Api } from "../../../shared/api/Api";
 import { Product, SortOrder } from "../../../shared/lib";
+import { useBoolean } from "usehooks-ts";
+import { Loader } from "../../../shared/ui";
 
 // @ts-expect-error afs
 const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
@@ -16,10 +18,11 @@ const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
 };
 
 export const StuffSlider = ({ cname }: { cname: string }) => {
-
   const [products, setProducts] = useState<Product[]>()
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
 
   useEffect(() => {
+    startLoading()
     Api.getProductsInCategory({
       cname,
       limit: 15,
@@ -27,10 +30,13 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
       ordered: SortOrder.CREATED
     }).then(value => {
       setProducts(value.products)
+    }).finally(() => {
+      stopLoading()
     })
 
   }, [cname]);
 
+  if (isLoading) return <Loader isFullSize />
   if (!products) return null
 
   return (

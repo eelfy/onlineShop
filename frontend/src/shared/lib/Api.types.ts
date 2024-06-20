@@ -50,6 +50,11 @@ export interface ProductResponse {
   products: Product[]
 }
 
+export interface ProductOrder {
+  product_id: number;
+  size: string
+}
+
 
 export interface MakeOrderBody {
   name: string,
@@ -57,5 +62,5 @@ export interface MakeOrderBody {
   phone: string,
   mail: string,
   messanger_name: string,
-  products_id: number[]
+  products: ProductOrder[]
 }

@@ -28,6 +28,7 @@ export const ItemPage = observer(() => {
 
   const navigate = useNavigate()
   const [product, setProduct] = useState<Product>()
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
 
   const categoryLink = `${Routes.Category}/${product?.category_name}.${product?.category_id}`
 
@@ -54,13 +55,16 @@ export const ItemPage = observer(() => {
   useEffect(() => {
     if (!productId) return
 
+    startLoading()
+
     Api.getProduct(Number(productId)).then(product => {
       setProduct(product)
+    }).finally(() => {
+      stopLoading()
     })
-  }, [navigate, productId]);
+  }, [navigate, productId, startLoading, stopLoading]);
 
-
-  if (!product) return <NotFound />
+  if (!product) return <NotFound isLoading={isLoading} />
 
   const isHaveSize = Boolean(product.sizes.length)
   const isAddToCardButtonDisabled = (isHaveSize && activeSize === '') || !product
@@ -92,6 +96,7 @@ export const ItemPage = observer(() => {
     CardCache.setItem(newItems)
   }
   const productsImage = product.images
+
 
   return (
     <>
