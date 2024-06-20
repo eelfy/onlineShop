@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dropdown } from "../../../entities/Dropdown";
 import { ItemSizeChart } from "../../../features/ItemSizeChart";
 import { CacheProduct, HistoryLegendOption, Product } from "../../../shared/lib";
-import { IconName, Loader } from "../../../shared/ui";
+import { IconName } from "../../../shared/ui";
 import { HistoryLegend } from "../../../entities/HistoryLegend";
 import { useNavigate, useParams } from "react-router-dom";
 import { Routes } from "../../../shared/routes";
