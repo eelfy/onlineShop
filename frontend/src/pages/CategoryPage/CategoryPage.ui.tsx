@@ -31,13 +31,12 @@ export const CategoryPage = () => {
 
   useEffect(() => {
     if (!category_id) return;
-
     updateProducts({
       limit,
       offset: 0,
       ordered: SortOrder.CREATED
     })
-
+    setCurrentPage(1)
   }, [category_id, updateProducts])
 
 
