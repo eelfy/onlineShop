@@ -17,12 +17,20 @@ interface StuffListProps {
   products: ProductResponse,
   updateProducts: (params: BaseGetProductsParams) => void
   limit: number,
-  customSort?: CustomSort
+  customSort?: CustomSort;
+  currentPage: number;
+  setCurrentPage: (val: number) => void
 }
 
-export const StuffList = ({ products, updateProducts, limit, customSort }: StuffListProps) => {
+export const StuffList = ({
+  products,
+  updateProducts,
+  limit,
+  customSort,
+  currentPage,
+  setCurrentPage
+}: StuffListProps) => {
   const [activeSort, setActiveSort] = useState<SortOrder>(customSort?.active ?? SortOrder.CREATED)
-  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const ref = useRef<HTMLDivElement>(null)
 
@@ -32,6 +40,7 @@ export const StuffList = ({ products, updateProducts, limit, customSort }: Stuff
     if (customSort) {
       return customSort.update(sort)
     }
+    setCurrentPage(1)
     updateProducts({
       limit,
       offset: 0,

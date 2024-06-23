@@ -13,9 +13,11 @@ const limit = 30
 export const CategoryPage = () => {
   const { categoryName } = useParams()
   const [products, setProducts] = useState<ProductResponse>()
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean(true)
 
   const [name, category_id] = categoryName ? categoryName.split('.') : []
+
 
   const updateProducts = useCallback((params: BaseGetProductsParams) => {
     startLoading()
@@ -41,6 +43,13 @@ export const CategoryPage = () => {
 
   return <div className={cn.wrapper}>
     <h2 className={cn.title}>{name}</h2>
-    <ProductListWrapper isLoading={isLoading} products={products} updateProducts={updateProducts} limit={limit} />
+    <ProductListWrapper
+      isLoading={isLoading}
+      products={products}
+      updateProducts={updateProducts}
+      limit={limit}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+    />
   </div>
 }

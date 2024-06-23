@@ -13,7 +13,7 @@ export const Brand = () => {
   const { brandName } = useParams()
   const [products, setProducts] = useState<ProductResponse>()
   const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
-
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const updateProducts = useCallback((params: BaseGetProductsParams) => {
     if (!brandName) return;
@@ -40,6 +40,9 @@ export const Brand = () => {
 
   return <div className={cn.wrapper}>
     <h2 className={cn.title}>{brandName}</h2>
-    <ProductListWrapper isLoading={isLoading} products={products} updateProducts={updateProducts} limit={limit} />
+    <ProductListWrapper
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      isLoading={isLoading} products={products} updateProducts={updateProducts} limit={limit} />
   </div>
 }

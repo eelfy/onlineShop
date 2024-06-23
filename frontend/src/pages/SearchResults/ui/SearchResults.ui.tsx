@@ -27,6 +27,8 @@ export const SearchResults = () => {
     }).finally(() => stopLoading())
   }, [searchValue, startLoading, stopLoading])
 
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
   useEffect(() => {
     if (!text) return
     setSearchValue(text)
@@ -42,7 +44,7 @@ export const SearchResults = () => {
 
   const onSearch = () => {
     if (!searchValue.trim().length) return
-
+    setCurrentPage(1)
     updateProducts({
       limit,
       offset: 0,
@@ -71,6 +73,8 @@ export const SearchResults = () => {
         size={SearchSize.M} onSearch={onSearch} />
     </div>
     <ProductListWrapper
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
       isLoading={isLoading}
       customSort={customSort}
       products={products}
