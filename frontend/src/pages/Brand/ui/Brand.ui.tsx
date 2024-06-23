@@ -12,7 +12,7 @@ const limit = 30
 export const Brand = () => {
   const { brandName } = useParams()
   const [products, setProducts] = useState<ProductResponse>()
-  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
+  const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean(true)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const updateProducts = useCallback((params: BaseGetProductsParams) => {
