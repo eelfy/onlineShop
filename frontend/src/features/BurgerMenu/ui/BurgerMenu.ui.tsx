@@ -18,15 +18,24 @@ const BurgerItemElement = ({
   onCloseAllNavigate,
 }: {
   onCloseAllNavigate: BurgerMenuProps['onCloseAllNavigate']
-  category: [string, SubCategories]
+  category: [string, SubCategories | number]
 }) => {
+  const isSimple = typeof subCategories === 'number'
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
 
-  const toggleOpen = () => setIsOpen(prev => !prev)
+  const navigateToCategoryPage = ([brand, id]: [string, number]) => {
+    navigate(`${Routes.Category}/${brand}.${id}`)
+    onCloseAllNavigate()
+  }
+
+  const toggleOpen = (arg: [string, SubCategories | number]) => {
+    if (typeof arg[1] === 'number') return navigateToCategoryPage([arg[0], arg[1]])
+    return setIsOpen(prev => !prev);
+  }
 
   return <div className={cn.item}>
-    <div className={cn.parent} onClick={toggleOpen}>
+    <div className={cn.parent} onClick={() => toggleOpen([categoryName, subCategories])}>
       {categoryName}
 
       <div className={classNames(isOpen && cn.rotated)}>
@@ -35,16 +44,17 @@ const BurgerItemElement = ({
 
     </div>
 
-    <div className={classNames(cn.child, isOpen && cn.open)}>
-      {Object.entries(subCategories).map(([brand, id], index) => {
-        return <div key={index} onClick={() => {
-          navigate(`${Routes.Category}/${brand}.${id}`)
-          onCloseAllNavigate()
-        }}>
-          {brand}
-        </div>
-      })}
-    </div>
+    {!isSimple && (
+      <div className={classNames(cn.child, isOpen && cn.open)}>
+        {Object.entries(subCategories).map((arg, index) => {
+          return <div key={index} onClick={() => {
+            navigateToCategoryPage(arg)
+          }}>
+            {arg[0]}
+          </div>
+        })}
+      </div>
+    )}
   </div>
 }
 

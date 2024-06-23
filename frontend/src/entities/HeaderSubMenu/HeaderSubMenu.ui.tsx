@@ -5,7 +5,7 @@ import { HeaderBrandText } from '../HeaderBrandText';
 import { SubCategories } from '../../shared/lib';
 
 interface HeaderSubMenuProps {
-  items: [string, SubCategories][] | [string, number][];
+  items: [string, SubCategories | number][] | [string, number][];
   isVisible: boolean,
   style?: CSSProperties,
   className?: string

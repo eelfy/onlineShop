@@ -24,6 +24,7 @@ export const Header = observer(() => {
   const navigate = useNavigate()
 
   const { MainStore: { categories } } = useStore()
+  console.log('categories: ', categories);
 
   const [isSubHeaderVisible, setIsSubHeaderVisible] = useState(false)
 
@@ -76,16 +77,24 @@ export const Header = observer(() => {
   }
 
   const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
+  console.log('isSubBrandVisible: ', isSubBrandVisible);
+  console.log('isBurgerMenuVisible: ', isBurgerMenuVisible);
+  console.log('isSubHeaderVisible: ', isSubHeaderVisible);
+  console.log('isFocusBackgroundVisible: ', isFocusBackgroundVisible);
+
   const isMobileModeSearch = isSearchMode && isMobile
 
   const renderSubMenu = (categories: Categories) => {
 
     const entries = Object.entries(categories).slice(MAX_HEADER_ELEMENTS)
-    return <HeaderSubMenu style={{ top: '110px' }} isVisible={isSubHeaderVisible}
-      // @ts-expect-error len
-      onBrandClick={onUpdateSubCategory}
+    return <HeaderSubMenu style={{ top: '110px', paddingBottom: '10px' }} isVisible={isSubHeaderVisible}
+      onBrandClick={(arg) => {
+        // @ts-expect-error len
+        if (typeof arg?.[1] === 'number') return onRedirectToBrand(arg)
+        // @ts-expect-error len
+        onUpdateSubCategory(arg)
+      }}
       items={entries} />
-
   }
 
   const renderSubCategoryMenu = (subCategories: SubCategories) => {
@@ -139,7 +148,10 @@ export const Header = observer(() => {
                         Object.entries(categories).slice(0, MAX_HEADER_ELEMENTS).map(([key, value], index) => {
                           return <HeaderBrandText
                             key={index}
-                            onClick={() => onUpdateSubCategory(value)}>
+                            onClick={() => {
+                              if (typeof (value) === 'number') return onRedirectToBrand([key, value])
+                              return onUpdateSubCategory(value)
+                            }}>
                             {key}
                           </HeaderBrandText>
                         })

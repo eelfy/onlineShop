@@ -18,11 +18,8 @@ const App = observer(() => {
 
   useEffect(() => {
     Api.getCategories().then(categories => {
-      const entries = Object.entries(categories).filter((([, value]) => {
-        return Boolean(Object.values(value).length)
-      }));
 
-      updateCategories(Object.fromEntries(entries))
+      updateCategories(categories)
     })
   }, [updateCategories]);
 

@@ -1,6 +1,6 @@
 export type SubCategories = Record<string, number>
 
-export type Categories = Record<string, SubCategories>
+export type Categories = Record<string, SubCategories | number>
 
 export enum SortOrder {
   NAME = "NAME",
