@@ -7,6 +7,7 @@ import { Api } from "../../shared/api/Api"
 import cn from './CategoryPage.module.scss'
 import { ProductListWrapper } from "../../features/ProductListWrapper"
 import { useBoolean } from "usehooks-ts"
+import { CustomSort } from "../../features/StuffList"
 
 const limit = 30
 
@@ -15,6 +16,7 @@ export const CategoryPage = () => {
   const [products, setProducts] = useState<ProductResponse>()
   const [currentPage, setCurrentPage] = useState<number>(1)
   const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean(true)
+  const [sort, setSort] = useState(SortOrder.CREATED)
 
   const [name, category_id] = categoryName ? categoryName.split('.') : []
 
@@ -31,14 +33,28 @@ export const CategoryPage = () => {
 
   useEffect(() => {
     if (!category_id) return;
+    const ordered = SortOrder.CREATED
     updateProducts({
       limit,
       offset: 0,
-      ordered: SortOrder.CREATED
+      ordered
     })
+    setSort(ordered)
     setCurrentPage(1)
   }, [category_id, updateProducts])
 
+  const customSort: CustomSort = {
+    active: sort,
+    update: (sort) => {
+      setCurrentPage(1)
+      setSort(sort)
+      updateProducts({
+        limit,
+        offset: 0,
+        ordered: sort
+      })
+    }
+  }
 
   return <div className={cn.wrapper}>
     <h2 className={cn.title}>{name}</h2>
@@ -49,6 +65,7 @@ export const CategoryPage = () => {
       limit={limit}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
+      customSort={customSort}
     />
   </div>
 }

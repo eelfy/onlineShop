@@ -56,9 +56,10 @@ export const StuffList = ({
     if (page === currentPage) return
 
     setCurrentPage(page)
+    const offset = (page - 1) * limit
 
     updateProducts({
-      offset: page * products.total_count % limit,
+      offset,
       limit,
       ordered: activeSort
     })

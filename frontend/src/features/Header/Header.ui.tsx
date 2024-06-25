@@ -24,7 +24,6 @@ export const Header = observer(() => {
   const navigate = useNavigate()
 
   const { MainStore: { categories } } = useStore()
-  console.log('categories: ', categories);
 
   const [isSubHeaderVisible, setIsSubHeaderVisible] = useState(false)
 
@@ -77,10 +76,6 @@ export const Header = observer(() => {
   }
 
   const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
-  console.log('isSubBrandVisible: ', isSubBrandVisible);
-  console.log('isBurgerMenuVisible: ', isBurgerMenuVisible);
-  console.log('isSubHeaderVisible: ', isSubHeaderVisible);
-  console.log('isFocusBackgroundVisible: ', isFocusBackgroundVisible);
 
   const isMobileModeSearch = isSearchMode && isMobile
 

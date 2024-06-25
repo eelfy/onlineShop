@@ -21,6 +21,7 @@ export const ProductListWrapper = ({
   currentPage,
   setCurrentPage
 }: ProductListWrapperProps) => {
+
   if (isLoading) return <NotFound isLoading />
 
   return products && Boolean(products?.products?.length)

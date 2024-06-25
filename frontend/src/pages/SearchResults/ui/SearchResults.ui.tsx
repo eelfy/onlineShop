@@ -35,12 +35,23 @@ export const SearchResults = () => {
   }, [text]);
 
   useEffect(() => {
-    updateProducts({
+    const ordered = SortOrder.CREATED
+    setSearchValue(text ?? '')
+
+    startLoading()
+
+    Api.getSearch({
       limit,
       offset: 0,
-      ordered: SortOrder.CREATED
-    })
-  }, [])
+      ordered,
+      query: text ?? '',
+    }).then(products => {
+      setProducts(products)
+    }).finally(() => stopLoading())
+
+    setSort(ordered)
+    setCurrentPage(1)
+  }, [startLoading, stopLoading, text])
 
   const onSearch = () => {
     if (!searchValue.trim().length) return
@@ -55,6 +66,7 @@ export const SearchResults = () => {
   const customSort: CustomSort = {
     active: sort,
     update: (sort) => {
+      setCurrentPage(1)
       setSort(sort)
       updateProducts({
         limit,
