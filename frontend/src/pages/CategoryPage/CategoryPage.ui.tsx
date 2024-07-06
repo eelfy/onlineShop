@@ -8,6 +8,7 @@ import cn from './CategoryPage.module.scss'
 import { ProductListWrapper } from "../../features/ProductListWrapper"
 import { useBoolean } from "usehooks-ts"
 import { CustomSort } from "../../features/StuffList"
+import { PageWrapper } from "../../shared/ui"
 
 const limit = 30
 
@@ -56,7 +57,7 @@ export const CategoryPage = () => {
     }
   }
 
-  return <div className={cn.wrapper}>
+  return <PageWrapper className={cn.wrapper}>
     <h2 className={cn.title}>{name}</h2>
     <ProductListWrapper
       isLoading={isLoading}
@@ -67,5 +68,5 @@ export const CategoryPage = () => {
       setCurrentPage={setCurrentPage}
       customSort={customSort}
     />
-  </div>
+  </PageWrapper>
 }

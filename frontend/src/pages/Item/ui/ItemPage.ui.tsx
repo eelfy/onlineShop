@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dropdown } from "../../../entities/Dropdown";
 import { ItemSizeChart } from "../../../features/ItemSizeChart";
 import { CacheProduct, HistoryLegendOption, Product } from "../../../shared/lib";
-import { IconName } from "../../../shared/ui";
+import { IconName, PageWrapper } from "../../../shared/ui";
 import { HistoryLegend } from "../../../entities/HistoryLegend";
 import { useNavigate, useParams } from "react-router-dom";
 import { Routes } from "../../../shared/routes";
@@ -101,7 +101,7 @@ export const ItemPage = observer(() => {
       <Toaster />
       <OneClickModal product={product} isOpen={isModalOpen} closeModal={closeModal} />
 
-      <div className={cn.wrapper}>
+      <PageWrapper className={cn.wrapper}>
         <div className={cn.firstSection}>
           <HistoryLegend options={LEGEND} />
           <div className={cn.itemImages}>
@@ -171,7 +171,7 @@ export const ItemPage = observer(() => {
             />
           </div>
         </div>
-      </div>
+      </PageWrapper>
     </>
   );
 });

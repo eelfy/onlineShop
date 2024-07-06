@@ -1,0 +1,15 @@
+@use '../../css/variables.scss';
+
+.wrapper {
+ padding-inline: 80px;
+
+  padding-top: calc(50px + variables.$headerHeigh);
+}
+
+
+@media (max-width: 1180px) {
+  .wrapper {
+    padding-top: calc(40px + 80px);
+    padding-inline: 20px;
+  }
+}

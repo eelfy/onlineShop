@@ -7,6 +7,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import { MOBILE_QUERY } from '../../../shared/config'
 import { OrderForm, useOrderForm } from '../../../features/OrderForm'
 import { Toaster } from 'react-hot-toast'
+import { PageWrapper } from '../../../shared/ui'
 
 
 
@@ -28,7 +29,7 @@ export const BagPage = () => {
   return <>
     <Toaster />
 
-    <div className={cn.wrapper}>
+    <PageWrapper className={cn.wrapper}>
       <h2 className={cn.title}>Корзина</h2>
       <div className={cn.bag}>
         <OrderForm showButton={!isMobile} {...orderParams} />
@@ -70,7 +71,7 @@ export const BagPage = () => {
           {isMobile && <Button isDisabled={isDisabled} text='Свяжитесь со мной' onClick={onMakeOrder} />}
         </div>
       </div>
-    </div>
+    </PageWrapper>
   </>
 }
 

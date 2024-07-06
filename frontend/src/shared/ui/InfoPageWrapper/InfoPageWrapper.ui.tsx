@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import cn from './InfoPageWrapper.module.scss'
+import { PageWrapper } from '../PageWrapper/PageWrapper.ui'
 
 interface InfoPageWrapperProps {
   header: string
@@ -7,9 +8,9 @@ interface InfoPageWrapperProps {
 }
 
 export const InfoPageWrapper = ({ header, children }: InfoPageWrapperProps) => {
-  return <div className={cn.wrapper}>
+  return <PageWrapper className={cn.wrapper}>
     <h1 className={cn.header}>{header}</h1>
 
     {children}
-  </div>
+  </PageWrapper>
 }

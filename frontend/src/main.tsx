@@ -27,10 +27,6 @@ const router = createBrowserRouter([
         element: <Main />
       },
       {
-        path: Routes.Payments,
-        element: <div>Payments</div>
-      },
-      {
         path: `${Routes.Brand}/:brandName`, // /brand/Nike
         element: <Brand />
       },

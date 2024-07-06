@@ -10,12 +10,13 @@ const CustomDot = ({ onClick, active }) => {
   return (
     <div
       style={{
-        background: active ? "#00000080" : "#000",
-        width: '50px',
-        height: '2px',
-        borderRadius: '10px',
-        marginInline: '5px',
+        background: active ? "#1E2722" : "#D9D9D9",
+        width: active ? '16px' : "10px",
+        height: active ? '16px' : "10px",
+        borderRadius: '50%',
+        marginInline: '10px',
         cursor: 'pointer',
+        marginBlock: 'auto'
       }}
       onClick={() => onClick()}
     />

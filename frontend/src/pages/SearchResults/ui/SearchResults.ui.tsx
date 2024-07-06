@@ -7,6 +7,7 @@ import { Api } from "../../../shared/api/Api"
 import { ProductListWrapper } from "../../../features/ProductListWrapper"
 import { CustomSort } from "../../../features/StuffList"
 import { useBoolean } from "usehooks-ts"
+import { PageWrapper } from "../../../shared/ui"
 
 const limit = 30
 
@@ -76,7 +77,7 @@ export const SearchResults = () => {
     }
   }
 
-  return <div className={cn.wrapper}>
+  return <PageWrapper className={cn.wrapper}>
     <div className={cn.search}>
       <h2>Результат поиска</h2>
       <Search
@@ -93,5 +94,5 @@ export const SearchResults = () => {
       updateProducts={updateProducts}
       limit={limit}
     />
-  </div>
+  </PageWrapper>
 }

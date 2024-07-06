@@ -7,6 +7,7 @@ import { Api } from "../../../shared/api/Api"
 import { ProductListWrapper } from "../../../features/ProductListWrapper"
 import { useBoolean } from "usehooks-ts"
 import { CustomSort } from "../../../features/StuffList"
+import { PageWrapper } from "../../../shared/ui"
 
 const limit = 30
 
@@ -57,7 +58,7 @@ export const Brand = () => {
     }
   }
 
-  return <div className={cn.wrapper}>
+  return <PageWrapper className={cn.wrapper}>
     <h2 className={cn.title}>{brandName}</h2>
     <ProductListWrapper
       currentPage={currentPage}
@@ -65,5 +66,5 @@ export const Brand = () => {
       isLoading={isLoading} products={products} updateProducts={updateProducts} limit={limit}
       customSort={customSort}
     />
-  </div>
+  </PageWrapper>
 }
