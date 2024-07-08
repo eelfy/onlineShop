@@ -17,7 +17,8 @@ export interface BaseGetProductsParams {
 
 export interface Banner {
   id: number,
-  name: string
+  name: string,
+  link: string | null
 }
 
 export type ImageId = number

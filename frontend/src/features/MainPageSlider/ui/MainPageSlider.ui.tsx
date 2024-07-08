@@ -4,6 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import { useEffect, useState } from 'react';
 import { Banner } from '../../../shared/lib';
 import { Api, ApiUrl } from '../../../shared/api/Api';
+import classNames from 'classnames';
 
 // @ts-expect-error afs
 const CustomDot = ({ onClick, active }) => {
@@ -80,7 +81,11 @@ export const MainPageSlider = () => {
       >
         {
           banners.map((banner) => {
-            return <div className={cn.slide} key={banner.id} >
+            return <div className={classNames(cn.slide, banner.link && cn.pointer)}
+              onClick={() => {
+                if (banner.link) window.open(banner.link, '_blank')
+              }}
+              key={banner.id} >
               <div className={cn.img} style={{
                 backgroundImage: `url(${ApiUrl}/banner-photo?bid=${banner.id})`,
               }}></div>
