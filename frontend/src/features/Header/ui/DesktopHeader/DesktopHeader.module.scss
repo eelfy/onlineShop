@@ -1,0 +1,76 @@
+@use '../../../../shared/css/variables.scss';
+$border: 1px solid #00000033;
+
+.wrapper {
+  z-index: 10;
+  position: fixed;
+
+  background-color: #fff;
+  height: variables.$headerHeigh;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 22px 80px;
+}
+
+.navigation {
+  border-bottom: $border;
+  border-top: $border;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 80px;
+}
+
+.searchWrapper {
+  margin-inline: 100px;
+  width: 100%;
+}
+
+.additionalButtons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.subHeader {
+  padding: 18px 80px;
+
+  z-index: 7;
+  background-color: #ECECEC;
+  position: fixed;
+  top: variables.$headerHeigh;
+  min-height: 65px;
+  width: 100%;
+
+  display: flex;
+
+  transform: translateY(-300%);
+  transition: transform .5s;
+  
+  &.visible {
+    transform: translateY(0);
+  }
+
+  &Navigation {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: wrap;
+    
+    gap: 40px;
+    row-gap: 10px;
+    transition: opacity .5s ease 0s;
+  }
+}
