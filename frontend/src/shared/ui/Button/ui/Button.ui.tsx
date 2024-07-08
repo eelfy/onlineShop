@@ -10,6 +10,7 @@ interface ButtonProps {
   icon?: IconName
   onClick: () => void;
   isDisabled?: boolean
+  borderRadius?: string
 }
 
 const typeToCn = {
@@ -17,14 +18,23 @@ const typeToCn = {
   [ButtonType.Light]: cn.buttonLight,
 }
 
-export const Button = ({ type = ButtonType.Light, text, icon, onClick, isDisabled }: ButtonProps) => {
+export const Button = ({
+  type = ButtonType.Light,
+  text,
+  icon,
+  onClick,
+  isDisabled,
+  borderRadius
+}: ButtonProps) => {
   const onButtonClick = () => {
     if (isDisabled) return
 
     onClick()
   }
 
-  return <button onClick={onButtonClick} className={classNames(cn.button, typeToCn[type], isDisabled && cn.disabled)}>
+  return <button style={{
+    borderRadius: borderRadius ?? '10px'
+  }} onClick={onButtonClick} className={classNames(cn.button, typeToCn[type], isDisabled && cn.disabled)}>
     <div className={cn.content}>
       {icon && <div className={cn.iconWrapper}>
         <Icon name={icon} />
