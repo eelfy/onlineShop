@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../shared/ui/Button'
 import { CheckboxOption } from '../../shared/ui/Checkbox/Checkbox.types'
 import { Checkbox } from '../../shared/ui/Checkbox/Checkbox.ui'
@@ -5,7 +6,9 @@ import { Input } from '../../shared/ui/Input'
 import { Radio, RadioOption } from '../../shared/ui/Radio'
 
 import cn from './OrderForm.module.scss'
-import { FORM_CHECKBOXES, FORM_RADIOS } from './OrederForm.config'
+import { FIRST_CHECKBOX_ID, FORM_RADIOS, SECOND_CHECKBOX_ID } from './OrederForm.config'
+import { Routes } from '../../shared/routes'
+import classNames from 'classnames'
 
 interface OrderFormProps {
   name: string
@@ -19,8 +22,13 @@ interface OrderFormProps {
   rules: CheckboxOption['id'][]
   setRules: (value: OrderFormProps['rules']) => void
   showButton?: boolean
-  isDisabled: boolean
   onMakeOrder: () => void
+  isNameError: boolean,
+  isNumberError: boolean,
+  isEmailError: boolean,
+  isRadioError: boolean,
+  isFirstCheckboxError: boolean,
+  isSecondCheckboxError: boolean,
 }
 
 export const OrderForm = ({
@@ -35,22 +43,55 @@ export const OrderForm = ({
   rules,
   setRules,
   showButton = true,
-  isDisabled,
-  onMakeOrder
+  onMakeOrder,
+  isNameError,
+  isNumberError,
+  isEmailError,
+  isRadioError,
+  isFirstCheckboxError,
+  isSecondCheckboxError,
 }: OrderFormProps) => {
+  const navagte = useNavigate()
   return <div className={cn.form}>
-    <Input value={name} onChange={setName} label='Имя' />
-    <Input maxLength={11} value={number} onChange={setNumber} label='Номер телефона' />
-    <Input value={email} onChange={setEmail} label='E-mail' />
+    <Input isError={isNameError} value={name} onChange={setName} label='Имя' />
+    <Input isError={isNumberError} maxLength={11} value={number} onChange={setNumber} label='Номер телефона' />
+    <Input isError={isEmailError} value={email} onChange={setEmail} label='E-mail' />
 
     <div>
-      <span>Как с вами связаться?</span>
-      <Radio radios={FORM_RADIOS} checked={social} name={'contact'} onChangeChecked={setSocial} />
+      <span className={classNames(isRadioError && cn.error)}>Как с вами связаться?</span>
+      <Radio
+        radios={FORM_RADIOS}
+        checked={social}
+        name={'contact'}
+        onChangeChecked={setSocial}
+      />
     </div>
 
-    <Checkbox checkboxes={FORM_CHECKBOXES} checked={rules} name={'rules'} onChangeChecked={setRules} />
+    <Checkbox
+      checkboxes={
+        [
+          {
+            label: "Я даю согласие на обработку персональных данных",
+            id: FIRST_CHECKBOX_ID,
+            isError: isFirstCheckboxError
+          }, {
+            label: <span>
+              Я ознакомлен и согласен с условиями <a
+                onClick={() => {
+                  navagte(Routes.Terms)
+                }}
+                className={cn.politics}>оферты и политики конфиденциальности</a>
+            </span>,
+            id: SECOND_CHECKBOX_ID,
+            isError: isSecondCheckboxError
+          }
+        ]
+      }
+      checked={rules}
+      name={'rules'}
+      onChangeChecked={setRules} />
 
-    {showButton && <Button isDisabled={isDisabled} text='Свяжитесь со мной' onClick={onMakeOrder} />}
+    {showButton && <Button text='Свяжитесь со мной' onClick={onMakeOrder} />}
   </div>
 
 }

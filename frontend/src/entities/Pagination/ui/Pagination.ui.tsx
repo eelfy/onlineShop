@@ -15,10 +15,14 @@ export const Pagination = ({
   total,
 }: PaginationProps) => {
   return <div className={cn.wrapper}>
-    <Icon width={7} heigh={14} onClick={onPrev} name={IconName.PrevArrow} />
+    <div className={cn.iconWrapper} onClick={onPrev} >
+      <Icon width={7} heigh={14} name={IconName.PrevArrow} />
+    </div>
 
     <div>{current} / {total}</div>
 
-    <Icon width={7} heigh={14} onClick={onNext} name={IconName.NextArrow} />
+    <div className={cn.iconWrapper} onClick={onNext} >
+      <Icon width={7} heigh={14} name={IconName.NextArrow} />
+    </div>
   </div>
 }

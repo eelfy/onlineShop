@@ -5,19 +5,34 @@ import { useEffect, useState } from 'react';
 import { Banner } from '../../../shared/lib';
 import { Api, ApiUrl } from '../../../shared/api/Api';
 import classNames from 'classnames';
+import { useMediaQuery } from 'usehooks-ts';
+import { MOBILE_QUERY } from '../../../shared/config';
 
 // @ts-expect-error afs
 const CustomDot = ({ onClick, active }) => {
+  const isMobile = useMediaQuery(MOBILE_QUERY)
+  const size = () => {
+    if (isMobile) {
+      return {
+        width: active ? '8px' : "6px",
+        height: active ? '8px' : "6px",
+        marginInline: '3.5px',
+      }
+    }
+    return {
+      width: active ? '16px' : "10px",
+      height: active ? '16px' : "10px",
+      marginInline: '10px',
+    }
+  }
   return (
     <div
       style={{
         background: active ? "#1E2722" : "#D9D9D9",
-        width: active ? '16px' : "10px",
-        height: active ? '16px' : "10px",
         borderRadius: '50%',
-        marginInline: '10px',
         cursor: 'pointer',
-        marginBlock: 'auto'
+        marginBlock: 'auto',
+        ...size()
       }}
       onClick={() => onClick()}
     />
@@ -25,6 +40,8 @@ const CustomDot = ({ onClick, active }) => {
 };
 
 export const MainPageSlider = () => {
+  const isMobile = useMediaQuery(MOBILE_QUERY)
+
   const [banners, setBanners] = useState<Banner[]>()
 
   useEffect(() => {
@@ -40,7 +57,7 @@ export const MainPageSlider = () => {
   return (
     <div
       style={{
-        paddingBottom: '30px',
+        paddingBottom: isMobile ? '30px' : '50px',
         position: 'relative'
       }}
     >
@@ -54,6 +71,8 @@ export const MainPageSlider = () => {
         infinite
         containerClass="container"
         slidesToSlide={1}
+        autoPlay
+        autoPlaySpeed={5000}
         responsive={{
           desktop: {
             breakpoint: {

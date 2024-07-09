@@ -8,6 +8,7 @@ import { MOBILE_QUERY } from '../../../shared/config'
 import { OrderForm, useOrderForm } from '../../../features/OrderForm'
 import { Toaster } from 'react-hot-toast'
 import { PageWrapper } from '../../../shared/ui'
+import { SuccessOrderModal } from '../../../features/SuccessOrderModal'
 
 
 
@@ -19,7 +20,6 @@ export const BagPage = () => {
 
   const {
     onMakeOrder,
-    isDisabled
   } = orderParams
 
   if (!cacheItems?.length) return <NotFound title='Корзина пуста' />
@@ -28,6 +28,10 @@ export const BagPage = () => {
 
   return <>
     <Toaster />
+    <SuccessOrderModal
+      isOpen={orderParams.isSuccessModalOpen}
+      closeModal={() => orderParams.setSuccessModalOpen(false)}
+    />
 
     <PageWrapper className={cn.wrapper}>
       <h2 className={cn.title}>Корзина</h2>
@@ -68,7 +72,7 @@ export const BagPage = () => {
             </div>
           </div>
 
-          {isMobile && <Button isDisabled={isDisabled} text='Свяжитесь со мной' onClick={onMakeOrder} />}
+          {isMobile && <Button text='Свяжитесь со мной' onClick={onMakeOrder} />}
         </div>
       </div>
     </PageWrapper>

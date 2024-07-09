@@ -1,4 +1,7 @@
+import { ReactNode } from "react";
+
 export interface CheckboxOption {
-  label: string;
+  label: ReactNode;
   id: number;
+  isError?: boolean
 }

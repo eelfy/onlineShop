@@ -19,7 +19,13 @@ export const MainPageSection = ({ title }: MainPageSectionProps) => {
     <StuffSlider cname={title} />
 
     <div className={cn.button}>
-      <Button onClick={onTitleClick} type={ButtonType.Dark} text='Посмотреть все' borderRadius='20px' />
+      <Button
+        onClick={onTitleClick}
+        type={ButtonType.Dark}
+        text='Посмотреть все'
+        borderRadius='20px'
+        height='100%'
+      />
     </div>
   </div>
 }

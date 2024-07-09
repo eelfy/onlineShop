@@ -22,10 +22,10 @@ export const Checkbox = ({ checkboxes, name, checked, onChangeChecked }: Checkbo
     onChangeChecked(newChecked)
   }
   return <div className={cn.wrapper}>
-    {checkboxes.map(({ label, id }) => {
+    {checkboxes.map(({ label, id, isError }) => {
       const isChecked = checked?.includes(id)
 
-      return <label key={id} className={cn.label}>
+      return <label key={id} className={classNames(cn.label, isError && cn.error)}>
         <span className={classNames(cn.customCheckbox, isChecked && cn.customCheckboxChecked)} />
         <input value={id} onChange={() => onCheckboxClick(id)} className={cn.input} type='Checkbox' name={name} />
         {label}

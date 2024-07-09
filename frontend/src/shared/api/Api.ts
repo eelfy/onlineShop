@@ -40,7 +40,7 @@ export const Api = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-    }).then(r => r.json())
+    }).then(r => r.status || r.json())
   },
 
   getSearch(params: SearchProductsParams): Promise<ProductResponse> {

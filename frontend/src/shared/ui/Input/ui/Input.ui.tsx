@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import cn from './Input.module.scss'
 
 interface InputProps {
@@ -5,12 +6,13 @@ interface InputProps {
   value: string;
   onChange: (value: string) => void
   type?: React.InputHTMLAttributes<HTMLInputElement>['type']
-  maxLength?: number
+  maxLength?: number,
+  isError?: boolean
 }
 
-export const Input = ({ label, value, onChange, type, maxLength }: InputProps) => {
+export const Input = ({ label, value, onChange, type, maxLength, isError }: InputProps) => {
   return <div className={cn.wrapper}>
-    <label className={cn.label}>{label}</label>
+    <label className={classNames(cn.label, isError && cn.error)}>{label}</label>
     <input maxLength={maxLength} type={type} className={cn.input} value={value} onChange={(e) => onChange(e.target.value)} />
   </div>
 }

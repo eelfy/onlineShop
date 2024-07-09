@@ -17,6 +17,10 @@
   &:hover >.customCheckbox {
     background-color: #000;
   }
+
+  &.error {
+    color: #DF2000;
+  }
 }
 
 .customCheckbox {

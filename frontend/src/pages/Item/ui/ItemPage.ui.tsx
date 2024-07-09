@@ -95,7 +95,6 @@ export const ItemPage = observer(() => {
   }
   const productsImage = product.images
 
-
   return (
     <>
       <Toaster />

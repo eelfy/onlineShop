@@ -11,6 +11,8 @@ interface ButtonProps {
   onClick: () => void;
   isDisabled?: boolean
   borderRadius?: string
+  height?: string
+  width?: string
 }
 
 const typeToCn = {
@@ -24,7 +26,9 @@ export const Button = ({
   icon,
   onClick,
   isDisabled,
-  borderRadius
+  borderRadius,
+  height,
+  width
 }: ButtonProps) => {
   const onButtonClick = () => {
     if (isDisabled) return
@@ -33,7 +37,9 @@ export const Button = ({
   }
 
   return <button style={{
-    borderRadius: borderRadius ?? '10px'
+    borderRadius: borderRadius ?? '10px',
+    height: height ?? '50px',
+    width: width ?? '100%'
   }} onClick={onButtonClick} className={classNames(cn.button, typeToCn[type], isDisabled && cn.disabled)}>
     <div className={cn.content}>
       {icon && <div className={cn.iconWrapper}>
