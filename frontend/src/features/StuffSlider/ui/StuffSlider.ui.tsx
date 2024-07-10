@@ -80,14 +80,12 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
         // slidesToSlide={5}
         swipeable
       >
-        {products.map(({ name, brand, min_price, images, id }, index) => {
+        {products.map(({ images, ...other }, index) => {
           return <StuffBlock
-            productId={id}
-            name={brand}
-            description={name}
-            price={min_price}
-            imageId={images[0]}
-            key={index} />
+            {...other}
+            image={images[0]}
+            key={index}
+          />
         })}
       </Carousel>
     </div>

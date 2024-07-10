@@ -90,11 +90,8 @@ export const StuffList = ({
     <div className={cn.items}>
       {products.products.map(product => {
         return <StuffBlock
-          name={product.brand}
-          description={product.name}
-          price={product.min_price}
-          imageId={product.images[0]}
-          productId={product.id}
+          {...product}
+          image={product.images[0]}
           key={product.id}
         />
       })}

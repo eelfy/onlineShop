@@ -21,6 +21,7 @@ import { useBoolean } from "usehooks-ts";
 import { OneClickModal } from "../../../features/OneClickModal";
 import toast, { Toaster } from "react-hot-toast";
 import { convertNumberToSum } from '../../../shared/lib'
+import { Socials } from "../../../entities/Socials";
 
 export const ItemPage = observer(() => {
   const { MainStore: { updateCardCount, cardCount } } = useStore()
@@ -55,7 +56,7 @@ export const ItemPage = observer(() => {
   useEffect(() => {
     if (!productId) return
 
-    Api.getProduct(Number(productId)).then(product => {
+    Api.getProduct(productId).then(product => {
       setProduct(product)
     }).finally(() => {
       stopLoading()
@@ -126,6 +127,13 @@ export const ItemPage = observer(() => {
             )
           }
 
+          <div className={cn.socials}>
+            <Socials notRenderInst isBlack />
+
+            <span className={cn.text}>
+              Для уточнения цены, наличия и сроков доставки, свяжитесь с менеджером в удобном вам мессенджере, либо оформите покупку на сайте
+            </span>
+          </div>
 
           <div className={cn.buttons}>
             <Button onClick={onAddToCard} text="Добавить в корзину" />
@@ -136,7 +144,6 @@ export const ItemPage = observer(() => {
               text="Купить в 1 клик"
             />
           </div>
-
 
           <span className={cn.description}>
             Товар доступен под заказ. Средний срок доставки: от 5 до 15 дней.

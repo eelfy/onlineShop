@@ -18,7 +18,9 @@ export const Footer = observer(() => {
               <div onClick={() => navigate(Routes.Delivery)} className={cn.brandCell}>Доставка и оплата</div>
               <div onClick={() => navigate(Routes.Terms)} className={cn.brandCell}>Условия предоставления услуг</div>
               <div onClick={() => navigate(Routes.Refund)} className={cn.brandCell}>Обмен и возврат</div>
-              <div onClick={() => window.open('https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTM4NjA4MzUwMjg4ODY4?igsh=MWs5dXZxZjNqbjBodQ==', '_blank')} className={cn.brandCell}>Отзывы</div>
+              <div onClick={
+                () => window.open('https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTM4NjA4MzUwMjg4ODY4?igsh=MWs5dXZxZjNqbjBodQ==', '_blank')
+              } className={cn.brandCell}>Отзывы</div>
             </div>
           </div>
         </div>

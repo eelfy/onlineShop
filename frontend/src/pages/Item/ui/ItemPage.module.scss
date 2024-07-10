@@ -61,6 +61,21 @@ color: #1A1A1A;
   gap: 20px;
 }
 
+.socials {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+
+  // height: 51px;
+
+  &.text {
+    align-self: flex-start;
+    color: #1A1A1A;
+    font-size: 12px;
+    font-weight: 300;
+  }
+}
+
 .buttons {
   display: flex;
   flex-direction: column;

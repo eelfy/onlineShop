@@ -3,17 +3,17 @@ import { StuffBlockSize } from '../lib/StuffBlock.types';
 import cn from './StuffBlock.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../../shared/routes';
-import { ImageId, convertNumberToSum, getImageUrlForBackground } from '../../../shared/lib';
+import { ImageId, Product, convertNumberToSum, getImageUrlForBackground } from '../../../shared/lib';
 
-interface StuffBlockProps {
+interface StuffBlockProps extends Pick<Product, 'article_number'> {
   name: string;
-  description: string;
-  price: number;
+  brand: string;
+  min_price: number;
   stuffSize?: string;
   size?: StuffBlockSize
   withDivider?: boolean
-  imageId: ImageId
-  productId: number
+  image: ImageId
+  id: number
 }
 
 const sizeToCn = {
@@ -26,25 +26,27 @@ const sizeToCn = {
 export const StuffBlock = (
   {
     name,
-    description,
-    price,
+    brand,
+    min_price,
     stuffSize,
     size = StuffBlockSize.M,
     withDivider,
-    imageId, productId
+    image,
+    id,
+    article_number
   }: StuffBlockProps
 ) => {
   const navigate = useNavigate()
   const onClickHandler = () => {
-    navigate(`${Routes.Product}/${productId}`)
+    navigate(`${Routes.Product}/${article_number ?? id}`)
   }
 
-  const convertedPrice = convertNumberToSum(price)
+  const convertedPrice = convertNumberToSum(min_price)
 
   const renderImage = () => {
     return (
       <div style={{
-        backgroundImage: getImageUrlForBackground(imageId)
+        backgroundImage: getImageUrlForBackground(image)
       }} className={classNames(cn.image, sizeToCn[size])}></div>
     )
   }
@@ -55,7 +57,7 @@ export const StuffBlock = (
         {renderImage()}
 
         <div className={cn.field}>
-          <span className={cn.name}>{name} {description}</span>
+          <span className={cn.name}>{name} {brand}</span>
           <span className={cn.size}>{stuffSize}</span>
         </div>
       </div>
@@ -71,7 +73,7 @@ export const StuffBlock = (
       <div className={cn.left}>
         {renderImage()}
         <div className={cn.field}>
-          <span className={cn.name}>{name} {description}</span>
+          <span className={cn.name}>{name} {brand}</span>
           <span className={cn.right}>От {convertedPrice}</span>
         </div>
       </div>
@@ -85,13 +87,13 @@ export const StuffBlock = (
       <h2 className={cn.brandName}>{name}</h2>
       <span style={{
         marginTop: '5px'
-      }} className={cn.description}>{description}</span>
+      }} className={cn.brand}>{brand}</span>
     </div>
 
     <span style={{
       marginTop: '20px',
       fontWeight: 600
-    }} className={cn.description}>От {convertedPrice}</span>
+    }} className={cn.brand}>От {convertedPrice}</span>
 
   </div>
 }

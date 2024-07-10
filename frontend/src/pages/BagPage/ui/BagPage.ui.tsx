@@ -44,14 +44,11 @@ export const BagPage = () => {
           <div className={cn.products}>
             {cacheItems.map((item, index, arr) => {
               return <StuffBlock
-                imageId={item.image}
-                name={item.brand}
-                description={item.name}
-                price={item.price}
-                size={StuffBlockSize.L}
+                {...item}
+                min_price={item.price}
                 stuffSize={item.size}
                 key={index}
-                productId={item.id}
+                size={StuffBlockSize.L}
                 withDivider={arr.length !== index + 1}
               />
             })}
