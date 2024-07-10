@@ -24,7 +24,7 @@ export const Api = {
     return fetch(`${ApiUrl}/banners`).then(r => r.json())
   },
 
-  getProduct(pid: number): Promise<Product> {
+  getProduct(pid: number | string): Promise<Product> {
     // @ts-expect-error hmf
     const search = new URLSearchParams({ pid })
 

@@ -24,6 +24,7 @@ export interface Banner {
 export type ImageId = number
 
 export interface Product {
+  article_number?: string,
   id: number
   category_id: number,
   category_name: string,

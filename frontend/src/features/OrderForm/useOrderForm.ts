@@ -53,7 +53,7 @@ export const useOrderForm = () => {
     setSecondCheckboxError(false)
   }
 
-  const onMakeOrder = (products?: ProductOrder[]) => {
+  const onMakeOrder = (products?: ProductOrder[], onSuccess?: VoidFunction) => {
     const allErrors = [
       isValueWrong(name),
       isValueWrong(number) || number.length !== 11,
@@ -96,7 +96,7 @@ export const useOrderForm = () => {
       if (status === 423) {
         return antispamToastShow()
       }
-
+      onSuccess && onSuccess()
       setSuccessModalOpen(true)
     }).finally(() => {
       clearForm()

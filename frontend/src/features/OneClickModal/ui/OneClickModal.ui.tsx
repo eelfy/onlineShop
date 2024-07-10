@@ -32,9 +32,8 @@ export const OneClickModal = ({ isOpen, closeModal, product }: OneClickModalProp
               {
                 product_id: product.id,
                 size: ''
-              }
-            ])
-            closeModal()
+              },
+            ], closeModal)
           }} />
 
           <div className={cn.divider} />
