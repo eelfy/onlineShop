@@ -114,6 +114,11 @@ export const ItemPage = observer(() => {
           <div className={cn.name}>
             <span className={cn.brand} onClick={() => navigate(categoryLink)}>{product.category_name}</span>
             <span className={cn.model}>{product.name}</span>
+            {
+              product.article_number && (
+                <span className={cn.article}>Артикул: {product.article_number}</span>
+              )
+            }
           </div>
 
           <span className={cn.price}>От {convertNumberToSum(product.min_price)}</span>
