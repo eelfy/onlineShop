@@ -1,3 +1,7 @@
+$widthL: 20vw;
+$widthM: 30vw;
+$widthS: 40vw;
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -19,6 +23,7 @@
       .field {
         display: flex;
         flex-direction: column;
+
         gap: 10px;
 
         .name {
@@ -71,11 +76,9 @@
   }
 
   &.sizeM {
-    width: 21vw;
     height: 13vw;
 
     @media (max-width: 1180px) {
-      width: 42vw;
       height: 21vw;
     }
   }
@@ -91,17 +94,7 @@
   }
 }
 
-.brandName {
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-.description {
-  font-weight: 400;
-  font-size: 15px;
-  width: 278px;
-
+.ellipsis {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -111,8 +104,31 @@
   overflow: hidden;
 }
 
-@media (max-width: 1180px) {
-  .description {
-    width: 165px;
+.brandName {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 15px;
+}
+
+
+.wrapperM {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  margin-right: 10px;
+
+  width: $widthL;
+
+  @media (max-width: 1180px) {
+    width: $widthM;
+  }
+
+  @media (max-width: 700px) {
+    width: $widthS;
   }
 }

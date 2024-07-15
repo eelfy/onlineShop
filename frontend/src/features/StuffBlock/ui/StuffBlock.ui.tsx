@@ -14,6 +14,7 @@ interface StuffBlockProps extends Pick<Product, 'article_number'> {
   withDivider?: boolean
   image: ImageId
   id: number
+  isTextAlignCenter?: boolean
 }
 
 const sizeToCn = {
@@ -33,7 +34,8 @@ export const StuffBlock = (
     withDivider,
     image,
     id,
-    article_number
+    article_number,
+    isTextAlignCenter = true
   }: StuffBlockProps
 ) => {
   const navigate = useNavigate()
@@ -80,18 +82,23 @@ export const StuffBlock = (
     </div>
   </div>
 
-  return <div className={cn.wrapper} onClick={onClickHandler}>
+  const align = isTextAlignCenter ? 'center' : 'left'
+  return <div className={cn.wrapperM} onClick={onClickHandler}>
     {renderImage()}
 
     <div className={cn.field}>
-      <h2 className={cn.brandName}>{name}</h2>
+      <h2 style={{
+        textAlign: align
+      }} className={classNames(cn.ellipsis, cn.brandName)}>{name}</h2>
       <span style={{
-        marginTop: '5px'
-      }} className={cn.brand}>{brand}</span>
+        marginTop: '5px',
+        textAlign: align
+      }} className={classNames(cn.ellipsis, cn.description)}>{brand}</span>
     </div>
 
     <span style={{
       marginTop: '20px',
+      textAlign: align,
       fontWeight: 600
     }} className={cn.brand}>От {convertedPrice}</span>
 

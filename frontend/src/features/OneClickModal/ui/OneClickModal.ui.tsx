@@ -40,7 +40,7 @@ export const OneClickModal = ({ isOpen, closeModal, product }: OneClickModalProp
 
           <div className={cn.product}>
             <h2 className={cn.title}>КУПИТЬ В 1 КЛИК</h2>
-            <StuffBlock size={isModal ? StuffBlockSize.SM : StuffBlockSize.S}
+            <StuffBlock isTextAlignCenter={false} size={isModal ? StuffBlockSize.SM : StuffBlockSize.S}
               {...product}
               image={product.images[0]}
             />
