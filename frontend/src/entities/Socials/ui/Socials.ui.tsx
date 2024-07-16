@@ -17,6 +17,6 @@ export const Socials = ({ isBlack, notRenderInst }: SocialsProps) => {
       <Icon size={30} name={IconName.Insta} />
     </a>}
 
-    <a href='https://t.me/Ramster_shop'> <Icon size={30} name={IconName.Telegram} /></a>
+    <a href='https://t.me/Ramster95'> <Icon size={30} name={IconName.Telegram} /></a>
   </div>
 }
