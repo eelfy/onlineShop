@@ -91,6 +91,7 @@ export const StuffList = ({
       {products.products.map(product => {
         return <StuffBlock
           {...product}
+          isStatic
           image={product.images[0]}
           key={product.id}
         />

@@ -15,6 +15,7 @@ interface StuffBlockProps extends Pick<Product, 'article_number'> {
   image: ImageId
   id: number
   isTextAlignCenter?: boolean
+  isStatic?: boolean
 }
 
 const sizeToCn = {
@@ -35,7 +36,8 @@ export const StuffBlock = (
     image,
     id,
     article_number,
-    isTextAlignCenter = true
+    isTextAlignCenter = true,
+    isStatic,
   }: StuffBlockProps
 ) => {
   const navigate = useNavigate()
@@ -83,7 +85,7 @@ export const StuffBlock = (
   </div>
 
   const align = isTextAlignCenter ? 'center' : 'left'
-  return <div className={cn.wrapperM} onClick={onClickHandler}>
+  return <div className={classNames(cn.wrapperM, isStatic && cn.static)} onClick={onClickHandler}>
     {renderImage()}
 
     <div className={cn.field}>
