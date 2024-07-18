@@ -72,6 +72,7 @@ export const MainPageSlider = () => {
         containerClass="container"
         slidesToSlide={1}
         autoPlay
+        draggable={false}
         autoPlaySpeed={5000}
         responsive={{
           desktop: {

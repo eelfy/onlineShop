@@ -13,7 +13,6 @@ import { MOBILE_QUERY } from "../../../shared/config";
 const CustomButtonGroupAsArrows = ({ next, previous, carouselState, products }) => {
   const isMobile = useMediaQuery(MOBILE_QUERY)
   const { totalItems, currentSlide, slidesToShow } = carouselState;
-  console.log(products);
 
   const current = useMemo(() => {
     const maxElementsByWindowSize = isMobile ? 2 : 5
