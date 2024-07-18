@@ -2,18 +2,36 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { StuffBlock } from "../../StuffBlock";
 import { Pagination } from "../../../entities/Pagination";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Api } from "../../../shared/api/Api";
 import { Product, SortOrder } from "../../../shared/lib";
-import { useBoolean } from "usehooks-ts";
+import { useBoolean, useMediaQuery } from "usehooks-ts";
 import { Loader } from "../../../shared/ui";
+import { MOBILE_QUERY } from "../../../shared/config";
 
 // @ts-expect-error afs
-const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
+const CustomButtonGroupAsArrows = ({ next, previous, carouselState, products }) => {
+  const isMobile = useMediaQuery(MOBILE_QUERY)
   const { totalItems, currentSlide, slidesToShow } = carouselState;
+  console.log(products);
+
+  const current = useMemo(() => {
+    const maxElementsByWindowSize = isMobile ? 2 : 5
+    const count = currentSlide
+
+    if (products.length <= maxElementsByWindowSize) {
+      return products.length
+    }
+
+    if (isMobile) {
+      return count + 2
+    }
+
+    return count + 4
+  }, [currentSlide, isMobile, products.length])
 
   return (
-    <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={currentSlide + 1} total={totalItems} />
+    <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={current} total={totalItems} />
   );
 };
 
@@ -49,7 +67,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
       <Carousel
         arrows={false}
         // @ts-expect-error afs
-        customButtonGroup={<CustomButtonGroupAsArrows />}
+        customButtonGroup={<CustomButtonGroupAsArrows products={products} />}
         containerClass="container"
         draggable={false}
         renderButtonGroupOutside
@@ -83,6 +101,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
         {products.map(({ images, ...other }, index) => {
           return <StuffBlock
             {...other}
+            isStatic
             image={images[0]}
             key={index}
           />
