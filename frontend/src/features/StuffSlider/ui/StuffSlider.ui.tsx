@@ -2,7 +2,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { StuffBlock } from "../../StuffBlock";
 import { Pagination } from "../../../entities/Pagination";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Api } from "../../../shared/api/Api";
 import { Product, SortOrder } from "../../../shared/lib";
 import { useBoolean, useMediaQuery } from "usehooks-ts";
@@ -34,9 +34,27 @@ const CustomButtonGroupAsArrows = ({ next, previous, carouselState, products }) 
   );
 };
 
+const preventDefault = (e: TouchEvent) => {
+  e.preventDefault()
+  return false;
+}
+
 export const StuffSlider = ({ cname }: { cname: string }) => {
+  const ref = useRef<HTMLDivElement>(null)
   const [products, setProducts] = useState<Product[]>()
   const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
+  const { value: isTouch, setValue: setTouch } = useBoolean()
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+    element.addEventListener('touchmove', preventDefault, { passive: false })
+
+    return () => {
+      if (!ref.current) return
+      ref.current.addEventListener('touchmove', preventDefault, { passive: false })
+    };
+  }, [ref, setTouch]);
 
   useEffect(() => {
     startLoading()
@@ -53,16 +71,11 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
 
   }, [cname]);
 
-  if (isLoading) return <Loader isFullSize />
-  if (!products) return null
+  const renderContent = () => {
+    if (isLoading) return <Loader isFullSize />
+    if (!products) return null
 
-  return (
-    <div
-      style={{
-        paddingBottom: '30px',
-        position: 'relative'
-      }}
-    >
+    return (
       <Carousel
         arrows={false}
         // @ts-expect-error afs
@@ -106,6 +119,18 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
           />
         })}
       </Carousel>
+    );
+  }
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        paddingBottom: '30px',
+        position: 'relative'
+      }}
+    >
+      {renderContent()}
     </div>
   );
 };
