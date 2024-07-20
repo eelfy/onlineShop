@@ -43,7 +43,6 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [products, setProducts] = useState<Product[]>()
   const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
-  const { value: isTouch, setValue: setTouch } = useBoolean()
 
   useEffect(() => {
     const element = ref.current
@@ -54,7 +53,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
       if (!ref.current) return
       ref.current.addEventListener('touchmove', preventDefault, { passive: false })
     };
-  }, [ref, setTouch]);
+  }, [ref]);
 
   useEffect(() => {
     startLoading()
