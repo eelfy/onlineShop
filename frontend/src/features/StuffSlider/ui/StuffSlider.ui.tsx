@@ -15,22 +15,24 @@ const CustomButtonGroupAsArrows = ({ next, previous, carouselState, products }) 
   const { totalItems, currentSlide, slidesToShow } = carouselState;
 
   const current = useMemo(() => {
-    const maxElementsByWindowSize = isMobile ? 2 : 5
-    const count = currentSlide
+    if (totalItems === 0) return 0
 
-    if (products.length <= maxElementsByWindowSize) {
-      return products.length
+    return currentSlide + 1
+  }, [currentSlide, totalItems])
+
+  const total = useMemo(() => {
+    const additionalCount = isMobile ? 1 : 3
+    if (totalItems > additionalCount) {
+      return totalItems - additionalCount
     }
 
-    if (isMobile) {
-      return count + 2
-    }
+    if (totalItems === 0) return 0
 
-    return count + 4
-  }, [currentSlide, isMobile, products.length])
+    return 1
+  }, [isMobile, totalItems])
 
   return (
-    <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={current} total={totalItems} />
+    <Pagination onNext={() => next(slidesToShow)} onPrev={previous} current={current} total={total} />
   );
 };
 
@@ -59,7 +61,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
     startLoading()
     Api.getProductsInCategory({
       cname,
-      limit: 15,
+      limit: 18,
       offset: 0,
       ordered: SortOrder.CREATED
     }).then(value => {
