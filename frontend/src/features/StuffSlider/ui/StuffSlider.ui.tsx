@@ -10,7 +10,7 @@ import { Loader } from "../../../shared/ui";
 import { MOBILE_QUERY } from "../../../shared/config";
 
 // @ts-expect-error afs
-const CustomButtonGroupAsArrows = ({ next, previous, carouselState, products }) => {
+const CustomButtonGroupAsArrows = ({ next, previous, carouselState }) => {
   const isMobile = useMediaQuery(MOBILE_QUERY)
   const { totalItems, currentSlide, slidesToShow } = carouselState;
 
@@ -42,6 +42,8 @@ const preventDefault = (e: TouchEvent) => {
 }
 
 export const StuffSlider = ({ cname }: { cname: string }) => {
+  const isMobile = useMediaQuery(MOBILE_QUERY)
+
   const ref = useRef<HTMLDivElement>(null)
   const [products, setProducts] = useState<Product[]>()
   const { value: isLoading, setFalse: stopLoading, setTrue: startLoading } = useBoolean()
@@ -61,7 +63,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
     startLoading()
     Api.getProductsInCategory({
       cname,
-      limit: 18,
+      limit: isMobile ? 16 : 18,
       offset: 0,
       ordered: SortOrder.CREATED
     }).then(value => {
@@ -70,7 +72,7 @@ export const StuffSlider = ({ cname }: { cname: string }) => {
       stopLoading()
     })
 
-  }, [cname]);
+  }, [isMobile, cname]);
 
   const renderContent = () => {
     if (isLoading) return <Loader isFullSize />
