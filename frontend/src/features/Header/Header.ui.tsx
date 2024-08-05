@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useBoolean, useMediaQuery } from 'usehooks-ts'
 import { AnimatedToggleElements } from "../../shared/ui"
 import cn from './Header.module.scss'
@@ -49,6 +49,14 @@ export const Header = observer(() => {
   }
 
   const isFocusBackgroundVisible = isSubHeaderVisible || isBurgerMenuVisible || isSubBrandVisible
+
+  useEffect(() => {
+    if (isFocusBackgroundVisible) {
+      document.querySelector('body')!.style.overflowY = 'hidden'
+    } else {
+      document.querySelector('body')!.style.overflowY = 'auto'
+    }
+  }, [isFocusBackgroundVisible]);
 
   const onSearch = () => {
     if (searchValue.trim() === '') return
