@@ -99,7 +99,8 @@ export const StuffBlock = (
     </div>
 
     <span style={{
-      marginTop: '20px',
+      marginTop: 'auto',
+      paddingTop: '20px',
       textAlign: align,
       fontWeight: 600
     }} className={cn.brand}>От {convertedPrice}</span>

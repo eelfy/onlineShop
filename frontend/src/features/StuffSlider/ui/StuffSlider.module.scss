@@ -1,3 +1,37 @@
+@mixin itemsVisibleInCarousel($itemsQua, $gap) {
+  $gapsTotal: $gap * ($itemsQua - 1);
+  $calcString: calc(100% / $itemsQua - $gapsTotal / $itemsQua);
+  min-width: $calcString;
+  max-width: $calcString;
+}
+
+@mixin hideScrollbar {
+  &::-webkit-scrollbar {
+    width: 1px;
+    height: 1px;
+  }
+  &::-webkit-scrollbar-button {
+    width: 1px;
+    height: 1px;
+  }
+
+  scrollbar-width: none; /* Firefox */
+}
+
 .wrapper {
- 
+  display: flex;
+  $gap: 10px;
+  column-gap: $gap;
+  overflow-x: auto;
+  @include hideScrollbar;
+  scroll-snap-type: x mandatory;
+
+  > div {
+    scroll-snap-align: start;
+    @include itemsVisibleInCarousel(2, $gap);
+
+    @media (min-width: 1180px) {
+      @include itemsVisibleInCarousel(4, $gap);
+    }
+  }
 }
