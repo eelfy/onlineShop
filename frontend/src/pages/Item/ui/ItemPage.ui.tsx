@@ -133,7 +133,7 @@ export const ItemPage = observer(() => {
           }
 
           <div className={cn.socials}>
-            <Socials notRenderInst isBlack />
+            <Socials notRenderInst isBlack productArticle={product.article_number} productActiveSize={activeSize || undefined} />
 
             <span className={cn.text}>
               Для уточнения цены, наличия и сроков доставки, свяжитесь с менеджером в удобном вам мессенджере, либо оформите покупку на сайте
@@ -186,4 +186,3 @@ export const ItemPage = observer(() => {
     </>
   );
 });
-
